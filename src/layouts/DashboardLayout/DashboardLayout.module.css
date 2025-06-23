@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
+.dashboardContent {
+  display: flex;
+  width: 100%;
+  max-width: var(--content-width);
+  padding-top: 30px;
+}
+.mainContent {
+  flex: 1;
+}
+.pageTitle {
+  margin-bottom: 30px;
+  font-size: 27px;
+  color: var(--color-black);
+  font-weight: 600;
+}
+.pageContent {
+  background-color: var(--color-white);
+  border-radius: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  min-height: 100vh;
+  padding: 20px;
+  min-height: calc(100vh - 220.5px);
+}
+.sidebarContent {
+  margin-right: 40px;
+}

@@ -1,0 +1,44 @@
+@font-face {
+  font-family: 'Open Sans';
+  src: url('./assets/fonts/OpenSans.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+:root {
+  font-family: 'Open-Sans', system-ui, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  --color-primary: #f96302;
+  --color-secondary: #0057a2;
+  --color-third: #f44336;
+  --color-primary-transparent: #f963021a;
+  --color-black: #333;
+  --color-white: #fff;
+  --color-light-gray: #f4f4f4;
+  --color-medium-gray: #ddd;
+
+  --content-width: 1400px;
+
+  background-color: var(--color-light-gray);
+
+  box-sizing: border-box;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
