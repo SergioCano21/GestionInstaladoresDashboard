@@ -11,8 +11,14 @@
   font-weight: 400;
 
   --color-primary: #f96302;
-  --color-secondary: #0057a2;
-  --color-third: #f44336;
+  --color-edit: #0057a2;
+  --color-delete: #f44336;
+  --color-inProgress: #004085;
+  --color-inProgress-background: #cce7ff;
+  --color-pending: #856404;
+  --color-pending-background: #fff3cd;
+  --color-completed: #155724;
+  --color-completed-background: #d4edda;
   --color-primary-transparent: #f963021a;
   --color-black: #333;
   --color-white: #fff;
@@ -20,6 +26,7 @@
   --color-medium-gray: #ddd;
 
   --content-width: 1400px;
+  --header-height: 70px;
 
   background-color: var(--color-light-gray);
 

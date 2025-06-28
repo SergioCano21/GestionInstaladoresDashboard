@@ -3,10 +3,11 @@
   border-radius: 15px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   min-width: 220px;
-  height: calc(100vh - 90px - 30px - 30px);
+  height: calc(100vh - var(--header-height) - 60px);
+  margin-bottom: 30px;
   padding-top: 15px;
   position: sticky;
-  top: 30px;
+  top: calc(30px + var(--header-height));
 }
 .tabs {
   height: 60px;

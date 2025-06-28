@@ -13,7 +13,9 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
               <Sidebar />
             </div>
             <div className={styles.mainContent}>
+              {/*
               <div className={styles.pageTitle}>Panel de Administración</div>
+              */}
               <div className={styles.pageContent}>{children}</div>
             </div>
           </div>
