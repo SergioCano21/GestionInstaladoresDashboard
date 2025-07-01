@@ -1,5 +1,8 @@
+import { useState } from 'react';
 import ContentTop from '../../components/ContentTop';
 import styles from './ActiveServices.module.css';
+import AddService from './AddService';
+import DisplayService from './DisplayService';
 
 const dataMock = [
   {
@@ -93,10 +96,34 @@ const dataMock = [
 ];
 
 const ActiveServices = () => {
+  const [isOpenAdd, setIsOpenAdd] = useState(false);
+  const [isOpenDisplay, setIsOpenDisplay] = useState(false);
+
+  const openAddModal = () => {
+    setIsOpenAdd(true);
+    document.body.style.overflow = 'hidden';
+  };
+  const closeAddModal = () => {
+    setIsOpenAdd(false);
+    document.body.style.overflow = 'auto';
+  };
+
+  const openEditModal = () => {
+    setIsOpenDisplay(true);
+    document.body.style.overflow = 'hidden';
+  };
+  const closeEditModal = () => {
+    setIsOpenDisplay(false);
+    document.body.style.overflow = 'auto';
+  };
   return (
     <>
       <section>
-        <ContentTop title="Administrar Servicios Activos" button="Asignar Servicio" />
+        <ContentTop
+          title="Administrar Servicios Activos"
+          button="Agregar Servicio"
+          openModal={openAddModal}
+        />
         <div className={styles.filterContainer}>
           <input type="text" placeholder="Folio" className={styles.filterInput} />
           <input type="text" placeholder="Nombre Instalador" className={styles.filterInput} />
@@ -114,7 +141,7 @@ const ActiveServices = () => {
           </thead>
           <tbody>
             {dataMock.map((data, i) => (
-              <tr key={i} className={styles.tableRowContainer}>
+              <tr key={i} className={styles.tableRowContainer} onClick={openEditModal}>
                 <td className={styles.tableRow}>{data.folio}</td>
                 <td className={styles.tableRow}>{data.installer}</td>
                 <td className={styles.tableRow}>{data.client}</td>
@@ -131,6 +158,9 @@ const ActiveServices = () => {
           </tbody>
         </table>
       </section>
+
+      {isOpenAdd && <AddService closeModal={closeAddModal} />}
+      {isOpenDisplay && <DisplayService closeModal={closeEditModal} />}
     </>
   );
 };

@@ -21,9 +21,11 @@
   --color-completed-background: #d4edda;
   --color-primary-transparent: #f963021a;
   --color-black: #333;
+  --color-black-background: #000000a3;
   --color-white: #fff;
   --color-light-gray: #f4f4f4;
   --color-medium-gray: #ddd;
+  --color-gray: #8e9398;
 
   --content-width: 1400px;
   --header-height: 70px;

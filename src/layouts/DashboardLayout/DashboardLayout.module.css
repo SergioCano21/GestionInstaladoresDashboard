@@ -24,8 +24,6 @@
   padding: 20px;
   min-height: calc(100vh - var(--header-height) - 60px);
   margin-bottom: 30px;
-  position: sticky;
-  top: calc(var(--header-height) + 30px);
 }
 .sidebarContent {
   margin-right: 40px;
