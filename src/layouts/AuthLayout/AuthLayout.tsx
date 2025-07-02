@@ -7,7 +7,7 @@ interface Props {
 const AuthLayout = ({ children }: Props) => {
   return (
     <>
-      <div className={styles.container}>{children}</div>
+      <div className={`flex justify-content-center ${styles.container}`}>{children}</div>
     </>
   );
 };

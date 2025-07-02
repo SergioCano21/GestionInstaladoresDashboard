@@ -7,8 +7,8 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
     <>
       <section>
         <Header />
-        <div className={styles.container}>
-          <div className={styles.dashboardContent}>
+        <div className={`flex justify-content-center`}>
+          <div className={`flex ${styles.dashboardContent}`}>
             <div className={styles.sidebarContent}>
               <Sidebar />
             </div>
@@ -16,7 +16,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
               {/*
               <div className={styles.pageTitle}>Panel de Administración</div>
               */}
-              <div className={styles.pageContent}>{children}</div>
+              <div className={`card box-shadow ${styles.pageContent}`}>{children}</div>
             </div>
           </div>
         </div>

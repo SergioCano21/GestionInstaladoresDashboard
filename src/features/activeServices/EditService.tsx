@@ -42,11 +42,11 @@ const EditService = ({ closeModal, data }: Props) => {
 
   return ReactDOM.createPortal(
     <>
-      <section className={styles.background}>
-        <div className={styles.container}>
-          <div className={styles.flex}>
-            <div className={styles.title}>Editar Servicio</div>
-            <div className={styles.xmark} onClick={closeModal}>
+      <section className={`modal-background`}>
+        <div className={`card ${styles.container}`}>
+          <div className={`flex justify-content-between mb-20`}>
+            <div className={`title`}>Editar Servicio</div>
+            <div className={`flex cursor-pointer`} onClick={closeModal}>
               <XMark />
             </div>
           </div>

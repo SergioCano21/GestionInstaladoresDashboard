@@ -1,7 +1,4 @@
 .container {
-  background-color: var(--color-white);
-  border-radius: var(--border-radius);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   min-width: 220px;
   height: calc(100vh - var(--header-height) - 60px);
   margin-bottom: 30px;
@@ -11,9 +8,6 @@
 }
 .tabs {
   height: 60px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
   padding-left: 25px;
   background-color: var(--color-white);
   color: var(--color-black);

@@ -4,25 +4,25 @@ import styles from './Login.module.css';
 const Login = () => {
   return (
     <>
-      <section className={styles.container}>
+      <section className={`card box-shadow ${styles.container}`}>
         <div className={styles.loginTop}>
           <img src={logo} alt="Logo" className={styles.logo} />
           <div className={styles.logoText}>Panel de Administración</div>
         </div>
         <form action="">
-          <div className={styles.formGroup}>
-            <label htmlFor="username" className={styles.formText}>
+          <div className={`mb-20`}>
+            <label htmlFor="username" className={`label`}>
               Usuario
             </label>
-            <input type="text" id="username" className={styles.formInput} required />
+            <input type="text" id="username" className={`form-input`} required />
           </div>
-          <div className={styles.formGroup}>
-            <label htmlFor="password" className={styles.formText}>
+          <div className={`mb-20`}>
+            <label htmlFor="password" className={`label`}>
               Contraseña
             </label>
-            <input type="password" id="password" className={styles.formInput} required />
+            <input type="password" id="password" className={`form-input`} required />
           </div>
-          <button type="submit" className={styles.formBtn}>
+          <button type="submit" className={`btn btn-primary ${styles.btn}`}>
             Iniciar Sesión
           </button>
         </form>

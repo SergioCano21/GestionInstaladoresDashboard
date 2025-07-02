@@ -52,10 +52,10 @@ const ActiveServices = () => {
           button="Agregar Servicio"
           openModal={toggleAddModal}
         />
-        <div className={styles.filterContainer}>
-          <input type="text" placeholder="Folio" className={styles.filterInput} />
-          <input type="text" placeholder="Nombre Instalador" className={styles.filterInput} />
-          <input type="text" placeholder="Nombre Cliente" className={styles.filterInput} />
+        <div className={`flex mb-20 gap-5`}>
+          <input type="text" placeholder="Folio" className={`filter-input`} />
+          <input type="text" placeholder="Nombre Instalador" className={`filter-input`} />
+          <input type="text" placeholder="Nombre Cliente" className={`filter-input`} />
         </div>
         <table className={styles.table}>
           <thead className={styles.thead}>
@@ -84,7 +84,7 @@ const ActiveServices = () => {
                   <div className={styles.description}>{data.description}</div>
                 </td>
                 <td className={styles.tableRow}>
-                  <span className={data.status == 'To Do' ? styles.pending : styles.inProgress}>
+                  <span className={`status ${data.status == 'To Do' ? `pending` : `progress`}`}>
                     {data.status == 'To Do' ? 'Pendiente' : 'Progreso'}
                   </span>
                 </td>

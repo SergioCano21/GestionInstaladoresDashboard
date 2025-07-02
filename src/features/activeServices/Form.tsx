@@ -14,13 +14,13 @@ const Form = ({ formData, handleChange, closeModal, button }: Props) => {
   return (
     <>
       <section className={styles.section}>
-        <div className={styles.inputSection}>
+        <div className={`flex gap-5 mb-20`}>
           <div className={styles.w50}>
-            <label className={styles.label} htmlFor="folio">
+            <label className={`label`} htmlFor="folio">
               Folio
             </label>
             <input
-              className={styles.formInput}
+              className={`form-input`}
               id="folio"
               name="folio"
               type="number"
@@ -32,11 +32,11 @@ const Form = ({ formData, handleChange, closeModal, button }: Props) => {
             />
           </div>
           <div className={styles.w50}>
-            <label className={styles.label} htmlFor="installer">
+            <label className={`label`} htmlFor="installer">
               Asignar Instalador
             </label>
             <select
-              className={styles.formInput}
+              className={`form-input`}
               name="installerId"
               id="installer"
               required
@@ -49,15 +49,15 @@ const Form = ({ formData, handleChange, closeModal, button }: Props) => {
             </select>
           </div>
         </div>
-        <div className={styles.inputSection}>
+        <div className={`flex gap-5 mb-20`}>
           <div className={styles.w50}>
-            <label className={styles.label} htmlFor="client">
+            <label className={`label`} htmlFor="client">
               Nombre del Cliente
             </label>
             <input
               id="client"
               name="client"
-              className={styles.formInput}
+              className={`form-input`}
               type="text"
               required
               placeholder="Cliente"
@@ -66,11 +66,11 @@ const Form = ({ formData, handleChange, closeModal, button }: Props) => {
             />
           </div>
           <div className={styles.w50}>
-            <label className={styles.label} htmlFor="phone">
+            <label className={`label`} htmlFor="phone">
               Teléfono del Cliente
             </label>
             <input
-              className={styles.formInput}
+              className={`form-input`}
               id="phone"
               name="clientPhone"
               type="number"
@@ -81,14 +81,14 @@ const Form = ({ formData, handleChange, closeModal, button }: Props) => {
             />
           </div>
         </div>
-        <div className={styles.margin20}>
-          <label className={styles.label} htmlFor="address">
+        <div className={`mb-20`}>
+          <label className={`label`} htmlFor="address">
             Dirección del Cliente
           </label>
           <input
             id="address"
             name="address"
-            className={styles.formInput}
+            className={`form-input`}
             type="text"
             required
             placeholder="Dirección"
@@ -98,13 +98,13 @@ const Form = ({ formData, handleChange, closeModal, button }: Props) => {
         </div>
       </section>
       <section className={styles.section2}>
-        <div className={styles.inputSection}>
+        <div className={`flex gap-5 mb-20`}>
           <div className={styles.w50}>
-            <label className={styles.label} htmlFor="quantity">
+            <label className={`label`} htmlFor="quantity">
               Cantidad de Unidades
             </label>
             <input
-              className={styles.formInput}
+              className={`form-input`}
               name="quantity"
               data-job-detail="true"
               type="number"
@@ -116,11 +116,11 @@ const Form = ({ formData, handleChange, closeModal, button }: Props) => {
             />
           </div>
           <div className={styles.w50}>
-            <label className={styles.label} htmlFor="installationServiceFee">
+            <label className={`label`} htmlFor="installationServiceFee">
               Costo del Servicio
             </label>
             <input
-              className={styles.formInput}
+              className={`form-input`}
               name="installationServiceFee"
               data-job-detail="true"
               type="number"
@@ -133,14 +133,14 @@ const Form = ({ formData, handleChange, closeModal, button }: Props) => {
             />
           </div>
         </div>
-        <div className={styles.margin20}>
-          <label className={styles.label} htmlFor="description">
+        <div className={`mb-20`}>
+          <label className={`label`} htmlFor="description">
             Descripción del Servicio
           </label>
           <textarea
             name="description"
             data-job-detail="true"
-            className={styles.formInput}
+            className={`form-input`}
             required
             placeholder="Descripción"
             rows={3}
@@ -150,25 +150,25 @@ const Form = ({ formData, handleChange, closeModal, button }: Props) => {
         </div>
       </section>
 
-      <div className={styles.margin20}>
-        <label className={styles.label} htmlFor="comments">
+      <div className={`mb-20`}>
+        <label className={`label`} htmlFor="comments">
           Comentarios Adicionales
         </label>
         <textarea
           id="comments"
           name="additionalComments"
-          className={styles.formInput}
+          className={`form-input`}
           placeholder="Comentarios"
           rows={4}
           value={formData.additionalComments}
           onChange={handleChange}
         />
       </div>
-      <div className={styles.buttonContainer}>
-        <button className={styles.buttonNext} onClick={closeModal}>
+      <div className={`flex gap-5 justify-content-end`}>
+        <button className={`btn btn-close`} onClick={closeModal}>
           Cancelar
         </button>
-        <button type="submit" className={styles.buttonAdd}>
+        <button type="submit" className={`btn btn-primary`}>
           {button}
         </button>
       </div>

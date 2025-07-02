@@ -1,5 +1,3 @@
-import styles from './ContentTop.module.css';
-
 interface Props {
   title: string;
   button: string;
@@ -9,9 +7,9 @@ interface Props {
 const ContentTop = ({ title, button, openModal }: Props) => {
   return (
     <>
-      <div className={styles.container}>
-        <div className={styles.title}>{title}</div>
-        <button className={styles.button} onClick={() => openModal()}>
+      <div className={`flex justify-content-between mb-20`}>
+        <div className={`title`}>{title}</div>
+        <button className={`btn btn-primary`} onClick={() => openModal()}>
           {button}
         </button>
       </div>
