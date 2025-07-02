@@ -19,7 +19,7 @@
 }
 .pageContent {
   background-color: var(--color-white);
-  border-radius: 15px;
+  border-radius: var(--border-radius);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 20px;
   min-height: calc(100vh - var(--header-height) - 60px);
