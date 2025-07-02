@@ -1,13 +1,15 @@
 import ReactDOM from 'react-dom';
 import XMark from '../../components/XMark';
 import styles from './DisplayService.module.css';
+import type { Service } from '../../types/types';
 
 interface Props {
   closeModal: () => void;
+  openEditModal: () => void;
+  data: Service;
 }
 
-const data = { status: 'To Do', name: 'Name' };
-const DisplayService = ({ closeModal }: Props) => {
+const DisplayService = ({ closeModal, openEditModal, data }: Props) => {
   const handleDelete = () => {
     const result = confirm('¿Seguro que desea cancelar el servicio?');
     if (result) {
@@ -15,6 +17,12 @@ const DisplayService = ({ closeModal }: Props) => {
       closeModal();
     }
   };
+
+  const handleEdit = () => {
+    closeModal();
+    openEditModal();
+  };
+
   return ReactDOM.createPortal(
     <>
       <section className={styles.background}>
@@ -30,7 +38,7 @@ const DisplayService = ({ closeModal }: Props) => {
             <div className={styles.subsection}>
               <div className={styles.flex}>
                 <div className={styles.label}>Folio</div>
-                <div className={styles.text}>info</div>
+                <div className={styles.text}>{data.folio}</div>
               </div>
               <div className={styles.flex}>
                 <div className={styles.label}>Status</div>
@@ -45,17 +53,17 @@ const DisplayService = ({ closeModal }: Props) => {
             <div className={styles.subsection}>
               <div className={styles.flex}>
                 <div className={styles.label}>Cliente</div>
-                <div className={styles.text}>name</div>
+                <div className={styles.text}>{data.client}</div>
               </div>
               <div className={styles.flex}>
                 <div className={styles.label}>Teléfono</div>
-                <div className={styles.text}>name</div>
+                <div className={styles.text}>{data.clientPhone}</div>
               </div>
             </div>
             <div className={styles.subsection}>
               <div className={styles.flex}>
                 <div className={styles.label}>Dirección</div>
-                <div className={styles.text}>nae</div>
+                <div className={styles.text}>{data.address}</div>
               </div>
             </div>
           </div>
@@ -64,11 +72,11 @@ const DisplayService = ({ closeModal }: Props) => {
             <div className={styles.subsection}>
               <div className={styles.flex}>
                 <div className={styles.label}>Instalador</div>
-                <div className={styles.text}>name</div>
+                <div className={styles.text}>{data.installerId}</div>
               </div>
               <div className={styles.flex}>
                 <div className={styles.label}>Tienda</div>
-                <div className={styles.text}>name</div>
+                <div className={styles.text}>{data.storeId}</div>
               </div>
             </div>
             <div className={styles.subsection}>
@@ -87,32 +95,25 @@ const DisplayService = ({ closeModal }: Props) => {
             <div className={styles.subsection}>
               <div className={styles.flex}>
                 <div className={styles.label}>Cantidad</div>
-                <div className={styles.text}>1</div>
+                <div className={styles.text}>{data.jobDetails[0].quantity}</div>
               </div>
               <div className={styles.flex}>
                 <div className={styles.label}>Costo del Servicio</div>
-                <div className={styles.text}>Sin Asignar</div>
+                <div className={styles.text}>{data.jobDetails[0].installationServiceFee}</div>
               </div>
               <div className={styles.flex}>
                 <div className={styles.label}>Comisión</div>
-                <div className={styles.text}>Sin Asignar</div>
+                <div className={styles.text}>{data.jobDetails[0].commissionFee}</div>
               </div>
               <div className={styles.flex}>
                 <div className={styles.label}>Comitente</div>
-                <div className={styles.text}>Sin Asignar</div>
+                <div className={styles.text}>{data.jobDetails[0].installerPayment}</div>
               </div>
             </div>
             <div className={styles.subsection}>
               <div className={styles.flexDescription}>
                 <div className={styles.label}>Descripción</div>
-                <div className={styles.text}>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit culpa, sunt ea
-                  perspiciatis repellat vitae, beatae blanditiis temporibus commodi error tenetur,
-                  reprehenderit aperiam labore itaque. Minus dignissimos facere placeat itaque.
-                  Nesciunt quis delectus repellendus cumque distinctio consequuntur fuga
-                  praesentium! Quasi fugiat ipsa asperiores nobis voluptatum qui eius corrupti nam
-                  incidunt sapiente facere, explicabo quos ex harum accusamus aspernatur excepturi
-                </div>
+                <div className={styles.text}>{data.jobDetails[0].description}</div>
               </div>
             </div>
           </div>
@@ -125,15 +126,15 @@ const DisplayService = ({ closeModal }: Props) => {
               </div>
               <div className={styles.flex}>
                 <div className={styles.label}>Costo del Servicio</div>
-                <div className={styles.text}>150.43</div>
+                <div className={styles.text}>{data.subtotals.installationServiceFee}</div>
               </div>
               <div className={styles.flex}>
                 <div className={styles.label}>Comisión</div>
-                <div className={styles.text}>12.32</div>
+                <div className={styles.text}>{data.subtotals.commissionFee}</div>
               </div>
               <div className={styles.flex}>
                 <div className={styles.label}>Comitente</div>
-                <div className={styles.text}>432.23</div>
+                <div className={styles.text}>{data.subtotals.installerPayment}</div>
               </div>
             </div>
             <div className={styles.subsection}>
@@ -141,13 +142,13 @@ const DisplayService = ({ closeModal }: Props) => {
                 <div className={`${styles.text} ${styles.titleText}`}>IVA</div>
               </div>
               <div className={styles.flex}>
-                <div className={styles.text}>150.43</div>
+                <div className={styles.text}>{data.iva.installationServiceFee}</div>
               </div>
               <div className={styles.flex}>
-                <div className={styles.text}>12.32</div>
+                <div className={styles.text}>{data.iva.commissionFee}</div>
               </div>
               <div className={styles.flex}>
-                <div className={styles.text}>432.23</div>
+                <div className={styles.text}>{data.iva.installerPayment}</div>
               </div>
             </div>
             <div className={styles.subsection}>
@@ -155,13 +156,13 @@ const DisplayService = ({ closeModal }: Props) => {
                 <div className={`${styles.text} ${styles.titleText}`}>Totales</div>
               </div>
               <div className={styles.flex}>
-                <div className={styles.text}>150.43</div>
+                <div className={styles.text}>{data.totals.installationServiceFee}</div>
               </div>
               <div className={styles.flex}>
-                <div className={styles.text}>12.32</div>
+                <div className={styles.text}>{data.totals.commissionFee}</div>
               </div>
               <div className={styles.flex}>
-                <div className={styles.text}>432.23</div>
+                <div className={styles.text}>{data.totals.installerPayment}</div>
               </div>
             </div>
           </div>
@@ -169,16 +170,14 @@ const DisplayService = ({ closeModal }: Props) => {
             <div className={styles.subtitle}>Comentarios Adicionales</div>
             <div className={styles.subsection}>
               <div className={styles.flex}>
-                <div className={styles.text}>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti dolores tempora
-                  quod voluptates, totam saepe numquam aliquid. Minima, corporis mollitia quia
-                  nesciunt, commodi itaque quisquam repudiandae facere officiis natus eius?
-                </div>
+                <div className={styles.text}>{data.additionalComments}</div>
               </div>
             </div>
           </div>
           <div className={styles.sectionButton}>
-            <button className={`${styles.btn} ${styles.btnEdit}`}>Editar</button>
+            <button className={`${styles.btn} ${styles.btnEdit}`} onClick={handleEdit}>
+              Editar
+            </button>
             <button className={`${styles.btn} ${styles.btnDelete}`} onClick={handleDelete}>
               Eliminar
             </button>

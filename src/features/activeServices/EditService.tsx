@@ -1,17 +1,17 @@
 import ReactDOM from 'react-dom';
 import styles from './AddEditService.module.css';
 import XMark from '../../components/XMark';
-import { useState } from 'react';
 import Form from './Form';
-import type { AddServiceForm } from '../../types/types';
-import { addFormTemplate } from '../../types/templates';
+import type { Service } from '../../types/types';
+import { useState } from 'react';
 
 interface Props {
   closeModal: () => void;
+  data: Service;
 }
 
-const AddService = ({ closeModal }: Props) => {
-  const [formData, setFormData] = useState<AddServiceForm>(addFormTemplate);
+const EditService = ({ closeModal, data }: Props) => {
+  const [service, setService] = useState<Service>(data);
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
@@ -19,7 +19,7 @@ const AddService = ({ closeModal }: Props) => {
     const { name, value, type, dataset } = event.target;
 
     if (dataset.jobDetail !== undefined) {
-      setFormData((prev) => {
+      setService((prev) => {
         const updated = [...prev.jobDetails];
         updated[0] = {
           ...updated[0],
@@ -28,7 +28,7 @@ const AddService = ({ closeModal }: Props) => {
         return { ...prev, jobDetails: updated };
       });
     } else {
-      setFormData((prev) => ({
+      setService((prev) => ({
         ...prev,
         [name]: type == 'number' ? (value != '' ? Number(value) : '') : value,
       }));
@@ -37,7 +37,7 @@ const AddService = ({ closeModal }: Props) => {
 
   const handleSubmit = () => {
     closeModal();
-    alert('Servicio creado');
+    alert('Servicio actualizado');
   };
 
   return ReactDOM.createPortal(
@@ -45,17 +45,17 @@ const AddService = ({ closeModal }: Props) => {
       <section className={styles.background}>
         <div className={styles.container}>
           <div className={styles.flex}>
-            <div className={styles.title}>Agregar Nuevo Servicio</div>
+            <div className={styles.title}>Editar Servicio</div>
             <div className={styles.xmark} onClick={closeModal}>
               <XMark />
             </div>
           </div>
-          <form action={handleSubmit} id="addServiceForm">
+          <form action={handleSubmit} id="editServiceForm">
             <Form
-              formData={formData}
+              formData={service}
               handleChange={handleChange}
               closeModal={closeModal}
-              button={'Agregar'}
+              button={'Editar'}
             />
           </form>
         </div>
@@ -65,4 +65,4 @@ const AddService = ({ closeModal }: Props) => {
   );
 };
 
-export default AddService;
+export default EditService;

@@ -1,30 +1,16 @@
+import type { AddServiceForm, Service } from '../../types/types';
 import styles from './Form.module.css';
 
-interface JobDetails {
-  quantity: number | '';
-  installationServiceFee: number | '';
-  description: string;
-}
-
-interface FormData {
-  folio: number | '';
-  client: string;
-  clientPhone: number | '';
-  address: string;
-  jobDetails: JobDetails[];
-  additionalComments: string;
-  installerId: number | '';
-}
-
 interface Props {
-  formData: FormData;
+  formData: AddServiceForm | Service;
   handleChange: (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
   ) => void;
   closeModal: () => void;
+  button: string;
 }
 
-const Form = ({ formData, handleChange, closeModal }: Props) => {
+const Form = ({ formData, handleChange, closeModal, button }: Props) => {
   return (
     <>
       <section className={styles.section}>
@@ -183,7 +169,7 @@ const Form = ({ formData, handleChange, closeModal }: Props) => {
           Cancelar
         </button>
         <button type="submit" className={styles.buttonAdd}>
-          Agregar
+          {button}
         </button>
       </div>
     </>
