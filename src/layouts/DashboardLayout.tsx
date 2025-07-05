@@ -1,5 +1,5 @@
-import Header from '../../components/Header';
-import Sidebar from '../../components/Sidebar';
+import Header from '../components/layout/Header';
+import Sidebar from '../components/layout/Sidebar';
 import styles from './DashboardLayout.module.css';
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
@@ -12,7 +12,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
             <div className={styles.sidebarContent}>
               <Sidebar />
             </div>
-            <div className={styles.mainContent}>
+            <div className={`flex-1`}>
               {/*
               <div className={styles.pageTitle}>Panel de Administración</div>
               */}

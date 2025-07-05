@@ -16,7 +16,12 @@ input[type='number']::-webkit-outer-spin-button {
 }
 .flex {
   display: flex;
+}
+.align-items-center {
   align-items: center;
+}
+.align-items-start {
+  align-items: flex-start;
 }
 .justify-content-between {
   justify-content: space-between;
@@ -25,7 +30,7 @@ input[type='number']::-webkit-outer-spin-button {
   justify-content: center;
 }
 .justify-content-end {
-  justify-content: end;
+  justify-content: flex-end;
 }
 .card {
   background-color: var(--color-white);
@@ -43,8 +48,19 @@ input[type='number']::-webkit-outer-spin-button {
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
   overflow: auto;
+}
+.modal-sm {
+  width: 600px;
+  padding: 20px 25px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.modal-bg {
+  width: 800px;
+  padding: 20px 25px;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 .status {
   font-size: 12px;
@@ -53,13 +69,19 @@ input[type='number']::-webkit-outer-spin-button {
   border-radius: 12px;
   display: inline-block;
 }
-.pending {
+.pending,
+.inactive {
   color: var(--color-pending);
   background-color: var(--color-pending-background);
 }
 .progress {
   color: var(--color-inProgress);
   background-color: var(--color-inProgress-background);
+}
+.done,
+.active {
+  color: var(--color-completed);
+  background-color: var(--color-completed-background);
 }
 .btn {
   border: none;
@@ -144,10 +166,54 @@ input[type='number']::-webkit-outer-spin-button {
 .gap-5 {
   gap: 5px;
 }
-/* 
-flex-1 {
-  flex: 1
+.flex-1 {
+  flex: 1 1 0;
 }
-table-head
-table-row
-*/
+.table {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: auto;
+}
+.table-head {
+  background-color: var(--color-light-gray);
+  border-bottom: 1px solid var(--color-medium-gray);
+}
+.table-header {
+  padding: 8px 15px;
+  font-weight: 700;
+  text-align: left;
+  color: var(--color-black);
+}
+.table-cell {
+  padding: 8px 15px;
+  color: var(--color-black);
+}
+.table-row {
+  border-bottom: 1px solid var(--color-medium-gray);
+}
+.table-row:hover {
+  background-color: var(--color-light-gray);
+  cursor: pointer;
+}
+.subtitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+.text {
+  font-size: 16px;
+  color: var(--color-black);
+}
+.display-info-section {
+  border-bottom: 1px solid var(--color-medium-gray);
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+.display-info-subsection {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+}
+.mt-5 {
+  margin-top: 5px;
+}

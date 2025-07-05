@@ -1,9 +1,10 @@
-import ReactDOM from 'react-dom';
-import styles from './AddEditService.module.css';
-import XMark from '../../components/XMark';
-import Form from './Form';
+import FormService from './FormService';
 import type { Service } from '../../types/types';
 import { useState } from 'react';
+import { useFormHandler } from '../../hooks/useFormHandler';
+import ModalHeader from '../../components/ui/ModalHeader';
+import Modal from '../../components/ui/Modal';
+import { MODAL_SMALL, MODAL_START } from '../../types/consts';
 
 interface Props {
   closeModal: () => void;
@@ -13,55 +14,27 @@ interface Props {
 const EditService = ({ closeModal, data }: Props) => {
   const [service, setService] = useState<Service>(data);
 
-  const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
-  ) => {
-    const { name, value, type, dataset } = event.target;
-
-    if (dataset.jobDetail !== undefined) {
-      setService((prev) => {
-        const updated = [...prev.jobDetails];
-        updated[0] = {
-          ...updated[0],
-          [name]: type == 'number' ? (value != '' ? Number(value) : '') : value,
-        };
-        return { ...prev, jobDetails: updated };
-      });
-    } else {
-      setService((prev) => ({
-        ...prev,
-        [name]: type == 'number' ? (value != '' ? Number(value) : '') : value,
-      }));
-    }
-  };
+  const { handleChange } = useFormHandler(setService);
 
   const handleSubmit = () => {
     closeModal();
     alert('Servicio actualizado');
   };
 
-  return ReactDOM.createPortal(
+  return (
     <>
-      <section className={`modal-background`}>
-        <div className={`card ${styles.container}`}>
-          <div className={`flex justify-content-between mb-20`}>
-            <div className={`title`}>Editar Servicio</div>
-            <div className={`flex cursor-pointer`} onClick={closeModal}>
-              <XMark />
-            </div>
-          </div>
-          <form action={handleSubmit} id="editServiceForm">
-            <Form
-              formData={service}
-              handleChange={handleChange}
-              closeModal={closeModal}
-              button={'Editar'}
-            />
-          </form>
-        </div>
-      </section>
-    </>,
-    document.body,
+      <Modal align={MODAL_START} size={MODAL_SMALL}>
+        <ModalHeader title="Editar Servicio" closeModal={closeModal} />
+        <form action={handleSubmit} id="editServiceForm">
+          <FormService
+            formData={service}
+            handleChange={handleChange}
+            closeModal={closeModal}
+            button={'Editar'}
+          />
+        </form>
+      </Modal>
+    </>
   );
 };
 

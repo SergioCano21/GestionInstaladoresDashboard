@@ -1,7 +1,15 @@
+import { useState } from 'react';
 import logo from '../../assets/images/logo.svg';
 import styles from './Login.module.css';
+import type { Login } from '../../types/types';
+import { loginTemplate } from '../../types/templates';
+import { useFormHandler } from '../../hooks/useFormHandler';
 
 const Login = () => {
+  const [formData, setFormData] = useState<Login>(loginTemplate);
+
+  const { handleChange } = useFormHandler(setFormData);
+
   return (
     <>
       <section className={`card box-shadow ${styles.container}`}>
@@ -9,18 +17,32 @@ const Login = () => {
           <img src={logo} alt="Logo" className={styles.logo} />
           <div className={styles.logoText}>Panel de Administración</div>
         </div>
-        <form action="">
+        <form action="" id="login">
           <div className={`mb-20`}>
             <label htmlFor="username" className={`label`}>
               Usuario
             </label>
-            <input type="text" id="username" className={`form-input`} required />
+            <input
+              type="text"
+              name="username"
+              className={`form-input`}
+              onChange={handleChange}
+              value={formData.username}
+              required
+            />
           </div>
           <div className={`mb-20`}>
             <label htmlFor="password" className={`label`}>
               Contraseña
             </label>
-            <input type="password" id="password" className={`form-input`} required />
+            <input
+              type="password"
+              name="password"
+              className={`form-input`}
+              onChange={handleChange}
+              value={formData.password}
+              required
+            />
           </div>
           <button type="submit" className={`btn btn-primary ${styles.btn}`}>
             Iniciar Sesión

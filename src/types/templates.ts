@@ -1,20 +1,26 @@
-import type { AddServiceForm, Service } from './types';
+import type { Installer, Login, Service } from './types';
 
 export const serviceTemplate: Service = {
-  folio: 0,
-  installerId: '',
+  folio: '',
+  installerId: {
+    installerId: '',
+    name: '',
+  },
   client: '',
-  status: '',
+  status: 'To Do',
   description: '',
   clientPhone: '',
   address: '',
   additionalComments: '',
-  storeId: '',
+  storeId: {
+    numStore: 0,
+    name: '',
+  },
   jobDetails: [
     {
-      quantity: 0,
+      quantity: '',
       description: '',
-      installationServiceFee: 0,
+      installationServiceFee: '',
       commissionFee: 0,
       installerPayment: 0,
     },
@@ -36,12 +42,17 @@ export const serviceTemplate: Service = {
   },
 };
 
-export const addFormTemplate: AddServiceForm = {
-  folio: '',
-  client: '',
-  clientPhone: '',
-  address: '',
-  jobDetails: [{ quantity: '', installationServiceFee: '', description: '' }],
-  additionalComments: '',
+export const loginTemplate: Login = {
+  username: '',
+  password: '',
+};
+
+export const installerTemplate: Installer = {
   installerId: '',
+  name: '',
+  email: '',
+  phone: '',
+  company: '',
+  storeId: '',
+  status: 'active',
 };

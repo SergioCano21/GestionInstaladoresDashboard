@@ -3,9 +3,6 @@
   max-width: var(--content-width);
   padding-top: 30px;
 }
-.mainContent {
-  flex: 1;
-}
 .pageTitle {
   margin-bottom: 30px;
   font-size: 27px;

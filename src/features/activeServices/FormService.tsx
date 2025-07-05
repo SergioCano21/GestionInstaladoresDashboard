@@ -1,8 +1,8 @@
-import type { AddServiceForm, Service } from '../../types/types';
+import type { Service } from '../../types/types';
 import styles from './Form.module.css';
 
 interface Props {
-  formData: AddServiceForm | Service;
+  formData: Service;
   handleChange: (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
   ) => void;
@@ -10,12 +10,12 @@ interface Props {
   button: string;
 }
 
-const Form = ({ formData, handleChange, closeModal, button }: Props) => {
+const FormService = ({ formData, handleChange, closeModal, button }: Props) => {
   return (
     <>
       <section className={styles.section}>
         <div className={`flex gap-5 mb-20`}>
-          <div className={styles.w50}>
+          <div className={`flex-1`}>
             <label className={`label`} htmlFor="folio">
               Folio
             </label>
@@ -31,7 +31,7 @@ const Form = ({ formData, handleChange, closeModal, button }: Props) => {
               onChange={handleChange}
             />
           </div>
-          <div className={styles.w50}>
+          <div className={`flex-1`}>
             <label className={`label`} htmlFor="installer">
               Asignar Instalador
             </label>
@@ -40,17 +40,17 @@ const Form = ({ formData, handleChange, closeModal, button }: Props) => {
               name="installerId"
               id="installer"
               required
-              value={formData.installerId}
+              value={formData.installerId.installerId}
               onChange={handleChange}
             >
               <option value="">Seleccionar</option>
-              <option value="1">Instalador 1</option>
+              <option value={formData.installerId.installerId}>{formData.installerId.name}</option>
               <option value="2">Instalador 2</option>
             </select>
           </div>
         </div>
         <div className={`flex gap-5 mb-20`}>
-          <div className={styles.w50}>
+          <div className={`flex-1`}>
             <label className={`label`} htmlFor="client">
               Nombre del Cliente
             </label>
@@ -65,7 +65,7 @@ const Form = ({ formData, handleChange, closeModal, button }: Props) => {
               onChange={handleChange}
             />
           </div>
-          <div className={styles.w50}>
+          <div className={`flex-1`}>
             <label className={`label`} htmlFor="phone">
               Teléfono del Cliente
             </label>
@@ -99,7 +99,7 @@ const Form = ({ formData, handleChange, closeModal, button }: Props) => {
       </section>
       <section className={styles.section2}>
         <div className={`flex gap-5 mb-20`}>
-          <div className={styles.w50}>
+          <div className={`flex-1`}>
             <label className={`label`} htmlFor="quantity">
               Cantidad de Unidades
             </label>
@@ -115,7 +115,7 @@ const Form = ({ formData, handleChange, closeModal, button }: Props) => {
               onChange={handleChange}
             />
           </div>
-          <div className={styles.w50}>
+          <div className={`flex-1`}>
             <label className={`label`} htmlFor="installationServiceFee">
               Costo del Servicio
             </label>
@@ -166,7 +166,7 @@ const Form = ({ formData, handleChange, closeModal, button }: Props) => {
       </div>
       <div className={`flex gap-5 justify-content-end`}>
         <button className={`btn btn-close`} onClick={closeModal}>
-          Cancelar
+          Cerrar
         </button>
         <button type="submit" className={`btn btn-primary`}>
           {button}
@@ -176,4 +176,4 @@ const Form = ({ formData, handleChange, closeModal, button }: Props) => {
   );
 };
 
-export default Form;
+export default FormService;

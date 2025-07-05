@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router';
-import AuthLayout from './layouts/AuthLayout/AuthLayout';
+import AuthLayout from './layouts/AuthLayout';
 import Login from './features/auth/Login';
-import DashboardLayout from './layouts/DashboardLayout/DashboardLayout';
+import DashboardLayout from './layouts/DashboardLayout';
 import ActiveServices from './features/activeServices/ActiveServices';
 import CompletedServices from './features/completedServices/CompletedServices';
 import Installers from './features/installers/Installers';

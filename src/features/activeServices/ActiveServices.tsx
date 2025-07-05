@@ -1,91 +1,73 @@
 import { useState } from 'react';
-import ContentTop from '../../components/ContentTop';
+import ContentHeader from '../../components/ui/ContentHeader';
 import styles from './ActiveServices.module.css';
 import AddService from './AddService';
 import DisplayService from './DisplayService';
 import EditService from './EditService';
-import data from '../../mock';
+import { data } from '../../mock';
 import type { Service } from '../../types/types';
 import { serviceTemplate } from '../../types/templates';
+import { useModal } from '../../hooks/useModal';
+import {
+  ADD_ACTIVE_SERVICE,
+  DISPLAY_ACTIVE_SERVICE,
+  EDIT_ACTIVE_SERVICE,
+  statusClasses,
+  statusLabels,
+} from '../../types/consts';
 
 const ActiveServices = () => {
-  const [isOpenAdd, setIsOpenAdd] = useState(false);
-  const [isOpenDisplay, setIsOpenDisplay] = useState(false);
-  const [isOpenEdit, setIsOpenEdit] = useState(false);
   const [service, setService] = useState<Service>(serviceTemplate);
 
-  const toggleAddModal = () => {
-    if (isOpenAdd) {
-      setIsOpenAdd(false);
-      document.body.style.overflow = 'auto';
-    } else {
-      setIsOpenAdd(true);
-      document.body.style.overflow = 'hidden';
-    }
-  };
-
-  const toggleDisplayModal = () => {
-    if (isOpenDisplay) {
-      setIsOpenDisplay(false);
-      document.body.style.overflow = 'auto';
-    } else {
-      setIsOpenDisplay(true);
-      document.body.style.overflow = 'hidden';
-    }
-  };
-
-  const toggleEditModal = () => {
-    if (isOpenEdit) {
-      setIsOpenEdit(false);
-      document.body.style.overflow = 'auto';
-    } else {
-      setIsOpenEdit(true);
-      document.body.style.overflow = 'hidden';
-    }
-  };
+  const { modal, openModal, closeModal } = useModal();
 
   return (
     <>
       <section>
-        <ContentTop
+        <ContentHeader
           title="Administrar Servicios Activos"
           button="Agregar Servicio"
-          openModal={toggleAddModal}
+          openModal={() => openModal(ADD_ACTIVE_SERVICE)}
         />
         <div className={`flex mb-20 gap-5`}>
           <input type="text" placeholder="Folio" className={`filter-input`} />
           <input type="text" placeholder="Nombre Instalador" className={`filter-input`} />
           <input type="text" placeholder="Nombre Cliente" className={`filter-input`} />
+          <select name="" id="" className={`filter-input`}>
+            <option value="">Status</option>
+            <option value="">Proceso</option>
+            <option value="">Pendiente</option>
+          </select>
         </div>
-        <table className={styles.table}>
-          <thead className={styles.thead}>
+        <table className={`table`}>
+          <thead className={`table-head`}>
             <tr>
-              <th className={`${styles.tableHead} ${styles.widthFolio}`}>Folio</th>
-              <th className={`${styles.tableHead} ${styles.widthName}`}>Instalador</th>
-              <th className={`${styles.tableHead} ${styles.widthName}`}>Cliente</th>
-              <th className={`${styles.tableHead} ${styles.widthDescription}`}>Descripción</th>
-              <th className={styles.tableHead}>Status</th>
+              <th className={`table-header ${styles.widthFolio}`}>Folio</th>
+              <th className={`table-header ${styles.widthName}`}>Instalador</th>
+              <th className={`table-header ${styles.widthName}`}>Cliente</th>
+              <th className={`table-header ${styles.widthDescription}`}>Descripción</th>
+              <th className={`table-header`}>Status</th>
             </tr>
           </thead>
           <tbody>
             {data.map((data, i) => (
               <tr
                 key={i}
-                className={styles.tableRowContainer}
+                className={`table-row`}
                 onClick={() => {
                   setService(data);
-                  toggleDisplayModal();
+                  openModal(DISPLAY_ACTIVE_SERVICE);
                 }}
               >
-                <td className={styles.tableRow}>{data.folio}</td>
-                <td className={styles.tableRow}>{data.installerId}</td>
-                <td className={styles.tableRow}>{data.client}</td>
-                <td className={styles.tableRow}>
+                <td className={`table-cell`}>{data.folio}</td>
+                <td className={`table-cell`}>{data.installerId.name}</td>
+                <td className={`table-cell`}>{data.client}</td>
+                <td className={`table-cell`}>
                   <div className={styles.description}>{data.description}</div>
                 </td>
-                <td className={styles.tableRow}>
-                  <span className={`status ${data.status == 'To Do' ? `pending` : `progress`}`}>
-                    {data.status == 'To Do' ? 'Pendiente' : 'Progreso'}
+                <td className={`table-cell`}>
+                  <span className={`status ${statusClasses[data.status]}`}>
+                    {statusLabels[data.status]}
                   </span>
                 </td>
               </tr>
@@ -94,15 +76,15 @@ const ActiveServices = () => {
         </table>
       </section>
 
-      {isOpenAdd && <AddService closeModal={toggleAddModal} />}
-      {isOpenDisplay && (
+      {modal == ADD_ACTIVE_SERVICE && <AddService closeModal={closeModal} />}
+      {modal == DISPLAY_ACTIVE_SERVICE && (
         <DisplayService
-          closeModal={toggleDisplayModal}
-          openEditModal={toggleEditModal}
+          closeModal={closeModal}
+          openEditModal={() => openModal(EDIT_ACTIVE_SERVICE)}
           data={service}
         />
       )}
-      {isOpenEdit && <EditService closeModal={toggleEditModal} data={service} />}
+      {modal == EDIT_ACTIVE_SERVICE && <EditService closeModal={closeModal} data={service} />}
     </>
   );
 };

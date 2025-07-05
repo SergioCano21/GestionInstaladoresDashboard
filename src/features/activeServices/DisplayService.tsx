@@ -1,11 +1,14 @@
-import ReactDOM from 'react-dom';
-import XMark from '../../components/XMark';
-import styles from './DisplayService.module.css';
 import type { Service } from '../../types/types';
+import { MODAL_BIG, MODAL_START, statusClasses, statusLabels } from '../../types/consts';
+import ModalHeader from '../../components/ui/ModalHeader';
+import DisplayInfo from '../../components/ui/DisplayInfo';
+import DisplaySection from '../../components/ui/DisplaySection';
+import DisplaySubsection from '../../components/ui/DisplaySubsection';
+import Modal from '../../components/ui/Modal';
 
 interface Props {
   closeModal: () => void;
-  openEditModal: () => void;
+  openEditModal?: () => void;
   data: Service;
 }
 
@@ -18,183 +21,126 @@ const DisplayService = ({ closeModal, openEditModal, data }: Props) => {
     }
   };
 
-  const handleEdit = () => {
-    closeModal();
-    openEditModal();
-  };
-
-  return ReactDOM.createPortal(
+  return (
     <>
-      <section className={`modal-background`}>
-        <div className={`card ${styles.container}`}>
-          <div className={`flex justify-content-between mb-20`}>
-            <div className={`title`}>Detalles Completos del Servicio</div>
-            <div className={`flex cursor-pointer`} onClick={closeModal}>
-              <XMark />
-            </div>
-          </div>
-          <div className={styles.section}>
-            <div className={styles.subtitle}>Información General</div>
-            <div className={styles.subsection}>
-              <div className={styles.flex}>
-                <div className={`label`}>Folio</div>
-                <div className={styles.text}>{data.folio}</div>
-              </div>
-              <div className={styles.flex}>
-                <div className={`label`}>Status</div>
-                <div
-                  className={`status ${data.status == 'To Do' ? `pending` : `progress`} ${styles.marginTop5}`}
-                >
-                  {data.status == 'To Do' ? 'Pendiente' : 'Progreso'}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className={styles.section}>
-            <div className={styles.subtitle}>Información del Cliente</div>
-            <div className={styles.subsection}>
-              <div className={styles.flex}>
-                <div className={`label`}>Cliente</div>
-                <div className={styles.text}>{data.client}</div>
-              </div>
-              <div className={styles.flex}>
-                <div className={`label`}>Teléfono</div>
-                <div className={styles.text}>{data.clientPhone}</div>
-              </div>
-            </div>
-            <div className={styles.subsection}>
-              <div className={styles.flex}>
-                <div className={`label`}>Dirección</div>
-                <div className={styles.text}>{data.address}</div>
-              </div>
-            </div>
-          </div>
-          <div className={styles.section}>
-            <div className={styles.subtitle}>Información del Servicio</div>
-            <div className={styles.subsection}>
-              <div className={styles.flex}>
-                <div className={`label`}>Instalador</div>
-                <div className={styles.text}>{data.installerId}</div>
-              </div>
-              <div className={styles.flex}>
-                <div className={`label`}>Tienda</div>
-                <div className={styles.text}>{data.storeId}</div>
-              </div>
-            </div>
-            <div className={styles.subsection}>
-              <div className={styles.flex}>
-                <div className={`label`}>Fecha</div>
-                <div className={styles.text}>Sin Asignar</div>
-              </div>
-              <div className={styles.flex}>
-                <div className={`label`}>Hora</div>
-                <div className={styles.text}>Sin Asignar</div>
-              </div>
-            </div>
-          </div>
-          <div className={styles.section}>
-            <div className={styles.subtitle}>Detalles del Servicio</div>
-            <div className={styles.subsection}>
-              <div className={styles.flex}>
-                <div className={`label`}>Cantidad</div>
-                <div className={styles.text}>{data.jobDetails[0].quantity}</div>
-              </div>
-              <div className={styles.flex}>
-                <div className={`label`}>Costo del Servicio</div>
-                <div className={styles.text}>{data.jobDetails[0].installationServiceFee}</div>
-              </div>
-              <div className={styles.flex}>
-                <div className={`label`}>Comisión</div>
-                <div className={styles.text}>{data.jobDetails[0].commissionFee}</div>
-              </div>
-              <div className={styles.flex}>
-                <div className={`label`}>Comitente</div>
-                <div className={styles.text}>{data.jobDetails[0].installerPayment}</div>
-              </div>
-            </div>
-            <div className={styles.subsection}>
-              <div className={styles.flex}>
-                <div className={`label`}>Descripción</div>
-                <div className={styles.text}>{data.jobDetails[0].description}</div>
-              </div>
-            </div>
-          </div>
-          <div className={styles.section}>
-            <div className={styles.subtitle}>Resumen Total</div>
-            <div className={styles.subsection}>
-              <div className={styles.flex}>
-                <div className={`label`}>&nbsp;</div>
-                <div className={`${styles.text} ${styles.titleText}`}>Subtotales</div>
-              </div>
-              <div className={styles.flex}>
-                <div className={`label`}>Costo del Servicio</div>
-                <div className={styles.text}>{data.subtotals.installationServiceFee}</div>
-              </div>
-              <div className={styles.flex}>
-                <div className={`label`}>Comisión</div>
-                <div className={styles.text}>{data.subtotals.commissionFee}</div>
-              </div>
-              <div className={styles.flex}>
-                <div className={`label`}>Comitente</div>
-                <div className={styles.text}>{data.subtotals.installerPayment}</div>
-              </div>
-            </div>
-            <div className={styles.subsection}>
-              <div className={styles.flex}>
-                <div className={`${styles.text} ${styles.titleText}`}>IVA</div>
-              </div>
-              <div className={styles.flex}>
-                <div className={styles.text}>{data.iva.installationServiceFee}</div>
-              </div>
-              <div className={styles.flex}>
-                <div className={styles.text}>{data.iva.commissionFee}</div>
-              </div>
-              <div className={styles.flex}>
-                <div className={styles.text}>{data.iva.installerPayment}</div>
-              </div>
-            </div>
-            <div className={styles.subsection}>
-              <div className={styles.flex}>
-                <div className={`${styles.text} ${styles.titleText}`}>Totales</div>
-              </div>
-              <div className={styles.flex}>
-                <div className={styles.text}>{data.totals.installationServiceFee}</div>
-              </div>
-              <div className={styles.flex}>
-                <div className={styles.text}>{data.totals.commissionFee}</div>
-              </div>
-              <div className={styles.flex}>
-                <div className={styles.text}>{data.totals.installerPayment}</div>
-              </div>
-            </div>
-          </div>
-          <div className={styles.section}>
-            <div className={styles.subtitle}>Comentarios Adicionales</div>
-            <div className={styles.subsection}>
-              <div className={styles.flex}>
-                <div className={styles.text}>{data.additionalComments}</div>
-              </div>
-            </div>
-          </div>
-          <div className={`flex justify-content-between`}>
+      <Modal align={MODAL_START} size={MODAL_BIG}>
+        <ModalHeader title="Detalles Completos del Servicio" closeModal={closeModal} />
+
+        <DisplaySection title="Información General">
+          <DisplaySubsection>
+            <DisplayInfo label="Folio" value={data.folio} />
+            <DisplayInfo
+              label="Status"
+              value={statusLabels[data.status]}
+              statusColor={statusClasses[data.status]}
+            />
+          </DisplaySubsection>
+        </DisplaySection>
+
+        <DisplaySection title="Información del Cliente">
+          <DisplaySubsection>
+            <DisplayInfo label="Cliente" value={data.client} />
+            <DisplayInfo label="Teléfono" value={data.clientPhone} />
+          </DisplaySubsection>
+
+          <DisplaySubsection>
+            <DisplayInfo label="Dirección" value={data.address} />
+          </DisplaySubsection>
+        </DisplaySection>
+
+        <DisplaySection title="Información del Servicio">
+          <DisplaySubsection>
+            <DisplayInfo label="Instalador" value={data.installerId.name} />
+            <DisplayInfo
+              label="Tienda"
+              value={
+                <>
+                  {'#'}
+                  {data.storeId.numStore}&nbsp;{data.storeId.name}
+                </>
+              }
+            />
+          </DisplaySubsection>
+
+          <DisplaySubsection>
+            <DisplayInfo label="Fecha" value={`Sin Asignar`} />
+            <DisplayInfo label="Hora" value={`Sin Asignar`} />
+          </DisplaySubsection>
+        </DisplaySection>
+
+        <DisplaySection title="Detalles del Servicio">
+          <DisplaySubsection>
+            <DisplayInfo label="Cantidad" value={data.jobDetails[0].quantity} />
+            <DisplayInfo
+              label="Costo del Servicio"
+              value={data.jobDetails[0].installationServiceFee}
+            />
+            <DisplayInfo label="Comisión" value={data.jobDetails[0].commissionFee} />
+            <DisplayInfo label="Comitente" value={data.jobDetails[0].installerPayment} />
+          </DisplaySubsection>
+
+          <DisplaySubsection>
+            <DisplayInfo label="Descripción" value={data.jobDetails[0].description} />
+          </DisplaySubsection>
+        </DisplaySection>
+
+        <DisplaySection title="Resumen Total">
+          <DisplaySubsection>
+            <DisplayInfo label="&nbsp;" value={'Subtotales'} useLabel={true} />
+            <DisplayInfo label="Costo del Servicio" value={data.subtotals.installationServiceFee} />
+            <DisplayInfo label="Comisión" value={data.subtotals.commissionFee} />
+            <DisplayInfo label="Comitente" value={data.subtotals.installerPayment} />
+          </DisplaySubsection>
+
+          <DisplaySubsection>
+            <DisplayInfo label="" value={'IVA'} useLabel={true} />
+            <DisplayInfo label="" value={data.iva.installationServiceFee} />
+            <DisplayInfo label="" value={data.iva.commissionFee} />
+            <DisplayInfo label="" value={data.iva.installerPayment} />
+          </DisplaySubsection>
+
+          <DisplaySubsection>
+            <DisplayInfo label="" value={'Totales'} useLabel={true} />
+            <DisplayInfo label="" value={data.totals.installationServiceFee} />
+            <DisplayInfo label="" value={data.totals.commissionFee} />
+            <DisplayInfo label="" value={data.totals.installerPayment} />
+          </DisplaySubsection>
+        </DisplaySection>
+
+        <DisplaySection title="Comentarios Adicionales">
+          <DisplaySubsection>
+            <DisplayInfo label="" value={data.additionalComments} noMargin={true} />
+          </DisplaySubsection>
+        </DisplaySection>
+
+        {openEditModal && (
+          <section className={`flex justify-content-between`}>
             <div>
               <button className={`btn btn-close`} onClick={closeModal}>
                 Cerrar
               </button>
             </div>
             <div className={`flex gap-5`}>
-              <button className={`btn btn-edit`} onClick={handleEdit}>
+              <button className={`btn btn-edit`} onClick={openEditModal}>
                 Editar
               </button>
               <button className={`btn btn-delete`} onClick={handleDelete}>
-                Eliminar
+                Cancelar
               </button>
             </div>
-          </div>
-        </div>
-      </section>
-    </>,
-    document.body,
+          </section>
+        )}
+
+        {!openEditModal && (
+          <section className={`flex justify-content-end gap-5`}>
+            <button className={`btn btn-close`} onClick={closeModal}>
+              Cerrar
+            </button>
+            <button className={`btn btn-primary`}>PDF</button>
+          </section>
+        )}
+      </Modal>
+    </>
   );
 };
 
