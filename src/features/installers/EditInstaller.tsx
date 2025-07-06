@@ -2,34 +2,34 @@ import type { Installer } from '@/types/types';
 import { useState } from 'react';
 import { useFormHandler } from '@hooks/useFormHandler';
 import FormInstaller from './FormInstaller';
-import { installerTemplate } from '@/types/templates';
 import ModalHeader from '@components/ui/ModalHeader';
 import Modal from '@components/ui/Modal';
 import { MODAL_CENTER, MODAL_SMALL } from '@/types/consts';
 
 interface Props {
   closeModal: () => void;
+  data: Installer;
 }
 
-const AddInstaller = ({ closeModal }: Props) => {
-  const [formData, setFormData] = useState<Installer>(installerTemplate);
+const EditInstaller = ({ closeModal, data }: Props) => {
+  const [formData, setFormData] = useState<Installer>(data);
 
   const { handleChange } = useFormHandler(setFormData);
 
   const handleSubmit = () => {
-    alert('Instalador Agregado');
+    alert('Instalador Editado');
     closeModal();
   };
   return (
     <>
       <Modal align={MODAL_CENTER} size={MODAL_SMALL}>
-        <ModalHeader title="Agregar Instalador" closeModal={closeModal} />
-        <form action={handleSubmit} id="addInstallerForm">
+        <ModalHeader title="Editar Instalador" closeModal={closeModal} />
+        <form action={handleSubmit} id="editInstallerForm">
           <FormInstaller
             formData={formData}
             handleChange={handleChange}
             closeModal={closeModal}
-            buttonText={'Agregar'}
+            buttonText={'Aceptar'}
           />
         </form>
       </Modal>
@@ -37,4 +37,4 @@ const AddInstaller = ({ closeModal }: Props) => {
   );
 };
 
-export default AddInstaller;
+export default EditInstaller;

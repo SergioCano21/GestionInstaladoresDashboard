@@ -1,5 +1,13 @@
 import type { Service } from '@/types/types';
-import styles from './Form.module.css';
+import FormInput from '@/components/ui/FormInput';
+import FormSubsection from '@/components/ui/FormSubsection';
+import FormTextArea from '@/components/ui/FormTextArea';
+import FormSection from '@/components/ui/FormSection';
+import FormSelect from '@/components/ui/FormSelect';
+
+import { options } from '@/mock';
+import ButtonSection from '@/components/ui/ButtonSection';
+import Button from '@/components/ui/Button';
 
 interface Props {
   formData: Service;
@@ -7,171 +15,119 @@ interface Props {
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
   ) => void;
   closeModal: () => void;
-  button: string;
+  buttonText: string;
 }
 
-const FormService = ({ formData, handleChange, closeModal, button }: Props) => {
+const FormService = ({ formData, handleChange, closeModal, buttonText }: Props) => {
   return (
     <>
-      <section className={styles.section}>
-        <div className={`flex gap-5 mb-20`}>
-          <div className={`flex-1`}>
-            <label className={`label`} htmlFor="folio">
-              Folio
-            </label>
-            <input
-              className={`form-input`}
-              id="folio"
-              name="folio"
-              type="number"
-              min="0"
-              placeholder="Folio"
-              required
-              value={formData.folio}
-              onChange={handleChange}
-            />
-          </div>
-          <div className={`flex-1`}>
-            <label className={`label`} htmlFor="installer">
-              Asignar Instalador
-            </label>
-            <select
-              className={`form-input`}
-              name="installerId"
-              id="installer"
-              required
-              value={formData.installerId.installerId}
-              onChange={handleChange}
-            >
-              <option value="">Seleccionar</option>
-              <option value={formData.installerId.installerId}>{formData.installerId.name}</option>
-              <option value="2">Instalador 2</option>
-            </select>
-          </div>
-        </div>
-        <div className={`flex gap-5 mb-20`}>
-          <div className={`flex-1`}>
-            <label className={`label`} htmlFor="client">
-              Nombre del Cliente
-            </label>
-            <input
-              id="client"
-              name="client"
-              className={`form-input`}
-              type="text"
-              required
-              placeholder="Cliente"
-              value={formData.client}
-              onChange={handleChange}
-            />
-          </div>
-          <div className={`flex-1`}>
-            <label className={`label`} htmlFor="phone">
-              Teléfono del Cliente
-            </label>
-            <input
-              className={`form-input`}
-              id="phone"
-              name="clientPhone"
-              type="number"
-              required
-              placeholder="Teléfono"
-              value={formData.clientPhone}
-              onChange={handleChange}
-            />
-          </div>
-        </div>
-        <div className={`mb-20`}>
-          <label className={`label`} htmlFor="address">
-            Dirección del Cliente
-          </label>
-          <input
+      <FormSection>
+        <FormSubsection>
+          <FormInput
+            label="Folio"
+            id="folio"
+            name="folio"
+            type="number"
+            placeholder="Folio"
+            value={formData.folio}
+            onChange={handleChange}
+          />
+          <FormSelect
+            label="Asignar Instalador"
+            id="installerId"
+            name="installerId"
+            value={formData.installerId.installerId}
+            onChange={handleChange}
+            options={options}
+          />
+        </FormSubsection>
+        <FormSubsection>
+          <FormInput
+            label="Nombre del Cliente"
+            id="client"
+            name="client"
+            type="text"
+            placeholder="Cliente"
+            value={formData.client}
+            onChange={handleChange}
+          />
+          <FormInput
+            label="Teléfono del Cliente"
+            id="phone"
+            name="clientPhone"
+            type="number"
+            placeholder="Teléfono"
+            value={formData.clientPhone}
+            onChange={handleChange}
+          />
+        </FormSubsection>
+        <FormSubsection>
+          <FormInput
+            label="Dirección del Cliente"
             id="address"
             name="address"
-            className={`form-input`}
             type="text"
-            required
             placeholder="Dirección"
             value={formData.address}
             onChange={handleChange}
           />
-        </div>
-      </section>
-      <section className={styles.section2}>
-        <div className={`flex gap-5 mb-20`}>
-          <div className={`flex-1`}>
-            <label className={`label`} htmlFor="quantity">
-              Cantidad de Unidades
-            </label>
-            <input
-              className={`form-input`}
-              name="quantity"
-              data-job-detail="true"
-              type="number"
-              min="1"
-              required
-              placeholder="Cantidad"
-              value={formData.jobDetails[0].quantity}
-              onChange={handleChange}
-            />
-          </div>
-          <div className={`flex-1`}>
-            <label className={`label`} htmlFor="installationServiceFee">
-              Costo del Servicio
-            </label>
-            <input
-              className={`form-input`}
-              name="installationServiceFee"
-              data-job-detail="true"
-              type="number"
-              step="0.01"
-              min="1"
-              required
-              placeholder="Costo"
-              value={formData.jobDetails[0].installationServiceFee}
-              onChange={handleChange}
-            />
-          </div>
-        </div>
-        <div className={`mb-20`}>
-          <label className={`label`} htmlFor="description">
-            Descripción del Servicio
-          </label>
-          <textarea
+        </FormSubsection>
+      </FormSection>
+
+      <FormSection>
+        <FormSubsection>
+          <FormInput
+            label="Cantidad de Unidades"
+            id="quantity"
+            name="quantity"
+            type="number"
+            placeholder="Cantidad"
+            isJobDetail={true}
+            value={formData.jobDetails[0].quantity}
+            onChange={handleChange}
+          />
+          <FormInput
+            label="Costo del Servicio"
+            id="installationServiceFee"
+            name="installationServiceFee"
+            type="number"
+            placeholder="Costo"
+            isJobDetail={true}
+            value={formData.jobDetails[0].installationServiceFee}
+            onChange={handleChange}
+          />
+        </FormSubsection>
+
+        <FormSubsection>
+          <FormTextArea
+            label="Descripción del Servicio"
+            id="description"
             name="description"
-            data-job-detail="true"
-            className={`form-input`}
-            required
             placeholder="Descripción"
             rows={3}
+            isJobDetail={true}
             value={formData.jobDetails[0].description}
             onChange={handleChange}
           />
-        </div>
-      </section>
+        </FormSubsection>
+      </FormSection>
 
-      <div className={`mb-20`}>
-        <label className={`label`} htmlFor="comments">
-          Comentarios Adicionales
-        </label>
-        <textarea
-          id="comments"
+      <FormSubsection>
+        <FormTextArea
+          label="Comentarios Adicionales"
+          id="additionalComments"
           name="additionalComments"
-          className={`form-input`}
           placeholder="Comentarios"
           rows={4}
           value={formData.additionalComments}
           onChange={handleChange}
         />
-      </div>
-      <div className={`flex gap-5 justify-content-end`}>
-        <button className={`btn btn-close`} onClick={closeModal}>
-          Cerrar
-        </button>
-        <button type="submit" className={`btn btn-primary`}>
-          {button}
-        </button>
-      </div>
+      </FormSubsection>
+
+      <ButtonSection>
+        <Button text="Cerrar" type="button" variant="close" onClick={closeModal} />
+        <Button text={buttonText} type="submit" variant="primary" />
+      </ButtonSection>
     </>
   );
 };

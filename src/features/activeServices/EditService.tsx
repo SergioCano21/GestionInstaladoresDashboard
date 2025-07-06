@@ -30,7 +30,7 @@ const EditService = ({ closeModal, data }: Props) => {
             formData={service}
             handleChange={handleChange}
             closeModal={closeModal}
-            button={'Editar'}
+            buttonText={'Aceptar'}
           />
         </form>
       </Modal>

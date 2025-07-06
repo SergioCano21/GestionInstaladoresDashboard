@@ -432,33 +432,6 @@ export const installers: Installer[] = [
     status: 'active',
   },
   {
-    installerId: 1023,
-    name: 'Carlos Alberto Mendoza López',
-    email: 'carlos.mendoza@example.com',
-    phone: '+52 555-1234',
-    company: 'Instalaciones MX',
-    storeId: [{ name: 'Sucursal Norte', numStore: 1001 }],
-    status: 'active',
-  },
-  {
-    installerId: 1023,
-    name: 'Carlos Alberto Mendoza López',
-    email: 'carlos.mendoza@example.com',
-    phone: '+52 555-1234',
-    company: 'Instalaciones MX',
-    storeId: [{ name: 'Sucursal Norte', numStore: 1001 }],
-    status: 'active',
-  },
-  {
-    installerId: 1023,
-    name: 'Carlos Alberto Mendoza López',
-    email: 'carlos.mendoza@example.com',
-    phone: '+52 555-1234',
-    company: 'Instalaciones MX',
-    storeId: [{ name: 'Sucursal Norte', numStore: 1001 }],
-    status: 'active',
-  },
-  {
     installerId: 2045,
     name: 'Ana Ramírez Pérez',
     email: 'ana.ramirez@example.com',
@@ -538,5 +511,48 @@ export const installers: Installer[] = [
     company: 'Cys de Yucatán S.A. de C.V.',
     storeId: [{ name: 'Sucursal Poniente', numStore: 1005 }],
     status: 'inactive',
+  },
+];
+
+export const options = [
+  {
+    installerId: 1234,
+    name: 'Carlos Alberto Mendoza López',
+  },
+  {
+    installerId: 2045,
+    name: 'Ana Ramírez Pérez',
+  },
+  {
+    installerId: 3087,
+    name: 'Luis Enrique Torres Hernández',
+  },
+  {
+    installerId: 4120,
+    name: 'María Fernanda Rodríguez Castillo',
+  },
+  {
+    installerId: 5278,
+    name: 'Jorge Pérez Gómez',
+  },
+  {
+    installerId: 6392,
+    name: 'Verónica Castillo Ruiz',
+  },
+  {
+    installerId: 7451,
+    name: 'Eduardo Ramírez López',
+  },
+  {
+    installerId: 8530,
+    name: 'Laura Patricia Gómez Fernández',
+  },
+  {
+    installerId: 9642,
+    name: 'Ricardo Díaz Ortega',
+  },
+  {
+    installerId: 1057,
+    name: 'Patricia Sánchez Morales',
   },
 ];

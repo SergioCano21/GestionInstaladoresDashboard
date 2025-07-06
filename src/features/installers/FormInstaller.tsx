@@ -1,5 +1,9 @@
 import type { Installer } from '@/types/types';
-import styles from './Form.module.css';
+import FormSection from '@/components/ui/FormSection';
+import FormSubsection from '@/components/ui/FormSubsection';
+import FormInput from '@/components/ui/FormInput';
+import ButtonSection from '@/components/ui/ButtonSection';
+import Button from '@/components/ui/Button';
 
 interface Props {
   formData: Installer;
@@ -7,102 +11,70 @@ interface Props {
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
   ) => void;
   closeModal: () => void;
-  button: string;
+  buttonText: string;
 }
 
-const FormInstaller = ({ formData, handleChange, closeModal, button }: Props) => {
+const FormInstaller = ({ formData, handleChange, closeModal, buttonText }: Props) => {
   return (
     <>
-      <section className={styles.section}>
-        <div className={`flex gap-5 mb-20`}>
-          <div className={`flex-1`}>
-            <label className={`label`} htmlFor="installerId">
-              ID
-            </label>
-            <input
-              className={`form-input`}
-              id="installerId"
-              name="installerId"
-              type="number"
-              min="0"
-              placeholder="ID"
-              required
-              value={formData.installerId}
-              onChange={handleChange}
-            />
-          </div>
-          <div className={`flex-1`}>
-            <label className={`label`} htmlFor="name">
-              Nombre
-            </label>
-            <input
-              id="name"
-              name="name"
-              className={`form-input`}
-              type="text"
-              required
-              placeholder="Nombre"
-              value={formData.name}
-              onChange={handleChange}
-            />
-          </div>
-        </div>
-        <div className={`flex gap-5 mb-20`}>
-          <div className={`flex-1`}>
-            <label className={`label`} htmlFor="email">
-              Email
-            </label>
-            <input
-              id="email"
-              name="email"
-              className={`form-input`}
-              type="email"
-              required
-              placeholder="Email"
-              value={formData.email}
-              onChange={handleChange}
-            />
-          </div>
-          <div className={`flex-1`}>
-            <label className={`label`} htmlFor="phone">
-              Teléfono
-            </label>
-            <input
-              className={`form-input`}
-              id="phone"
-              name="phone"
-              type="number"
-              required
-              placeholder="Teléfono"
-              value={formData.phone}
-              onChange={handleChange}
-            />
-          </div>
-        </div>
-        <div className={`mb-20`}>
-          <label className={`label`} htmlFor="company">
-            Nombre de la Empresa
-          </label>
-          <input
+      <FormSection>
+        <FormSubsection>
+          <FormInput
+            label="ID"
+            id="installerId"
+            name="installerId"
+            type="number"
+            placeholder="ID"
+            value={formData.installerId}
+            onChange={handleChange}
+          />
+          <FormInput
+            label="Nombre"
+            id="name"
+            name="name"
+            type="text"
+            placeholder="Nombre"
+            value={formData.name}
+            onChange={handleChange}
+          />
+        </FormSubsection>
+        <FormSubsection>
+          <FormInput
+            label="Email"
+            id="email"
+            name="email"
+            type="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+          <FormInput
+            label="Teléfono"
+            id="phone"
+            name="phone"
+            type="number"
+            placeholder="Teléfono"
+            value={formData.phone}
+            onChange={handleChange}
+          />
+        </FormSubsection>
+        <FormSubsection>
+          <FormInput
+            label="Nombre de la Empresa"
             id="company"
             name="company"
-            className={`form-input`}
             type="text"
-            required
             placeholder="Empresa"
             value={formData.company}
             onChange={handleChange}
           />
-        </div>
-      </section>
-      <div className={`flex gap-5 justify-content-end`}>
-        <button className={`btn btn-close`} onClick={closeModal}>
-          Cerrar
-        </button>
-        <button type="submit" className={`btn btn-primary`}>
-          {button}
-        </button>
-      </div>
+        </FormSubsection>
+      </FormSection>
+
+      <ButtonSection>
+        <Button text="Cerrar" type="button" variant="close" onClick={closeModal} />
+        <Button text={buttonText} type="submit" variant="primary" />
+      </ButtonSection>
     </>
   );
 };

@@ -1,4 +1,4 @@
-import type { Installer, Login, Service } from './types';
+import type { Installer, LoginData, Service } from './types';
 
 export const serviceTemplate: Service = {
   folio: '',
@@ -42,7 +42,7 @@ export const serviceTemplate: Service = {
   },
 };
 
-export const loginTemplate: Login = {
+export const loginTemplate: LoginData = {
   username: '',
   password: '',
 };

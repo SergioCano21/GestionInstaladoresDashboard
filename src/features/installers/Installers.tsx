@@ -1,6 +1,12 @@
 import ContentHeader from '@components/ui/ContentHeader';
 import { useModal } from '@hooks/useModal';
-import { ADD_INSTALLER, DISPLAY_INSTALLER, statusClasses, statusLabels } from '@/types/consts';
+import {
+  ADD_INSTALLER,
+  DISPLAY_INSTALLER,
+  EDIT_INSTALLER,
+  statusClasses,
+  statusLabels,
+} from '@/types/consts';
 
 import { installers } from '@/mock';
 import { useState } from 'react';
@@ -8,6 +14,7 @@ import type { Installer } from '@/types/types';
 import { installerTemplate } from '@/types/templates';
 import AddInstaller from './AddInstaller';
 import DisplayInstaller from './DisplayInstaller';
+import EditInstaller from './EditInstaller';
 const data = installers;
 
 const Installers = () => {
@@ -76,7 +83,14 @@ const Installers = () => {
       </section>
 
       {modal == ADD_INSTALLER && <AddInstaller closeModal={closeModal} />}
-      {modal == DISPLAY_INSTALLER && <DisplayInstaller closeModal={closeModal} data={installer} />}
+      {modal == EDIT_INSTALLER && <EditInstaller data={installer} closeModal={closeModal} />}
+      {modal == DISPLAY_INSTALLER && (
+        <DisplayInstaller
+          closeModal={closeModal}
+          data={installer}
+          openEditModal={() => openModal(EDIT_INSTALLER)}
+        />
+      )}
     </>
   );
 };

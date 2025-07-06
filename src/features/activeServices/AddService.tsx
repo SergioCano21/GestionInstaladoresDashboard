@@ -30,7 +30,7 @@ const AddService = ({ closeModal }: Props) => {
             formData={formData}
             handleChange={handleChange}
             closeModal={closeModal}
-            button={'Agregar'}
+            buttonText={'Agregar'}
           />
         </form>
       </Modal>

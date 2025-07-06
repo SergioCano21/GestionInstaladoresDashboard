@@ -4,6 +4,7 @@ import styles from './Login.module.css';
 import type { LoginData } from '@/types/types';
 import { loginTemplate } from '@/types/templates';
 import { useFormHandler } from '@/hooks/useFormHandler';
+import FormInput from '@/components/ui/FormInput';
 
 const Login = () => {
   const [formData, setFormData] = useState<LoginData>(loginTemplate);
@@ -18,32 +19,24 @@ const Login = () => {
           <div className={styles.logoText}>Panel de Administración</div>
         </div>
         <form action="" id="login">
-          <div className={`mb-20`}>
-            <label htmlFor="username" className={`label`}>
-              Usuario
-            </label>
-            <input
-              type="text"
-              name="username"
-              className={`form-input`}
-              onChange={handleChange}
-              value={formData.username}
-              required
-            />
-          </div>
-          <div className={`mb-20`}>
-            <label htmlFor="password" className={`label`}>
-              Contraseña
-            </label>
-            <input
-              type="password"
-              name="password"
-              className={`form-input`}
-              onChange={handleChange}
-              value={formData.password}
-              required
-            />
-          </div>
+          <FormInput
+            label="Usuario"
+            id="username"
+            name="username"
+            type="text"
+            placeholder=""
+            onChange={handleChange}
+            value={formData.username}
+          />
+          <FormInput
+            label="Contraseña"
+            id="password"
+            name="password"
+            type="password"
+            placeholder=""
+            onChange={handleChange}
+            value={formData.password}
+          />
           <button type="submit" className={`btn btn-primary ${styles.btn}`}>
             Iniciar Sesión
           </button>

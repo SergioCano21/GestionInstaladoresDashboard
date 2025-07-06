@@ -5,6 +5,8 @@ import DisplaySection from '@components/ui/DisplaySection';
 import DisplaySubsection from '@components/ui/DisplaySubsection';
 import Modal from '@components/ui/Modal';
 import type { Service } from '@/types/types';
+import ButtonSection from '@/components/ui/ButtonSection';
+import Button from '@/components/ui/Button';
 
 interface Props {
   closeModal: () => void;
@@ -114,30 +116,21 @@ const DisplayService = ({ closeModal, openEditModal, data }: Props) => {
         </DisplaySection>
 
         {openEditModal && (
-          <section className={`flex justify-content-between`}>
-            <div>
-              <button className={`btn btn-close`} onClick={closeModal}>
-                Cerrar
-              </button>
-            </div>
+          <ButtonSection>
+            <Button text="Cerrar" type="button" variant="close" onClick={closeModal} />
+
             <div className={`flex gap-5`}>
-              <button className={`btn btn-edit`} onClick={openEditModal}>
-                Editar
-              </button>
-              <button className={`btn btn-delete`} onClick={handleDelete}>
-                Cancelar
-              </button>
+              <Button text="Editar" type="button" variant="edit" onClick={openEditModal} />
+              <Button text="Cancelar" type="button" variant="delete" onClick={handleDelete} />
             </div>
-          </section>
+          </ButtonSection>
         )}
 
         {!openEditModal && (
-          <section className={`flex justify-content-end gap-5`}>
-            <button className={`btn btn-close`} onClick={closeModal}>
-              Cerrar
-            </button>
-            <button className={`btn btn-primary`}>PDF</button>
-          </section>
+          <ButtonSection>
+            <Button text="Cerrar" type="button" variant="close" onClick={closeModal} />
+            <Button text="PDF" type="button" variant="primary" />
+          </ButtonSection>
         )}
       </Modal>
     </>

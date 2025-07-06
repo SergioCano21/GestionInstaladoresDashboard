@@ -5,10 +5,12 @@ import ModalHeader from '@components/ui/ModalHeader';
 import DisplaySection from '@components/ui/DisplaySection';
 import DisplaySubsection from '@components/ui/DisplaySubsection';
 import Modal from '@components/ui/Modal';
+import ButtonSection from '@/components/ui/ButtonSection';
+import Button from '@/components/ui/Button';
 
 interface Props {
   closeModal: () => void;
-  openEditModal?: () => void;
+  openEditModal: () => void;
   data: Installer;
 }
 
@@ -38,30 +40,10 @@ const DisplayInstaller = ({ closeModal, openEditModal, data }: Props) => {
           </DisplaySubsection>
         </DisplaySection>
 
-        {openEditModal && (
-          <section className={`flex justify-content-between`}>
-            <div>
-              <button className={`btn btn-close`} onClick={closeModal}>
-                Cerrar
-              </button>
-            </div>
-            <div className={`flex gap-5`}>
-              <button className={`btn btn-edit`} onClick={openEditModal}>
-                Editar
-              </button>
-              <button className={`btn btn-delete`}>Eliminar</button>
-            </div>
-          </section>
-        )}
-
-        {!openEditModal && (
-          <section className={`flex justify-content-end gap-5`}>
-            <button className={`btn btn-close`} onClick={closeModal}>
-              Cerrar
-            </button>
-            <button className={`btn btn-primary`}>PDF</button>
-          </section>
-        )}
+        <ButtonSection>
+          <Button text="Cerrar" type="button" variant="close" onClick={closeModal} />
+          <Button text="Editar" type="button" variant="edit" onClick={openEditModal} />
+        </ButtonSection>
       </Modal>
     </>
   );
