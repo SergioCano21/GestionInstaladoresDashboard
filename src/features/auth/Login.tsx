@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import logo from '../../assets/images/logo.svg';
+import logo from '@/assets/images/logo.svg';
 import styles from './Login.module.css';
-import type { Login } from '../../types/types';
-import { loginTemplate } from '../../types/templates';
-import { useFormHandler } from '../../hooks/useFormHandler';
+import type { LoginData } from '@/types/types';
+import { loginTemplate } from '@/types/templates';
+import { useFormHandler } from '@/hooks/useFormHandler';
 
 const Login = () => {
-  const [formData, setFormData] = useState<Login>(loginTemplate);
+  const [formData, setFormData] = useState<LoginData>(loginTemplate);
 
   const { handleChange } = useFormHandler(setFormData);
 

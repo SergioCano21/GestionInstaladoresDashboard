@@ -1,11 +1,11 @@
-import type { Installer } from '../../types/types';
+import type { Installer } from '@/types/types';
 import { useState } from 'react';
-import { useFormHandler } from '../../hooks/useFormHandler';
+import { useFormHandler } from '@hooks/useFormHandler';
 import FormInstaller from './FormInstaller';
-import { installerTemplate } from '../../types/templates';
-import ModalHeader from '../../components/ui/ModalHeader';
-import Modal from '../../components/ui/Modal';
-import { MODAL_CENTER, MODAL_SMALL } from '../../types/consts';
+import { installerTemplate } from '@/types/templates';
+import ModalHeader from '@components/ui/ModalHeader';
+import Modal from '@components/ui/Modal';
+import { MODAL_CENTER, MODAL_SMALL } from '@/types/consts';
 
 interface Props {
   closeModal: () => void;

@@ -1,10 +1,10 @@
-import type { Service } from '../../types/types';
-import { MODAL_BIG, MODAL_START, statusClasses, statusLabels } from '../../types/consts';
-import ModalHeader from '../../components/ui/ModalHeader';
-import DisplayInfo from '../../components/ui/DisplayInfo';
-import DisplaySection from '../../components/ui/DisplaySection';
-import DisplaySubsection from '../../components/ui/DisplaySubsection';
-import Modal from '../../components/ui/Modal';
+import { MODAL_BIG, MODAL_START, statusClasses, statusLabels } from '@/types/consts';
+import ModalHeader from '@components/ui/ModalHeader';
+import DisplayInfo from '@components/ui/DisplayInfo';
+import DisplaySection from '@components/ui/DisplaySection';
+import DisplaySubsection from '@components/ui/DisplaySubsection';
+import Modal from '@components/ui/Modal';
+import type { Service } from '@/types/types';
 
 interface Props {
   closeModal: () => void;

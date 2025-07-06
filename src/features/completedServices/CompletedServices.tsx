@@ -1,13 +1,13 @@
 import { useState } from 'react';
-import ContentHeader from '../../components/ui/ContentHeader';
-import { useModal } from '../../hooks/useModal';
-import type { Service } from '../../types/types';
-import { serviceTemplate } from '../../types/templates';
-import { DISPLAY_COMPLETED_SERVICE, statusClasses, statusLabels } from '../../types/consts';
-import styles from '../activeServices/ActiveServices.module.css';
+import ContentHeader from '@components/ui/ContentHeader';
+import { useModal } from '@hooks/useModal';
+import type { Service } from '@/types/types';
+import { serviceTemplate } from '@/types/templates';
+import { DISPLAY_COMPLETED_SERVICE, statusClasses, statusLabels } from '@/types/consts';
+import styles from '@features/activeServices/ActiveServices.module.css';
+import DisplayService from '@features/activeServices/DisplayService';
 
-import { data2 } from '../../mock';
-import DisplayService from '../activeServices/DisplayService';
+import { data2 } from '@/mock';
 
 const CompletedServices = () => {
   //Delete this

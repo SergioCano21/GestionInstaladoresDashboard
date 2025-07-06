@@ -1,13 +1,13 @@
 import { useState } from 'react';
-import ContentHeader from '../../components/ui/ContentHeader';
+import ContentHeader from '@components/ui/ContentHeader';
 import styles from './ActiveServices.module.css';
 import AddService from './AddService';
 import DisplayService from './DisplayService';
 import EditService from './EditService';
-import { data } from '../../mock';
-import type { Service } from '../../types/types';
-import { serviceTemplate } from '../../types/templates';
-import { useModal } from '../../hooks/useModal';
+import { data } from '@/mock';
+import type { Service } from '@/types/types';
+import { serviceTemplate } from '@/types/templates';
+import { useModal } from '@hooks/useModal';
 import {
   ADD_ACTIVE_SERVICE,
   DISPLAY_ACTIVE_SERVICE,

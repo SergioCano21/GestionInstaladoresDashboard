@@ -1,4 +1,4 @@
-import type { Installer } from '../../types/types';
+import type { Installer } from '@/types/types';
 import styles from './Form.module.css';
 
 interface Props {

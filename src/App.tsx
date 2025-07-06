@@ -1,12 +1,12 @@
 import { Route, Routes } from 'react-router';
-import AuthLayout from './layouts/AuthLayout';
-import Login from './features/auth/Login';
-import DashboardLayout from './layouts/DashboardLayout';
-import ActiveServices from './features/activeServices/ActiveServices';
-import CompletedServices from './features/completedServices/CompletedServices';
-import Installers from './features/installers/Installers';
-import Stores from './features/stores/Stores';
-import Calendar from './features/calendar/Calendar';
+import AuthLayout from '@layouts/AuthLayout';
+import Login from '@features/auth/Login';
+import DashboardLayout from '@layouts/DashboardLayout';
+import ActiveServices from '@features/activeServices/ActiveServices';
+import CompletedServices from '@features/completedServices/CompletedServices';
+import Installers from '@features/installers/Installers';
+import Stores from '@features/stores/Stores';
+import Calendar from '@features/calendar/Calendar';
 
 const App = () => {
   return (

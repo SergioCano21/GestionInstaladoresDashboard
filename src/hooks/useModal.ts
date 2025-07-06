@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import type { ModalType } from '../types/types';
+import type { ModalType } from '@/types/types';
 
 export function useModal() {
   const [modal, setModal] = useState<ModalType>(null);

@@ -1,11 +1,11 @@
-import ContentHeader from '../../components/ui/ContentHeader';
-import { useModal } from '../../hooks/useModal';
-import { ADD_INSTALLER, DISPLAY_INSTALLER, statusClasses, statusLabels } from '../../types/consts';
+import ContentHeader from '@components/ui/ContentHeader';
+import { useModal } from '@hooks/useModal';
+import { ADD_INSTALLER, DISPLAY_INSTALLER, statusClasses, statusLabels } from '@/types/consts';
 
-import { installers } from '../../mock';
+import { installers } from '@/mock';
 import { useState } from 'react';
-import type { Installer } from '../../types/types';
-import { installerTemplate } from '../../types/templates';
+import type { Installer } from '@/types/types';
+import { installerTemplate } from '@/types/templates';
 import AddInstaller from './AddInstaller';
 import DisplayInstaller from './DisplayInstaller';
 const data = installers;

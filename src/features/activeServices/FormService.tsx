@@ -1,4 +1,4 @@
-import type { Service } from '../../types/types';
+import type { Service } from '@/types/types';
 import styles from './Form.module.css';
 
 interface Props {

@@ -1,10 +1,10 @@
-import type { Installer } from '../../types/types';
-import { MODAL_CENTER, MODAL_SMALL, statusClasses, statusLabels } from '../../types/consts';
-import DisplayInfo from '../../components/ui/DisplayInfo';
-import ModalHeader from '../../components/ui/ModalHeader';
-import DisplaySection from '../../components/ui/DisplaySection';
-import DisplaySubsection from '../../components/ui/DisplaySubsection';
-import Modal from '../../components/ui/Modal';
+import type { Installer } from '@/types/types';
+import { MODAL_CENTER, MODAL_SMALL, statusClasses, statusLabels } from '@/types/consts';
+import DisplayInfo from '@components/ui/DisplayInfo';
+import ModalHeader from '@components/ui/ModalHeader';
+import DisplaySection from '@components/ui/DisplaySection';
+import DisplaySubsection from '@components/ui/DisplaySubsection';
+import Modal from '@components/ui/Modal';
 
 interface Props {
   closeModal: () => void;

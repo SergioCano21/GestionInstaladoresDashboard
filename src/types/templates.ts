@@ -53,6 +53,11 @@ export const installerTemplate: Installer = {
   email: '',
   phone: '',
   company: '',
-  storeId: '',
+  storeId: [
+    {
+      name: '',
+      numStore: 0,
+    },
+  ],
   status: 'active',
 };
