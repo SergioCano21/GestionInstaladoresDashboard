@@ -4,7 +4,6 @@ import styles from './ActiveServices.module.css';
 import AddService from './AddService';
 import DisplayService from './DisplayService';
 import EditService from './EditService';
-import { data } from '@/mock';
 import type { Service } from '@/types/types';
 import { serviceTemplate } from '@/types/templates';
 import { useModal } from '@hooks/useModal';
@@ -15,6 +14,38 @@ import {
   statusClasses,
   statusLabels,
 } from '../../types/consts';
+import Table from '@/components/ui/table/Table';
+
+import { activeServices } from '@/mock';
+
+const columns = [
+  {
+    label: 'Folio',
+    cell: (row: Service) => row.folio,
+    headerClass: styles.widthFolio,
+  },
+  {
+    label: 'Instalador',
+    cell: (row: Service) => row.installerId.name,
+    headerClass: styles.widthName,
+  },
+  {
+    label: 'Cliente',
+    cell: (row: Service) => row.client,
+    headerClass: styles.widthName,
+  },
+  {
+    label: 'Descripción',
+    cell: (row: Service) => <div className={styles.description}>{row.description}</div>,
+    headerClass: styles.widthDescription,
+  },
+  {
+    label: 'Status',
+    cell: (row: Service) => (
+      <span className={`status ${statusClasses[row.status]}`}>{statusLabels[row.status]}</span>
+    ),
+  },
+];
 
 const ActiveServices = () => {
   const [service, setService] = useState<Service>(serviceTemplate);
@@ -39,41 +70,15 @@ const ActiveServices = () => {
             <option value="">Pendiente</option>
           </select>
         </div>
-        <table className={`table`}>
-          <thead className={`table-head`}>
-            <tr>
-              <th className={`table-header ${styles.widthFolio}`}>Folio</th>
-              <th className={`table-header ${styles.widthName}`}>Instalador</th>
-              <th className={`table-header ${styles.widthName}`}>Cliente</th>
-              <th className={`table-header ${styles.widthDescription}`}>Descripción</th>
-              <th className={`table-header`}>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((data, i) => (
-              <tr
-                key={i}
-                className={`table-row`}
-                onClick={() => {
-                  setService(data);
-                  openModal(DISPLAY_ACTIVE_SERVICE);
-                }}
-              >
-                <td className={`table-cell`}>{data.folio}</td>
-                <td className={`table-cell`}>{data.installerId.name}</td>
-                <td className={`table-cell`}>{data.client}</td>
-                <td className={`table-cell`}>
-                  <div className={styles.description}>{data.description}</div>
-                </td>
-                <td className={`table-cell`}>
-                  <span className={`status ${statusClasses[data.status]}`}>
-                    {statusLabels[data.status]}
-                  </span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+
+        <Table
+          columns={columns}
+          data={activeServices}
+          onRowClick={(service: Service) => {
+            setService(service);
+            openModal(DISPLAY_ACTIVE_SERVICE);
+          }}
+        />
       </section>
 
       {modal == ADD_ACTIVE_SERVICE && <AddService closeModal={closeModal} />}

@@ -3,8 +3,8 @@ import FormService from './FormService';
 import type { Service } from '@/types/types';
 import { serviceTemplate } from '@/types/templates';
 import { useFormHandler } from '@hooks/useFormHandler';
-import ModalHeader from '@components/ui/ModalHeader';
-import Modal from '@components/ui/Modal';
+import ModalHeader from '@/components/ui/modal/ModalHeader';
+import Modal from '@/components/ui/modal/Modal';
 import { MODAL_SMALL, MODAL_START } from '@/types/consts';
 
 interface Props {

@@ -2,8 +2,8 @@ import type { Installer } from '@/types/types';
 import { useState } from 'react';
 import { useFormHandler } from '@hooks/useFormHandler';
 import FormInstaller from './FormInstaller';
-import ModalHeader from '@components/ui/ModalHeader';
-import Modal from '@components/ui/Modal';
+import ModalHeader from '@/components/ui/modal/ModalHeader';
+import Modal from '@/components/ui/modal/Modal';
 import { MODAL_CENTER, MODAL_SMALL } from '@/types/consts';
 
 interface Props {

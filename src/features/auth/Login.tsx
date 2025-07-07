@@ -4,7 +4,7 @@ import styles from './Login.module.css';
 import type { LoginData } from '@/types/types';
 import { loginTemplate } from '@/types/templates';
 import { useFormHandler } from '@/hooks/useFormHandler';
-import FormInput from '@/components/ui/FormInput';
+import FormInput from '@/components/ui/form/FormInput';
 
 const Login = () => {
   const [formData, setFormData] = useState<LoginData>(loginTemplate);

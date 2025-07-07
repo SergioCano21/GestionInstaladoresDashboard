@@ -1,6 +1,6 @@
 import type { Installer, Service } from './types/types';
 
-export const data: Service[] = [
+export const activeServices: Service[] = [
   {
     folio: 48291,
     installerId: {
@@ -209,7 +209,7 @@ export const data: Service[] = [
   },
 ];
 
-export const data2: Service[] = [
+export const completedServices: Service[] = [
   {
     folio: 48296,
     installerId: {

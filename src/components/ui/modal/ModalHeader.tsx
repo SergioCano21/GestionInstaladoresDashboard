@@ -1,4 +1,4 @@
-import XMark from './XMark';
+import XMark from '../XMark';
 
 interface Props {
   title: string;

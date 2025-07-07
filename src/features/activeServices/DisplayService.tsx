@@ -1,12 +1,12 @@
 import { MODAL_BIG, MODAL_START, statusClasses, statusLabels } from '@/types/consts';
-import ModalHeader from '@components/ui/ModalHeader';
-import DisplayInfo from '@components/ui/DisplayInfo';
-import DisplaySection from '@components/ui/DisplaySection';
-import DisplaySubsection from '@components/ui/DisplaySubsection';
-import Modal from '@components/ui/Modal';
+import ModalHeader from '@/components/ui/modal/ModalHeader';
+import DisplayInfo from '@/components/ui/displayInfo/DisplayInfo';
+import DisplaySection from '@/components/ui/displayInfo/DisplaySection';
+import DisplaySubsection from '@/components/ui/displayInfo/DisplaySubsection';
+import Modal from '@/components/ui/modal/Modal';
 import type { Service } from '@/types/types';
-import ButtonSection from '@/components/ui/ButtonSection';
-import Button from '@/components/ui/Button';
+import ButtonSection from '@/components/ui/button/ButtonSection';
+import Button from '@/components/ui/button/Button';
 
 interface Props {
   closeModal: () => void;
@@ -115,23 +115,16 @@ const DisplayService = ({ closeModal, openEditModal, data }: Props) => {
           </DisplaySubsection>
         </DisplaySection>
 
-        {openEditModal && (
-          <ButtonSection>
-            <Button text="Cerrar" type="button" variant="close" onClick={closeModal} />
-
+        <ButtonSection>
+          <Button text="Cerrar" type="button" variant="close" onClick={closeModal} />
+          {openEditModal && (
             <div className={`flex gap-5`}>
               <Button text="Editar" type="button" variant="edit" onClick={openEditModal} />
               <Button text="Cancelar" type="button" variant="delete" onClick={handleDelete} />
             </div>
-          </ButtonSection>
-        )}
-
-        {!openEditModal && (
-          <ButtonSection>
-            <Button text="Cerrar" type="button" variant="close" onClick={closeModal} />
-            <Button text="PDF" type="button" variant="primary" />
-          </ButtonSection>
-        )}
+          )}
+          {!openEditModal && <Button text="PDF" type="button" variant="primary" />}
+        </ButtonSection>
       </Modal>
     </>
   );

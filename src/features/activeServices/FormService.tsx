@@ -1,13 +1,13 @@
 import type { Service } from '@/types/types';
-import FormInput from '@/components/ui/FormInput';
-import FormSubsection from '@/components/ui/FormSubsection';
-import FormTextArea from '@/components/ui/FormTextArea';
-import FormSection from '@/components/ui/FormSection';
-import FormSelect from '@/components/ui/FormSelect';
+import FormInput from '@/components/ui/form/FormInput';
+import FormSubsection from '@/components/ui/form/FormSubsection';
+import FormTextArea from '@/components/ui/form/FormTextarea';
+import FormSection from '@/components/ui/form/FormSection';
+import FormSelect from '@/components/ui/form/FormSelect';
 
 import { options } from '@/mock';
-import ButtonSection from '@/components/ui/ButtonSection';
-import Button from '@/components/ui/Button';
+import ButtonSection from '@/components/ui/button/ButtonSection';
+import Button from '@/components/ui/button/Button';
 
 interface Props {
   formData: Service;
@@ -55,7 +55,7 @@ const FormService = ({ formData, handleChange, closeModal, buttonText }: Props) 
             label="Teléfono del Cliente"
             id="phone"
             name="clientPhone"
-            type="number"
+            type="tel"
             placeholder="Teléfono"
             value={formData.clientPhone}
             onChange={handleChange}

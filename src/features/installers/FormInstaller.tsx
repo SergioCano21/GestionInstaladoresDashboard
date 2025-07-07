@@ -1,9 +1,9 @@
 import type { Installer } from '@/types/types';
-import FormSection from '@/components/ui/FormSection';
-import FormSubsection from '@/components/ui/FormSubsection';
-import FormInput from '@/components/ui/FormInput';
-import ButtonSection from '@/components/ui/ButtonSection';
-import Button from '@/components/ui/Button';
+import FormSection from '@/components/ui/form/FormSection';
+import FormSubsection from '@/components/ui/form/FormSubsection';
+import FormInput from '@/components/ui/form/FormInput';
+import ButtonSection from '@/components/ui/button/ButtonSection';
+import Button from '@/components/ui/button/Button';
 
 interface Props {
   formData: Installer;
@@ -52,7 +52,7 @@ const FormInstaller = ({ formData, handleChange, closeModal, buttonText }: Props
             label="Teléfono"
             id="phone"
             name="phone"
-            type="number"
+            type="tel"
             placeholder="Teléfono"
             value={formData.phone}
             onChange={handleChange}
