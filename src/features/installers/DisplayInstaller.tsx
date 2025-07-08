@@ -1,5 +1,11 @@
 import type { Installer } from '@/types/types';
-import { MODAL_CENTER, MODAL_SMALL, statusClasses, statusLabels } from '@/types/consts';
+import {
+  EDIT_INSTALLER,
+  MODAL_CENTER,
+  MODAL_SMALL,
+  statusClasses,
+  statusLabels,
+} from '@/types/consts';
 import DisplayInfo from '@/components/ui/displayInfo/DisplayInfo';
 import ModalHeader from '@/components/ui/modal/ModalHeader';
 import DisplaySection from '@/components/ui/displayInfo/DisplaySection';
@@ -10,16 +16,16 @@ import Button from '@/components/ui/button/Button';
 
 interface Props {
   closeModal: () => void;
-  openEditModal: () => void;
+  openModal: (modal: string) => void;
   data: Installer;
 }
 
-const DisplayInstaller = ({ closeModal, openEditModal, data }: Props) => {
+const DisplayInstaller = ({ closeModal, openModal, data }: Props) => {
   return (
     <>
       <Modal align={MODAL_CENTER} size={MODAL_SMALL}>
         <ModalHeader title="Detalles del Instalador" closeModal={closeModal} />
-        <DisplaySection title="Información General">
+        <DisplaySection title="Información General" isLast>
           <DisplaySubsection>
             <DisplayInfo label="ID" value={data.installerId} />
             <DisplayInfo
@@ -42,7 +48,12 @@ const DisplayInstaller = ({ closeModal, openEditModal, data }: Props) => {
 
         <ButtonSection>
           <Button text="Cerrar" type="button" variant="close" onClick={closeModal} />
-          <Button text="Editar" type="button" variant="edit" onClick={openEditModal} />
+          <Button
+            text="Editar"
+            type="button"
+            variant="edit"
+            onClick={() => openModal(EDIT_INSTALLER)}
+          />
         </ButtonSection>
       </Modal>
     </>

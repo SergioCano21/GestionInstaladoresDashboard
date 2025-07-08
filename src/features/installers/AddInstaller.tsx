@@ -1,37 +1,28 @@
-import type { Installer } from '@/types/types';
 import { useState } from 'react';
-import { useFormHandler } from '@hooks/useFormHandler';
-import FormInstaller from './FormInstaller';
-import { installerTemplate } from '@/types/templates';
 import ModalHeader from '@/components/ui/modal/ModalHeader';
 import Modal from '@/components/ui/modal/Modal';
-import { MODAL_CENTER, MODAL_SMALL } from '@/types/consts';
+import { ADD_FORM_EXIST, ADD_FORM_NEW, MODAL_CENTER, MODAL_SMALL } from '@/types/consts';
+import StepAddInstaller from './StepAddInstaller';
+import AddNewInstaller from './AddNewInstaller';
+import AddExistInstaller from './AddExistInstaller';
 
 interface Props {
   closeModal: () => void;
 }
 
 const AddInstaller = ({ closeModal }: Props) => {
-  const [formData, setFormData] = useState<Installer>(installerTemplate);
-
-  const { handleChange } = useFormHandler(setFormData);
-
-  const handleSubmit = () => {
-    alert('Instalador Agregado');
-    closeModal();
-  };
+  const [nextForm, setNextForm] = useState<undefined | string>();
   return (
     <>
       <Modal align={MODAL_CENTER} size={MODAL_SMALL}>
         <ModalHeader title="Agregar Instalador" closeModal={closeModal} />
-        <form action={handleSubmit} id="addInstallerForm">
-          <FormInstaller
-            formData={formData}
-            handleChange={handleChange}
-            closeModal={closeModal}
-            buttonText={'Agregar'}
-          />
-        </form>
+        {!nextForm && <StepAddInstaller closeModal={closeModal} nextForm={setNextForm} />}
+        {nextForm == ADD_FORM_NEW && (
+          <AddNewInstaller closeModal={closeModal} goBack={() => setNextForm(undefined)} />
+        )}
+        {nextForm == ADD_FORM_EXIST && (
+          <AddExistInstaller closeModal={closeModal} goBack={() => setNextForm(undefined)} />
+        )}
       </Modal>
     </>
   );

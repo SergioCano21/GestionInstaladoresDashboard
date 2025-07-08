@@ -15,10 +15,11 @@ interface Props {
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
   ) => void;
   closeModal: () => void;
-  buttonText: string;
+  submitText: string;
+  closeText: string;
 }
 
-const FormService = ({ formData, handleChange, closeModal, buttonText }: Props) => {
+const FormService = ({ formData, handleChange, closeModal, submitText, closeText }: Props) => {
   return (
     <>
       <FormSection>
@@ -112,21 +113,23 @@ const FormService = ({ formData, handleChange, closeModal, buttonText }: Props) 
         </FormSubsection>
       </FormSection>
 
-      <FormSubsection>
-        <FormTextArea
-          label="Comentarios Adicionales"
-          id="additionalComments"
-          name="additionalComments"
-          placeholder="Comentarios"
-          rows={4}
-          value={formData.additionalComments}
-          onChange={handleChange}
-        />
-      </FormSubsection>
+      <FormSection isLast>
+        <FormSubsection>
+          <FormTextArea
+            label="Comentarios Adicionales"
+            id="additionalComments"
+            name="additionalComments"
+            placeholder="Comentarios"
+            rows={4}
+            value={formData.additionalComments}
+            onChange={handleChange}
+          />
+        </FormSubsection>
+      </FormSection>
 
       <ButtonSection>
-        <Button text="Cerrar" type="button" variant="close" onClick={closeModal} />
-        <Button text={buttonText} type="submit" variant="primary" />
+        <Button text={closeText} type="button" variant="close" onClick={closeModal} />
+        <Button text={submitText} type="submit" variant="primary" />
       </ButtonSection>
     </>
   );

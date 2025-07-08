@@ -4,14 +4,15 @@ import { useFormHandler } from '@hooks/useFormHandler';
 import FormInstaller from './FormInstaller';
 import ModalHeader from '@/components/ui/modal/ModalHeader';
 import Modal from '@/components/ui/modal/Modal';
-import { MODAL_CENTER, MODAL_SMALL } from '@/types/consts';
+import { DISPLAY_INSTALLER, MODAL_CENTER, MODAL_SMALL } from '@/types/consts';
 
 interface Props {
   closeModal: () => void;
   data: Installer;
+  openModal: (modal: string) => void;
 }
 
-const EditInstaller = ({ closeModal, data }: Props) => {
+const EditInstaller = ({ closeModal, data, openModal }: Props) => {
   const [formData, setFormData] = useState<Installer>(data);
 
   const { handleChange } = useFormHandler(setFormData);
@@ -28,8 +29,9 @@ const EditInstaller = ({ closeModal, data }: Props) => {
           <FormInstaller
             formData={formData}
             handleChange={handleChange}
-            closeModal={closeModal}
-            buttonText={'Aceptar'}
+            closeModal={() => openModal(DISPLAY_INSTALLER)}
+            submitText={'Aceptar'}
+            closeText={'Regresar'}
           />
         </form>
       </Modal>

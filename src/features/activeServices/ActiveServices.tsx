@@ -83,13 +83,15 @@ const ActiveServices = () => {
 
       {modal == ADD_ACTIVE_SERVICE && <AddService closeModal={closeModal} />}
       {modal == DISPLAY_ACTIVE_SERVICE && (
-        <DisplayService
+        <DisplayService closeModal={closeModal} openModal={openModal} data={service} />
+      )}
+      {modal == EDIT_ACTIVE_SERVICE && (
+        <EditService
           closeModal={closeModal}
-          openEditModal={() => openModal(EDIT_ACTIVE_SERVICE)}
           data={service}
+          goBack={() => openModal(DISPLAY_ACTIVE_SERVICE)}
         />
       )}
-      {modal == EDIT_ACTIVE_SERVICE && <EditService closeModal={closeModal} data={service} />}
     </>
   );
 };

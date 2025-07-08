@@ -13,6 +13,9 @@ export const MODAL_BIG = 'modal-bg';
 export const MODAL_START = 'align-items-start';
 export const MODAL_CENTER = 'align-items-center';
 
+export const ADD_FORM_NEW = 'new';
+export const ADD_FORM_EXIST = 'exist';
+
 const STATUS = {
   TODO: 'To Do',
   DOING: 'Doing',

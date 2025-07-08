@@ -10,11 +10,10 @@ import {
 import { useState } from 'react';
 import type { Installer } from '@/types/types';
 import { installerTemplate } from '@/types/templates';
-import AddInstaller from './AddInstaller';
 import DisplayInstaller from './DisplayInstaller';
 import EditInstaller from './EditInstaller';
 import Table from '@/components/ui/table/Table';
-
+import AddInstaller from './AddInstaller';
 import { installers } from '@/mock';
 
 const columns = [
@@ -84,13 +83,11 @@ const Installers = () => {
       </section>
 
       {modal == ADD_INSTALLER && <AddInstaller closeModal={closeModal} />}
-      {modal == EDIT_INSTALLER && <EditInstaller data={installer} closeModal={closeModal} />}
+      {modal == EDIT_INSTALLER && (
+        <EditInstaller data={installer} closeModal={closeModal} openModal={openModal} />
+      )}
       {modal == DISPLAY_INSTALLER && (
-        <DisplayInstaller
-          closeModal={closeModal}
-          data={installer}
-          openEditModal={() => openModal(EDIT_INSTALLER)}
-        />
+        <DisplayInstaller closeModal={closeModal} data={installer} openModal={openModal} />
       )}
     </>
   );

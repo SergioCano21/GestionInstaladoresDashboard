@@ -9,9 +9,10 @@ import FormService from './FormService';
 interface Props {
   closeModal: () => void;
   data: Service;
+  goBack: () => void;
 }
 
-const EditService = ({ closeModal, data }: Props) => {
+const EditService = ({ closeModal, data, goBack }: Props) => {
   const [service, setService] = useState<Service>(data);
 
   const { handleChange } = useFormHandler(setService);
@@ -29,8 +30,9 @@ const EditService = ({ closeModal, data }: Props) => {
           <FormService
             formData={service}
             handleChange={handleChange}
-            closeModal={closeModal}
-            buttonText={'Aceptar'}
+            closeModal={goBack}
+            submitText={'Aceptar'}
+            closeText={'Regresar'}
           />
         </form>
       </Modal>

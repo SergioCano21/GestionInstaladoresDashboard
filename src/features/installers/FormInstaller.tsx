@@ -11,13 +11,14 @@ interface Props {
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
   ) => void;
   closeModal: () => void;
-  buttonText: string;
+  submitText: string;
+  closeText: string;
 }
 
-const FormInstaller = ({ formData, handleChange, closeModal, buttonText }: Props) => {
+const FormInstaller = ({ formData, handleChange, closeModal, submitText, closeText }: Props) => {
   return (
     <>
-      <FormSection>
+      <FormSection isLast>
         <FormSubsection>
           <FormInput
             label="ID"
@@ -72,8 +73,8 @@ const FormInstaller = ({ formData, handleChange, closeModal, buttonText }: Props
       </FormSection>
 
       <ButtonSection>
-        <Button text="Cerrar" type="button" variant="close" onClick={closeModal} />
-        <Button text={buttonText} type="submit" variant="primary" />
+        <Button text={closeText} type="button" variant="close" onClick={closeModal} />
+        <Button text={submitText} type="submit" variant="primary" />
       </ButtonSection>
     </>
   );
