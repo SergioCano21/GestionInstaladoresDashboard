@@ -57,11 +57,6 @@ const Installers = () => {
           <input type="text" placeholder="ID" className={`filter-input`} />
           <input type="text" placeholder="Nombre" className={`filter-input`} />
           <input type="text" placeholder="Tienda" className={`filter-input`} />
-          <select name="" id="" className={`filter-input`}>
-            <option value="">Status</option>
-            <option value="">Activo</option>
-            <option value="">Inactivo</option>
-          </select>
         </section>
 
         <Table

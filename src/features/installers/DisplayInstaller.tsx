@@ -1,5 +1,5 @@
 import type { Installer } from '@/types/types';
-import { EDIT, MODAL_CENTER, MODAL_SMALL, statusClasses, statusLabels } from '@/types/consts';
+import { EDIT, MODAL_CENTER, MODAL_SMALL } from '@/types/consts';
 import DisplayInfo from '@/components/ui/displayInfo/DisplayInfo';
 import ModalHeader from '@/components/ui/modal/ModalHeader';
 import DisplaySection from '@/components/ui/displayInfo/DisplaySection';
@@ -30,21 +30,26 @@ const DisplayInstaller = ({ closeModal, openModal, data }: Props) => {
         <DisplaySection title="Información General" isLast>
           <DisplaySubsection>
             <DisplayInfo label="ID" value={data.installerId} />
-            <DisplayInfo
-              label="Status"
-              value={statusLabels[data.status]}
-              statusColor={statusClasses[data.status]}
-            />
-          </DisplaySubsection>
-
-          <DisplaySubsection>
             <DisplayInfo label="Nombre" value={data.name} />
-            <DisplayInfo label="Teléfono" value={data.phone} />
           </DisplaySubsection>
 
           <DisplaySubsection>
+            <DisplayInfo label="Teléfono" value={data.phone} />
             <DisplayInfo label="Email" value={data.email} />
+          </DisplaySubsection>
+
+          <DisplaySubsection>
             <DisplayInfo label="Nombre de la Empresa" value={data.company} />
+            <DisplayInfo
+              label="Activo en Tienda"
+              value={data.storeId.map((storeData, i) => (
+                <span key={storeData.numStore}>
+                  {'#'}
+                  {storeData.numStore}&nbsp;{storeData.name}
+                  {i < data.storeId.length - 1 && <br />}
+                </span>
+              ))}
+            />
           </DisplaySubsection>
         </DisplaySection>
 
