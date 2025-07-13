@@ -1,10 +1,4 @@
-import {
-  EDIT_ACTIVE_SERVICE,
-  MODAL_BIG,
-  MODAL_START,
-  statusClasses,
-  statusLabels,
-} from '@/types/consts';
+import { EDIT, MODAL_BIG, MODAL_START, statusClasses, statusLabels } from '@/types/consts';
 import ModalHeader from '@/components/ui/modal/ModalHeader';
 import DisplayInfo from '@/components/ui/displayInfo/DisplayInfo';
 import DisplaySection from '@/components/ui/displayInfo/DisplaySection';
@@ -125,13 +119,8 @@ const DisplayService = ({ closeModal, openModal, data }: Props) => {
           <Button text="Cerrar" type="button" variant="close" onClick={closeModal} />
           {openModal && (
             <div className={`flex gap-5`}>
-              <Button
-                text="Editar"
-                type="button"
-                variant="edit"
-                onClick={() => openModal(EDIT_ACTIVE_SERVICE)}
-              />
-              <Button text="Cancelar" type="button" variant="delete" onClick={handleDelete} />
+              <Button text="Editar" type="button" variant="edit" onClick={() => openModal(EDIT)} />
+              <Button text="Eliminar" type="button" variant="delete" onClick={handleDelete} />
             </div>
           )}
           {!openModal && <Button text="Ver PDF" type="button" variant="primary" />}

@@ -61,3 +61,13 @@ export type ModalType = string | null;
 export type ServiceStatus = 'To Do' | 'Doing' | 'Done';
 
 export type InstallerStatus = 'active' | 'inactive';
+
+export interface Store {
+  numStore: number | '';
+  name: string;
+  phone: string;
+  address: string;
+  district: string;
+  state: string;
+  country: string;
+}

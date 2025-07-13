@@ -3,7 +3,7 @@ import ContentHeader from '@components/ui/ContentHeader';
 import { useModal } from '@hooks/useModal';
 import type { Service } from '@/types/types';
 import { serviceTemplate } from '@/types/templates';
-import { DISPLAY_COMPLETED_SERVICE, statusClasses, statusLabels } from '@/types/consts';
+import { DISPLAY, statusClasses, statusLabels } from '@/types/consts';
 import styles from '@features/activeServices/ActiveServices.module.css';
 import DisplayService from '@features/activeServices/DisplayService';
 import Table from '@/components/ui/table/Table';
@@ -64,14 +64,12 @@ const CompletedServices = () => {
           data={completedServices}
           onRowClick={(service: Service) => {
             setService(service);
-            openModal(DISPLAY_COMPLETED_SERVICE);
+            openModal(DISPLAY);
           }}
         />
       </section>
 
-      {modal == DISPLAY_COMPLETED_SERVICE && (
-        <DisplayService closeModal={closeModal} data={service} />
-      )}
+      {modal == DISPLAY && <DisplayService closeModal={closeModal} data={service} />}
     </>
   );
 };

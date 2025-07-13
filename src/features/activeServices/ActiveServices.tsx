@@ -7,13 +7,7 @@ import EditService from './EditService';
 import type { Service } from '@/types/types';
 import { serviceTemplate } from '@/types/templates';
 import { useModal } from '@hooks/useModal';
-import {
-  ADD_ACTIVE_SERVICE,
-  DISPLAY_ACTIVE_SERVICE,
-  EDIT_ACTIVE_SERVICE,
-  statusClasses,
-  statusLabels,
-} from '../../types/consts';
+import { ADD, DISPLAY, EDIT, statusClasses, statusLabels } from '../../types/consts';
 import Table from '@/components/ui/table/Table';
 
 import { activeServices } from '@/mock';
@@ -58,7 +52,7 @@ const ActiveServices = () => {
         <ContentHeader
           title="Administrar Servicios Activos"
           button="Agregar Servicio"
-          openModal={() => openModal(ADD_ACTIVE_SERVICE)}
+          openModal={() => openModal(ADD)}
         />
         <div className={`flex mb-20 gap-5`}>
           <input type="text" placeholder="Folio" className={`filter-input`} />
@@ -76,21 +70,17 @@ const ActiveServices = () => {
           data={activeServices}
           onRowClick={(service: Service) => {
             setService(service);
-            openModal(DISPLAY_ACTIVE_SERVICE);
+            openModal(DISPLAY);
           }}
         />
       </section>
 
-      {modal == ADD_ACTIVE_SERVICE && <AddService closeModal={closeModal} />}
-      {modal == DISPLAY_ACTIVE_SERVICE && (
+      {modal == ADD && <AddService closeModal={closeModal} />}
+      {modal == DISPLAY && (
         <DisplayService closeModal={closeModal} openModal={openModal} data={service} />
       )}
-      {modal == EDIT_ACTIVE_SERVICE && (
-        <EditService
-          closeModal={closeModal}
-          data={service}
-          goBack={() => openModal(DISPLAY_ACTIVE_SERVICE)}
-        />
+      {modal == EDIT && (
+        <EditService closeModal={closeModal} data={service} goBack={() => openModal(DISPLAY)} />
       )}
     </>
   );

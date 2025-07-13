@@ -1,12 +1,6 @@
-export const ADD_ACTIVE_SERVICE = 'add';
-export const EDIT_ACTIVE_SERVICE = 'edit';
-export const DISPLAY_ACTIVE_SERVICE = 'display';
-
-export const DISPLAY_COMPLETED_SERVICE = 'display';
-
-export const ADD_INSTALLER = 'add';
-export const EDIT_INSTALLER = 'edit';
-export const DISPLAY_INSTALLER = 'display';
+export const ADD = 'add';
+export const EDIT = 'edit';
+export const DISPLAY = 'display';
 
 export const MODAL_SMALL = 'modal-sm';
 export const MODAL_BIG = 'modal-bg';
@@ -37,3 +31,38 @@ export const statusClasses = {
   [STATUS.ACTIVE]: 'active',
   [STATUS.INACTIVE]: 'inactive',
 };
+
+export const statesMex = [
+  'Aguascalientes',
+  'Baja California',
+  'Baja California Sur',
+  'Campeche',
+  'Chiapas',
+  'Chihuahua',
+  'Ciudad de México',
+  'Coahuila',
+  'Colima',
+  'Durango',
+  'Estado de México',
+  'Guanajuato',
+  'Guerrero',
+  'Hidalgo',
+  'Jalisco',
+  'Michoacán',
+  'Morelos',
+  'Nayarit',
+  'Nuevo León',
+  'Oaxaca',
+  'Puebla',
+  'Querétaro',
+  'Quintana Roo',
+  'San Luis Potosí',
+  'Sinaloa',
+  'Sonora',
+  'Tabasco',
+  'Tamaulipas',
+  'Tlaxcala',
+  'Veracruz',
+  'Yucatán',
+  'Zacatecas',
+];

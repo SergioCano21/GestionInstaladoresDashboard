@@ -1,4 +1,4 @@
-import type { Installer, LoginData, Service } from './types';
+import type { Installer, LoginData, Service, Store } from './types';
 
 export const serviceTemplate: Service = {
   folio: '',
@@ -60,4 +60,14 @@ export const installerTemplate: Installer = {
     },
   ],
   status: 'active',
+};
+
+export const storeTemplate: Store = {
+  numStore: '',
+  name: '',
+  phone: '',
+  address: '',
+  district: '',
+  state: '',
+  country: '',
 };

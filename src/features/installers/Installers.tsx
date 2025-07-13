@@ -1,12 +1,6 @@
 import ContentHeader from '@components/ui/ContentHeader';
 import { useModal } from '@hooks/useModal';
-import {
-  ADD_INSTALLER,
-  DISPLAY_INSTALLER,
-  EDIT_INSTALLER,
-  statusClasses,
-  statusLabels,
-} from '@/types/consts';
+import { ADD, DISPLAY, EDIT } from '@/types/consts';
 import { useState } from 'react';
 import type { Installer } from '@/types/types';
 import { installerTemplate } from '@/types/templates';
@@ -26,6 +20,10 @@ const columns = [
     cell: (row: Installer) => row.name,
   },
   {
+    label: 'Teléfono',
+    cell: (row: Installer) => row.phone,
+  },
+  {
     label: 'Empresa',
     cell: (row: Installer) => row.company,
   },
@@ -38,12 +36,6 @@ const columns = [
           {i < row.storeId.length - 1 && <br />}
         </span>
       )),
-  },
-  {
-    label: 'Status',
-    cell: (row: Installer) => (
-      <span className={`status ${statusClasses[row.status]}`}>{statusLabels[row.status]}</span>
-    ),
   },
 ];
 
@@ -58,7 +50,7 @@ const Installers = () => {
         <ContentHeader
           title="Administrar Instaladores"
           button="Agregar Instalador"
-          openModal={() => openModal(ADD_INSTALLER)}
+          openModal={() => openModal(ADD)}
         />
 
         <section className={`flex mb-20 gap-5`}>
@@ -77,16 +69,16 @@ const Installers = () => {
           data={installers}
           onRowClick={(installer: Installer) => {
             setInstaller(installer);
-            openModal(DISPLAY_INSTALLER);
+            openModal(DISPLAY);
           }}
         />
       </section>
 
-      {modal == ADD_INSTALLER && <AddInstaller closeModal={closeModal} />}
-      {modal == EDIT_INSTALLER && (
+      {modal == ADD && <AddInstaller closeModal={closeModal} />}
+      {modal == EDIT && (
         <EditInstaller data={installer} closeModal={closeModal} openModal={openModal} />
       )}
-      {modal == DISPLAY_INSTALLER && (
+      {modal == DISPLAY && (
         <DisplayInstaller closeModal={closeModal} data={installer} openModal={openModal} />
       )}
     </>

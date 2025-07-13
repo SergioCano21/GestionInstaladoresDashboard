@@ -38,6 +38,8 @@ const FormService = ({ formData, handleChange, closeModal, submitText, closeText
             id="installerId"
             name="installerId"
             value={formData.installerId.installerId}
+            getOptionValue={(installer) => installer.installerId}
+            getOptionLabel={(installer) => installer.name}
             onChange={handleChange}
             options={options}
           />

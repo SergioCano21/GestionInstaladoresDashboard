@@ -1,4 +1,4 @@
-import type { Installer, Service } from './types/types';
+import type { Installer, Service, Store } from './types/types';
 
 export const activeServices: Service[] = [
   {
@@ -554,5 +554,97 @@ export const options = [
   {
     installerId: 1057,
     name: 'Patricia Sánchez Morales',
+  },
+];
+export const stores: Store[] = [
+  {
+    numStore: 1023,
+    name: 'Tienda Norte',
+    phone: '555-123-4567',
+    address: 'Av. Central 123',
+    district: 'Norte',
+    state: 'CDMX',
+    country: 'México',
+  },
+  {
+    numStore: 2045,
+    name: 'Comercial Sur',
+    phone: '555-987-6543',
+    address: 'Calle Sur 456',
+    district: 'Sur',
+    state: 'Jalisco',
+    country: 'México',
+  },
+  {
+    numStore: 3567,
+    name: 'Bodega Oriente',
+    phone: '555-234-7890',
+    address: 'Boulevard Oriente 78',
+    district: 'Oriente',
+    state: 'Nuevo León',
+    country: 'México',
+  },
+  {
+    numStore: 4098,
+    name: 'Sucursal Centro',
+    phone: '555-876-4321',
+    address: 'Centro Histórico 45',
+    district: 'Centro',
+    state: 'CDMX',
+    country: 'México',
+  },
+  {
+    numStore: 5124,
+    name: 'MaxiTienda Occidente',
+    phone: '555-321-4567',
+    address: 'Av. Occidente 99',
+    district: 'Occidente',
+    state: 'Jalisco',
+    country: 'México',
+  },
+  {
+    numStore: 6235,
+    name: 'Tienda Express Norte',
+    phone: '555-654-7890',
+    address: 'Calle Norte 14',
+    district: 'Norte',
+    state: 'CDMX',
+    country: 'México',
+  },
+  {
+    numStore: 7341,
+    name: 'Bazar del Sur',
+    phone: '555-213-8790',
+    address: 'Sur 2 #321',
+    district: 'Sur',
+    state: 'Puebla',
+    country: 'México',
+  },
+  {
+    numStore: 8452,
+    name: 'Mercado Oriente',
+    phone: '555-897-2314',
+    address: 'Oriente 67',
+    district: 'Oriente',
+    state: 'Veracruz',
+    country: 'México',
+  },
+  {
+    numStore: 9563,
+    name: 'Super Tienda Centro',
+    phone: '555-444-1122',
+    address: 'Centro 123',
+    district: 'Centro',
+    state: 'CDMX',
+    country: 'México',
+  },
+  {
+    numStore: 1092,
+    name: 'Almacén Occidente',
+    phone: '555-000-3344',
+    address: 'Occidente 12',
+    district: 'Occidente',
+    state: 'Jalisco',
+    country: 'México',
   },
 ];

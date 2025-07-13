@@ -1,25 +1,33 @@
 import type { ChangeEvent } from 'react';
 
-interface Props {
+interface Props<T> {
   label: string;
   id: string;
   name: string;
-  value: number | '';
-  options: {
-    installerId: number;
-    name: string;
-  }[];
+  value: string | number | '';
+  options: T[];
+  getOptionValue: (option: T) => string | number;
+  getOptionLabel: (option: T) => string;
   onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
 }
 
-const FormSelect = ({ label, id, name, value, options, onChange }: Props) => {
+const FormSelect = <T,>({
+  label,
+  id,
+  name,
+  value,
+  options,
+  getOptionValue,
+  getOptionLabel,
+  onChange,
+}: Props<T>) => {
   return (
-    <div className={`flex-1`}>
-      <label className={`label`} htmlFor={id}>
+    <div className="flex-1">
+      <label className="label" htmlFor={id}>
         {label}
       </label>
       <select
-        className={`form-input mb-20`}
+        className="form-input mb-20"
         name={name}
         id={id}
         required
@@ -28,7 +36,9 @@ const FormSelect = ({ label, id, name, value, options, onChange }: Props) => {
       >
         <option value="">Seleccionar</option>
         {options.map((option) => (
-          <option value={option.installerId}>{option.name}</option>
+          <option key={getOptionValue(option)} value={getOptionValue(option)}>
+            {getOptionLabel(option)}
+          </option>
         ))}
       </select>
     </div>

@@ -1,5 +1,5 @@
-import type { Installer } from '@/types/types';
-import { EDIT, MODAL_CENTER, MODAL_SMALL, statusClasses, statusLabels } from '@/types/consts';
+import type { Store } from '@/types/types';
+import { EDIT, MODAL_CENTER, MODAL_SMALL } from '@/types/consts';
 import DisplayInfo from '@/components/ui/displayInfo/DisplayInfo';
 import ModalHeader from '@/components/ui/modal/ModalHeader';
 import DisplaySection from '@/components/ui/displayInfo/DisplaySection';
@@ -11,12 +11,12 @@ import Button from '@/components/ui/button/Button';
 interface Props {
   closeModal: () => void;
   openModal: (modal: string) => void;
-  data: Installer;
+  data: Store;
 }
 
-const DisplayInstaller = ({ closeModal, openModal, data }: Props) => {
+const DisplayStore = ({ closeModal, openModal, data }: Props) => {
   const handleDelete = () => {
-    const result = confirm('¿Seguro que desea quitar al instalador?');
+    const result = confirm('¿Seguro que desea eliminar la tienda?');
     if (result) {
       alert('Eliminado correctamente');
       closeModal();
@@ -26,25 +26,25 @@ const DisplayInstaller = ({ closeModal, openModal, data }: Props) => {
   return (
     <>
       <Modal align={MODAL_CENTER} size={MODAL_SMALL}>
-        <ModalHeader title="Detalles del Instalador" closeModal={closeModal} />
+        <ModalHeader title="Detalles de la Tienda" closeModal={closeModal} />
         <DisplaySection title="Información General" isLast>
           <DisplaySubsection>
-            <DisplayInfo label="ID" value={data.installerId} />
-            <DisplayInfo
-              label="Status"
-              value={statusLabels[data.status]}
-              statusColor={statusClasses[data.status]}
-            />
-          </DisplaySubsection>
-
-          <DisplaySubsection>
+            <DisplayInfo label="ID" value={data.numStore} />
             <DisplayInfo label="Nombre" value={data.name} />
-            <DisplayInfo label="Teléfono" value={data.phone} />
           </DisplaySubsection>
 
           <DisplaySubsection>
-            <DisplayInfo label="Email" value={data.email} />
-            <DisplayInfo label="Nombre de la Empresa" value={data.company} />
+            <DisplayInfo label="Teléfono" value={data.phone} />
+            <DisplayInfo label="Distrito" value={data.district} />
+          </DisplaySubsection>
+
+          <DisplaySubsection>
+            <DisplayInfo label="Dirección" value={data.address} />
+          </DisplaySubsection>
+
+          <DisplaySubsection>
+            <DisplayInfo label="Estado" value={data.state} />
+            <DisplayInfo label="País" value={data.country} />
           </DisplaySubsection>
         </DisplaySection>
 
@@ -60,4 +60,4 @@ const DisplayInstaller = ({ closeModal, openModal, data }: Props) => {
   );
 };
 
-export default DisplayInstaller;
+export default DisplayStore;
