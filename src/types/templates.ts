@@ -1,4 +1,4 @@
-import type { Installer, LoginData, Service, Store } from './types';
+import type { Administrator, Installer, LoginData, Service, Store } from './types';
 
 export const serviceTemplate: Service = {
   folio: '',
@@ -70,4 +70,17 @@ export const storeTemplate: Store = {
   district: '',
   state: '',
   country: '',
+  deleted: false,
+};
+
+export const adminTemplate: Administrator = {
+  name: '',
+  email: '',
+  username: '',
+  role: '',
+  storeId: {
+    numStore: 0,
+    name: '',
+  },
+  deleted: false,
 };

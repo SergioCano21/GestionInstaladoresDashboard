@@ -123,7 +123,13 @@ const DisplayService = ({ closeModal, openModal, data }: Props) => {
               <Button text="Eliminar" type="button" variant="delete" onClick={handleDelete} />
             </div>
           )}
-          {!openModal && <Button text="Ver PDF" type="button" variant="primary" />}
+          {!openModal && (
+            <Button
+              text={data.status == 'Canceled' ? 'Restaurar' : 'Ver PDF'}
+              type="button"
+              variant="primary"
+            />
+          )}
         </ButtonSection>
       </Modal>
     </>

@@ -58,7 +58,7 @@ export interface Installer {
 
 export type ModalType = string | null;
 
-export type ServiceStatus = 'To Do' | 'Doing' | 'Done';
+export type ServiceStatus = 'To Do' | 'Doing' | 'Done' | 'Canceled';
 
 export type InstallerStatus = 'active' | 'inactive';
 
@@ -70,4 +70,19 @@ export interface Store {
   district: string;
   state: string;
   country: string;
+  deleted: boolean;
+}
+
+export interface Administrator {
+  name: string;
+  email: string;
+  username: string;
+  role: 'local' | 'district' | 'national' | '';
+  storeId: {
+    name: string;
+    numStore: number;
+  } | null;
+  district?: string;
+  country?: string;
+  deleted: boolean;
 }

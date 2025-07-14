@@ -1,4 +1,4 @@
-import type { Installer, Service, Store } from './types/types';
+import type { Administrator, Installer, Service, Store } from './types/types';
 
 export const activeServices: Service[] = [
   {
@@ -258,7 +258,7 @@ export const completedServices: Service[] = [
       name: 'Andrea Salazar Muñoz',
     },
     client: 'Víctor Hernández Ruiz',
-    status: 'Done',
+    status: 'Canceled',
     description: 'Instalación de antena de televisión satelital.',
     clientPhone: '5557890123',
     address: 'Av. Insurgentes 432, Col. Roma',
@@ -381,7 +381,7 @@ export const completedServices: Service[] = [
       name: 'Claudia Navarro Peña',
     },
     client: 'Óscar Mendoza Fuentes',
-    status: 'Done',
+    status: 'Canceled',
     description: 'Instalación de control de acceso biométrico.',
     clientPhone: '5550123456',
     address: 'Calle Álvaro Obregón 321, Col. Del Carmen',
@@ -565,6 +565,7 @@ export const stores: Store[] = [
     district: 'Norte',
     state: 'CDMX',
     country: 'México',
+    deleted: true,
   },
   {
     numStore: 2045,
@@ -574,6 +575,7 @@ export const stores: Store[] = [
     district: 'Sur',
     state: 'Jalisco',
     country: 'México',
+    deleted: false,
   },
   {
     numStore: 3567,
@@ -583,6 +585,7 @@ export const stores: Store[] = [
     district: 'Oriente',
     state: 'Nuevo León',
     country: 'México',
+    deleted: false,
   },
   {
     numStore: 4098,
@@ -592,6 +595,7 @@ export const stores: Store[] = [
     district: 'Centro',
     state: 'CDMX',
     country: 'México',
+    deleted: true,
   },
   {
     numStore: 5124,
@@ -601,6 +605,7 @@ export const stores: Store[] = [
     district: 'Occidente',
     state: 'Jalisco',
     country: 'México',
+    deleted: false,
   },
   {
     numStore: 6235,
@@ -610,6 +615,7 @@ export const stores: Store[] = [
     district: 'Norte',
     state: 'CDMX',
     country: 'México',
+    deleted: false,
   },
   {
     numStore: 7341,
@@ -619,6 +625,7 @@ export const stores: Store[] = [
     district: 'Sur',
     state: 'Puebla',
     country: 'México',
+    deleted: false,
   },
   {
     numStore: 8452,
@@ -628,6 +635,7 @@ export const stores: Store[] = [
     district: 'Oriente',
     state: 'Veracruz',
     country: 'México',
+    deleted: false,
   },
   {
     numStore: 9563,
@@ -637,6 +645,7 @@ export const stores: Store[] = [
     district: 'Centro',
     state: 'CDMX',
     country: 'México',
+    deleted: true,
   },
   {
     numStore: 1092,
@@ -646,5 +655,111 @@ export const stores: Store[] = [
     district: 'Occidente',
     state: 'Jalisco',
     country: 'México',
+    deleted: true,
+  },
+];
+
+export const administrators: Administrator[] = [
+  {
+    name: 'Ana Gómez',
+    email: 'ana.gomez@example.com',
+    username: 'anag',
+    role: 'local',
+    storeId: {
+      numStore: 1023,
+      name: 'Tienda Norte',
+    },
+    deleted: false,
+  },
+  {
+    name: 'Luis Martínez',
+    email: 'luis.martinez@example.com',
+    username: 'luism',
+    role: 'district',
+    district: 'Oriente',
+    storeId: null,
+    deleted: false,
+  },
+  {
+    name: 'Carla Ruiz',
+    email: 'carla.ruiz@example.com',
+    username: 'carlitaz',
+    role: 'local',
+    storeId: {
+      numStore: 2045,
+      name: 'Comercial Sur',
+    },
+    deleted: false,
+  },
+  {
+    name: 'Miguel Torres',
+    email: 'miguel.torres@example.com',
+    username: 'miguelt',
+    role: 'local',
+    storeId: {
+      numStore: 3567,
+      name: 'Bodega Oriente',
+    },
+    deleted: false,
+  },
+  {
+    name: 'Paula Sánchez',
+    email: 'paula.sanchez@example.com',
+    username: 'paulas',
+    role: 'national',
+    country: 'México',
+    storeId: null,
+    deleted: false,
+  },
+  {
+    name: 'Jorge Ramírez',
+    email: 'jorge.ramirez@example.com',
+    username: 'jorger',
+    role: 'local',
+    storeId: {
+      numStore: 4098,
+      name: 'Sucursal Centro',
+    },
+    deleted: true,
+  },
+  {
+    name: 'Verónica Herrera',
+    email: 'veronica.herrera@example.com',
+    username: 'vero.h',
+    role: 'district',
+    district: 'Oriente',
+    storeId: null,
+    deleted: false,
+  },
+  {
+    name: 'David Ríos',
+    email: 'david.rios@example.com',
+    username: 'drios',
+    role: 'local',
+    storeId: {
+      numStore: 5124,
+      name: 'MaxiTienda Occidente',
+    },
+    deleted: false,
+  },
+  {
+    name: 'Laura Flores',
+    email: 'laura.flores@example.com',
+    username: 'lflores',
+    role: 'local',
+    storeId: {
+      numStore: 6235,
+      name: 'Tienda Express Norte',
+    },
+    deleted: true,
+  },
+  {
+    name: 'Fernando Reyes',
+    email: 'fernando.reyes@example.com',
+    username: 'freyes',
+    role: 'national',
+    country: 'México',
+    storeId: null,
+    deleted: false,
   },
 ];

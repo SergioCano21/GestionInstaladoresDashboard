@@ -1,10 +1,11 @@
-import type { Store } from '@/types/types';
+import type { Administrator } from '@/types/types';
 import {
   ACTIVE,
   DELETED,
   EDIT,
   MODAL_CENTER,
   MODAL_SMALL,
+  roleLabels,
   statusClasses,
   statusLabels,
 } from '@/types/consts';
@@ -19,12 +20,12 @@ import Button from '@/components/ui/button/Button';
 interface Props {
   closeModal: () => void;
   openModal: (modal: string) => void;
-  data: Store;
+  data: Administrator;
 }
 
-const DisplayStore = ({ closeModal, openModal, data }: Props) => {
+const DisplayAdmin = ({ closeModal, openModal, data }: Props) => {
   const handleDelete = () => {
-    const result = confirm('¿Seguro que desea eliminar la tienda?');
+    const result = confirm('¿Seguro que desea eliminar al administrador?');
     if (result) {
       alert('Eliminado correctamente');
       closeModal();
@@ -34,10 +35,10 @@ const DisplayStore = ({ closeModal, openModal, data }: Props) => {
   return (
     <>
       <Modal align={MODAL_CENTER} size={MODAL_SMALL}>
-        <ModalHeader title="Detalles de la Tienda" closeModal={closeModal} />
+        <ModalHeader title="Detalles del Administrador" closeModal={closeModal} />
         <DisplaySection title="Información General" isLast>
           <DisplaySubsection>
-            <DisplayInfo label="ID" value={data.numStore} />
+            <DisplayInfo label="Username" value={data.username} />
             <DisplayInfo
               label="Status"
               value={statusLabels[data.deleted ? DELETED : ACTIVE]}
@@ -47,17 +48,28 @@ const DisplayStore = ({ closeModal, openModal, data }: Props) => {
 
           <DisplaySubsection>
             <DisplayInfo label="Nombre" value={data.name} />
-            <DisplayInfo label="Teléfono" value={data.phone} />
+            <DisplayInfo label="Email" value={data.email} />
           </DisplaySubsection>
 
           <DisplaySubsection>
-            <DisplayInfo label="Dirección" value={data.address} />
-            <DisplayInfo label="Distrito" value={data.district} />
+            <DisplayInfo label="Rol" value={roleLabels[data.role]} />
+            <DisplayInfo
+              label="Tienda"
+              value={
+                data.storeId ? (
+                  <span>
+                    #{data.storeId.numStore}&nbsp;{data.storeId.name}
+                  </span>
+                ) : (
+                  <span>N/A</span>
+                )
+              }
+            />
           </DisplaySubsection>
 
           <DisplaySubsection>
-            <DisplayInfo label="Estado" value={data.state} />
-            <DisplayInfo label="País" value={data.country} />
+            <DisplayInfo label="Distrito" value={data.district ?? 'N/A'} />
+            <DisplayInfo label="País" value={data.country ?? 'N/A'} />
           </DisplaySubsection>
         </DisplaySection>
 
@@ -87,4 +99,4 @@ const DisplayStore = ({ closeModal, openModal, data }: Props) => {
   );
 };
 
-export default DisplayStore;
+export default DisplayAdmin;

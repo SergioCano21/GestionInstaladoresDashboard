@@ -7,6 +7,7 @@ import CompletedServices from '@features/completedServices/CompletedServices';
 import Installers from '@features/installers/Installers';
 import Stores from '@features/stores/Stores';
 import Calendar from '@features/calendar/Calendar';
+import Administrators from './features/administrators/Administrators';
 
 const App = () => {
   return (
@@ -57,6 +58,14 @@ const App = () => {
           element={
             <DashboardLayout>
               <Calendar />
+            </DashboardLayout>
+          }
+        />
+        <Route
+          path="administradores"
+          element={
+            <DashboardLayout>
+              <Administrators />
             </DashboardLayout>
           }
         />

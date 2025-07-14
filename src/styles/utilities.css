@@ -83,6 +83,10 @@ input[type='number']::-webkit-outer-spin-button {
   color: var(--color-completed);
   background-color: var(--color-completed-background);
 }
+.deleted {
+  color: var(--color-deleted);
+  background-color: var(--color-deleted-background);
+}
 .btn {
   border: none;
   font-family: inherit;

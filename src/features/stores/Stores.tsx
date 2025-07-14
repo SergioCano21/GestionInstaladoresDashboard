@@ -1,7 +1,7 @@
 import ContentHeader from '@/components/ui/ContentHeader';
 import Table from '@/components/ui/table/Table';
 import { useModal } from '@/hooks/useModal';
-import { ADD, DISPLAY, EDIT } from '@/types/consts';
+import { ACTIVE, ADD, DELETED, DISPLAY, EDIT, statusClasses, statusLabels } from '@/types/consts';
 import { storeTemplate } from '@/types/templates';
 import type { Store } from '@/types/types';
 import { useState } from 'react';
@@ -26,6 +26,16 @@ const columns = [
   {
     label: 'Dirección',
     cell: (row: Store) => row.address,
+  },
+  {
+    label: 'Status',
+    cell: (row: Store) => {
+      return (
+        <span className={`status ${statusClasses[row.deleted ? DELETED : ACTIVE]}`}>
+          {statusLabels[row.deleted ? DELETED : ACTIVE]}
+        </span>
+      );
+    },
   },
 ];
 

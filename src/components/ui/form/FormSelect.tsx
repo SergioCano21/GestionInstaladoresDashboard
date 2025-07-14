@@ -4,7 +4,7 @@ interface Props<T> {
   label: string;
   id: string;
   name: string;
-  value: string | number | '';
+  value: string | number | '' | undefined;
   options: T[];
   getOptionValue: (option: T) => string | number;
   getOptionLabel: (option: T) => string;

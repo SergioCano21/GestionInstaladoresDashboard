@@ -56,7 +56,12 @@ const Installers = () => {
         <section className={`flex mb-20 gap-5`}>
           <input type="text" placeholder="ID" className={`filter-input`} />
           <input type="text" placeholder="Nombre" className={`filter-input`} />
-          <input type="text" placeholder="Tienda" className={`filter-input`} />
+          <select name="" id="" className={`filter-input`}>
+            <option value="">Tienda</option>
+            <option value="">1</option>
+            <option value="">2</option>
+            <option value="">3</option>
+          </select>
         </section>
 
         <Table

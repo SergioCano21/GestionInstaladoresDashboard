@@ -10,26 +10,43 @@ export const MODAL_CENTER = 'align-items-center';
 export const ADD_FORM_NEW = 'new';
 export const ADD_FORM_EXIST = 'exist';
 
+export const DELETED = 'Deleted';
+export const ACTIVE = 'Active';
+
 const STATUS = {
   TODO: 'To Do',
   DOING: 'Doing',
   DONE: 'Done',
-  ACTIVE: 'active',
-  INACTIVE: 'inactive',
+  CANCELED: 'Canceled',
+  ACTIVE: 'Active',
+  DELETED: 'Deleted',
 } as const;
 export const statusLabels = {
   [STATUS.TODO]: 'Pendiente',
   [STATUS.DOING]: 'Progreso',
   [STATUS.DONE]: 'Terminado',
+  [STATUS.CANCELED]: 'Cancelado',
   [STATUS.ACTIVE]: 'Activo',
-  [STATUS.INACTIVE]: 'Inactivo',
+  [STATUS.DELETED]: 'Eliminado',
 };
 export const statusClasses = {
   [STATUS.TODO]: 'pending',
   [STATUS.DOING]: 'progress',
   [STATUS.DONE]: 'done',
+  [STATUS.CANCELED]: 'deleted',
   [STATUS.ACTIVE]: 'active',
-  [STATUS.INACTIVE]: 'inactive',
+  [STATUS.DELETED]: 'deleted',
+};
+
+export const ROLE = {
+  LOCAL: 'local',
+  DISTRICT: 'district',
+  NATIONAL: 'national',
+};
+export const roleLabels = {
+  [ROLE.LOCAL]: 'Local',
+  [ROLE.DISTRICT]: 'Distrital',
+  [ROLE.NATIONAL]: 'Nacional',
 };
 
 export const statesMex = [
@@ -65,4 +82,19 @@ export const statesMex = [
   'Veracruz',
   'Yucatán',
   'Zacatecas',
+];
+
+export const roleOptions = [
+  {
+    label: roleLabels[ROLE.LOCAL],
+    value: ROLE.LOCAL,
+  },
+  {
+    label: roleLabels[ROLE.DISTRICT],
+    value: ROLE.DISTRICT,
+  },
+  {
+    label: roleLabels[ROLE.NATIONAL],
+    value: ROLE.NATIONAL,
+  },
 ];
