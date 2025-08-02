@@ -4,7 +4,7 @@ import logo from '@/assets/images/logo.svg';
 const Header = () => {
   return (
     <>
-      <section
+      <header
         className={`flex align-items-center justify-content-center box-shadow ${styles.header}`}
       >
         <div className={`flex justify-content-between ${styles.container}`}>
@@ -17,7 +17,7 @@ const Header = () => {
             <button className={styles.btn}>Cerrar Sesión</button>
           </div>
         </div>
-      </section>
+      </header>
     </>
   );
 };

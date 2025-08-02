@@ -31,9 +31,10 @@ const navLinks = [
 const Sidebar = () => {
   return (
     <>
-      <section className={`card box-shadow ${styles.container}`}>
+      <aside className={`card box-shadow ${styles.container}`}>
         {navLinks.map((navLink) => (
           <NavLink
+            key={navLink.link}
             to={navLink.link}
             className={({ isActive }) =>
               `flex align-items-center ${styles.tabs} ${isActive ? styles.active : ''}`
@@ -42,7 +43,7 @@ const Sidebar = () => {
             {navLink.label}
           </NavLink>
         ))}
-      </section>
+      </aside>
     </>
   );
 };

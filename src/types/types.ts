@@ -86,3 +86,12 @@ export interface Administrator {
   country?: string;
   deleted: boolean;
 }
+
+export interface Schedule {
+  date: string;
+  startTime: string;
+  endTime: string;
+  installerId: number | '';
+  serviceId: string;
+  type: 'Service' | 'Block';
+}

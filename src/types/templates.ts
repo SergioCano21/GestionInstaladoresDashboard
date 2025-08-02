@@ -1,4 +1,4 @@
-import type { Administrator, Installer, LoginData, Service, Store } from './types';
+import type { Administrator, Installer, LoginData, Schedule, Service, Store } from './types';
 
 export const serviceTemplate: Service = {
   folio: '',
@@ -83,4 +83,13 @@ export const adminTemplate: Administrator = {
     name: '',
   },
   deleted: false,
+};
+
+export const scheduleTemplate: Schedule = {
+  startTime: '',
+  endTime: '',
+  installerId: '',
+  serviceId: '',
+  type: 'Service',
+  date: '',
 };

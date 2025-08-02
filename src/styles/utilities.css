@@ -49,6 +49,7 @@ input[type='number']::-webkit-outer-spin-button {
   display: flex;
   justify-content: center;
   overflow: auto;
+  z-index: 1000;
 }
 .modal-sm {
   width: 600px;
@@ -260,4 +261,46 @@ input[type='number']::-webkit-outer-spin-button {
   display: flex;
   gap: 15px;
   margin-top: 15px;
+}
+.fc-toolbar-title {
+  font-weight: 400;
+  font-size: 26px !important;
+  text-transform: capitalize;
+}
+.fc-col-header-cell-cushion {
+  font-weight: 500;
+}
+.fc {
+  position: relative;
+  z-index: 0;
+}
+.fc-button {
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  line-height: 1 !important;
+  padding: 10px 15px !important;
+  border-radius: 4px !important;
+  color: var(--color-black) !important;
+  background-color: var(--color-white) !important;
+  border: 1px solid var(--color-medium-gray) !important;
+  box-shadow: none !important;
+  transition: all 0.1s ease !important;
+}
+.fc-button-active {
+  background-color: var(--color-primary) !important;
+  color: var(--color-white) !important;
+  border-color: var(--color-primary) !important;
+}
+.fc-next-button,
+.fc-prev-button {
+  padding: 6px 10px !important;
+}
+.fc-next-button:hover,
+.fc-prev-button:hover {
+  background-color: var(--color-primary) !important;
+  color: var(--color-white) !important;
+  border-color: var(--color-primary) !important;
+}
+.fc--button {
+  border: none !important;
 }

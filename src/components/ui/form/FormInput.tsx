@@ -8,7 +8,9 @@ interface Props {
   placeholder: string;
   isJobDetail?: boolean;
   value: string | number;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  readonly?: boolean;
+  step?: string;
 }
 
 const FormInput = ({
@@ -19,6 +21,8 @@ const FormInput = ({
   placeholder,
   isJobDetail = false,
   value,
+  readonly = false,
+  step = 'any',
   onChange,
 }: Props) => {
   return (
@@ -36,6 +40,8 @@ const FormInput = ({
         required
         value={value}
         onChange={onChange}
+        readOnly={readonly}
+        step={step}
         data-job-detail={isJobDetail ? 'true' : undefined}
       />
     </div>

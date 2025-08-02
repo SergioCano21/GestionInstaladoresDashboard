@@ -34,7 +34,9 @@ const FormSelect = <T,>({
         value={value}
         onChange={onChange}
       >
-        <option value="">Seleccionar</option>
+        <option hidden selected value="">
+          Seleccionar
+        </option>
         {options.map((option) => (
           <option key={getOptionValue(option)} value={getOptionValue(option)}>
             {getOptionLabel(option)}

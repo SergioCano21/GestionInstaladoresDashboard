@@ -4,7 +4,7 @@ import FormInput from '@/components/ui/form/FormInput';
 import FormSection from '@/components/ui/form/FormSection';
 import FormSelect from '@/components/ui/form/FormSelect';
 import FormSubsection from '@/components/ui/form/FormSubsection';
-import { ROLE, roleOptions } from '@/types/consts';
+import { countryOptions, districtOptions, ROLE, roleOptions } from '@/types/consts';
 import type { Administrator } from '@/types/types';
 
 interface Props {
@@ -83,10 +83,10 @@ const FormAdmin = ({ formData, handleChange, closeModal, closeText, submitText }
               id="district"
               name="district"
               value={formData.district}
-              options={roleOptions}
+              options={districtOptions}
               onChange={handleChange}
-              getOptionLabel={(role) => role.label}
-              getOptionValue={(role) => role.value}
+              getOptionLabel={(district) => district}
+              getOptionValue={(district) => district}
             />
           )}
           {formData.role == ROLE.NATIONAL && (
@@ -95,10 +95,10 @@ const FormAdmin = ({ formData, handleChange, closeModal, closeText, submitText }
               id="country"
               name="country"
               value={formData.country}
-              options={roleOptions}
+              options={countryOptions}
               onChange={handleChange}
-              getOptionLabel={(role) => role.label}
-              getOptionValue={(role) => role.value}
+              getOptionLabel={(country) => country}
+              getOptionValue={(country) => country}
             />
           )}
         </FormSubsection>

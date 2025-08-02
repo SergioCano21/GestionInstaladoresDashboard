@@ -1,4 +1,4 @@
-import type { Administrator, Installer, Service, Store } from './types/types';
+import type { Administrator, Installer, Schedule, Service, Store } from './types/types';
 
 export const activeServices: Service[] = [
   {
@@ -761,5 +761,24 @@ export const administrators: Administrator[] = [
     country: 'México',
     storeId: null,
     deleted: false,
+  },
+];
+
+export const schedules: Schedule[] = [
+  {
+    serviceId: '1234',
+    date: '2025-07-20',
+    startTime: '08:00',
+    endTime: '10:00',
+    installerId: 1234,
+    type: 'Service',
+  },
+  {
+    serviceId: '5678',
+    date: '2025-07-21',
+    startTime: '09:00',
+    endTime: '11:00',
+    installerId: 2345,
+    type: 'Block',
   },
 ];
