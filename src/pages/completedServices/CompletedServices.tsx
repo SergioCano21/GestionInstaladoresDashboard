@@ -4,8 +4,8 @@ import { useModal } from '@hooks/useModal';
 import type { Service } from '@/types/types';
 import { serviceTemplate } from '@/types/templates';
 import { DISPLAY, statusClasses, statusLabels } from '@/types/consts';
-import styles from '@features/activeServices/ActiveServices.module.css';
-import DisplayService from '@features/activeServices/DisplayService';
+import styles from '@pages/activeServices/ActiveServices.module.css';
+import DisplayService from '@pages/activeServices/DisplayService';
 import Table from '@/components/ui/table/Table';
 
 import { completedServices } from '@/mock';
