@@ -6,6 +6,7 @@ interface Props {
   name: string;
   type: string;
   placeholder: string;
+  disabled?: boolean;
   isJobDetail?: boolean;
   value: string | number;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -22,6 +23,7 @@ const FormInput = ({
   isJobDetail = false,
   value,
   readonly = false,
+  disabled = false,
   step = 'any',
   onChange,
 }: Props) => {
@@ -36,6 +38,7 @@ const FormInput = ({
         name={name}
         type={type}
         placeholder={placeholder}
+        disabled={disabled}
         min={1}
         required
         value={value}

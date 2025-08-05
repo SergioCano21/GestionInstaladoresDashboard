@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router';
 import styles from './Sidebar.module.css';
+import { useSelector } from 'react-redux';
 
 const navLinks = [
   {
@@ -17,6 +18,7 @@ const navLinks = [
   {
     link: '/tiendas',
     label: 'Tiendas',
+    onlyForRoles: ['district', 'national'],
   },
   {
     link: '/instaladores',
@@ -25,24 +27,32 @@ const navLinks = [
   {
     link: '/administradores',
     label: 'Administradores',
+    onlyForRoles: ['district', 'national'],
   },
 ];
 
 const Sidebar = () => {
+  const role = useSelector((state: any) => state.auth.role);
+
   return (
     <>
       <aside className={`card box-shadow ${styles.container}`}>
-        {navLinks.map((navLink) => (
-          <NavLink
-            key={navLink.link}
-            to={navLink.link}
-            className={({ isActive }) =>
-              `flex align-items-center ${styles.tabs} ${isActive ? styles.active : ''}`
-            }
-          >
-            {navLink.label}
-          </NavLink>
-        ))}
+        {navLinks.map((navLink) => {
+          if (navLink.onlyForRoles && !navLink.onlyForRoles.includes(role)) {
+            return null;
+          }
+          return (
+            <NavLink
+              key={navLink.link}
+              to={navLink.link}
+              className={({ isActive }) =>
+                `flex align-items-center ${styles.tabs} ${isActive ? styles.active : ''}`
+              }
+            >
+              {navLink.label}
+            </NavLink>
+          );
+        })}
       </aside>
     </>
   );
