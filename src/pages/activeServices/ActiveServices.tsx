@@ -7,10 +7,11 @@ import EditService from './EditService';
 import type { Service } from '@/types/types';
 import { serviceTemplate } from '@/types/templates';
 import { useModal } from '@hooks/useModal';
-import { ADD, DISPLAY, EDIT, statusClasses, statusLabels } from '../../types/consts';
+import { ADD, DISPLAY, EDIT, ROLE, statusClasses, statusLabels } from '@/types/consts';
 import Table from '@/components/ui/table/Table';
-
-import { activeServices } from '@/mock';
+import { getServices } from '@/api/services';
+import { useQuery } from '@tanstack/react-query';
+import { useSelector } from 'react-redux';
 
 const columns = [
   {
@@ -30,7 +31,9 @@ const columns = [
   },
   {
     label: 'Descripción',
-    cell: (row: Service) => <div className={styles.description}>{row.description}</div>,
+    cell: (row: Service) => (
+      <div className={styles.description}>{row.jobDetails[0].description}</div>
+    ),
     headerClass: styles.widthDescription,
   },
   {
@@ -43,16 +46,24 @@ const columns = [
 
 const ActiveServices = () => {
   const [service, setService] = useState<Service>(serviceTemplate);
-
   const { modal, openModal, closeModal } = useModal();
+  const role = useSelector((state: any) => state.auth.role);
 
+  const { data: services, isLoading } = useQuery({
+    queryKey: ['services'],
+    queryFn: getServices,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
+
+  if (isLoading) return null;
   return (
     <>
       <section>
         <ContentHeader
           title="Administrar Servicios Activos"
-          button="Agregar Servicio"
-          openModal={() => openModal(ADD)}
+          button={role === ROLE.LOCAL ? 'Agregar Servicio' : undefined}
+          openModal={role === ROLE.LOCAL ? () => openModal(ADD) : undefined}
         />
         <div className={`flex mb-20 gap-5`}>
           <input type="text" placeholder="Folio" className={`filter-input`} />
@@ -67,7 +78,7 @@ const ActiveServices = () => {
 
         <Table
           columns={columns}
-          data={activeServices}
+          data={services}
           onRowClick={(service: Service) => {
             setService(service);
             openModal(DISPLAY);

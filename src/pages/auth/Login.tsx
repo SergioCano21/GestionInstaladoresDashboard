@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import logo from '@/assets/images/logo.svg';
 import styles from './Login.module.css';
-import type { LoginData } from '@/types/types';
+import type { LoginForm } from '@/types/types';
 import { loginTemplate } from '@/types/templates';
 import { useFormHandler } from '@/hooks/useFormHandler';
 import FormInput from '@/components/ui/form/FormInput';
@@ -10,12 +10,17 @@ import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { setAuth } from '@/redux/auth/authSlice';
 import Cookies from 'js-cookie';
+import { Navigate } from 'react-router';
 
 const Login = () => {
+  if (Cookies.get('access_token')) {
+    return <Navigate to="/servicios-activos" replace />;
+  }
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [formData, setFormData] = useState<LoginData>(loginTemplate);
+  const [formData, setFormData] = useState<LoginForm>(loginTemplate);
   const [isLoading, setIsLoading] = useState(false);
 
   const { handleChange } = useFormHandler(setFormData);
@@ -33,13 +38,6 @@ const Login = () => {
       setIsLoading(false);
     }
   };
-
-  useEffect(() => {
-    if (Cookies.get('access_token')) {
-      // User is already logged in
-      navigate('/servicios-activos', { replace: true });
-    }
-  }, []);
 
   return (
     <>

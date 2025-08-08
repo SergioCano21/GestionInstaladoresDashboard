@@ -1,5 +1,5 @@
 import type { Installer } from '@/types/types';
-import { EDIT, MODAL_CENTER, MODAL_SMALL } from '@/types/consts';
+import { EDIT, MODAL_CENTER, MODAL_SMALL, ROLE } from '@/types/consts';
 import DisplayInfo from '@/components/ui/displayInfo/DisplayInfo';
 import ModalHeader from '@/components/ui/modal/ModalHeader';
 import DisplaySection from '@/components/ui/displayInfo/DisplaySection';
@@ -7,6 +7,7 @@ import DisplaySubsection from '@/components/ui/displayInfo/DisplaySubsection';
 import Modal from '@/components/ui/modal/Modal';
 import ButtonSection from '@/components/ui/button/ButtonSection';
 import Button from '@/components/ui/button/Button';
+import { useSelector } from 'react-redux';
 
 interface Props {
   closeModal: () => void;
@@ -15,6 +16,8 @@ interface Props {
 }
 
 const DisplayInstaller = ({ closeModal, openModal, data }: Props) => {
+  const role = useSelector((state: any) => state.auth.role);
+
   const handleDelete = () => {
     const result = confirm('¿Seguro que desea quitar al instalador?');
     if (result) {
@@ -55,10 +58,12 @@ const DisplayInstaller = ({ closeModal, openModal, data }: Props) => {
 
         <ButtonSection>
           <Button text="Cerrar" type="button" variant="close" onClick={closeModal} />
-          <div className={`flex gap-5`}>
-            <Button text="Editar" type="button" variant="edit" onClick={() => openModal(EDIT)} />
-            <Button text="Eliminar" type="button" variant="delete" onClick={handleDelete} />
-          </div>
+          {role === ROLE.LOCAL && (
+            <div className={`flex gap-5`}>
+              <Button text="Editar" type="button" variant="edit" onClick={() => openModal(EDIT)} />
+              <Button text="Eliminar" type="button" variant="delete" onClick={handleDelete} />
+            </div>
+          )}
         </ButtonSection>
       </Modal>
     </>

@@ -38,8 +38,8 @@ const FormService = ({ formData, handleChange, closeModal, submitText, closeText
             id="installerId"
             name="installerId"
             value={formData.installerId.installerId}
-            getOptionValue={(installer) => installer.installerId}
-            getOptionLabel={(installer) => installer.name}
+            getOptionValue={(installer) => installer._id}
+            getOptionLabel={(installer) => `${installer.installerId} | ${installer.name}`}
             onChange={handleChange}
             options={options}
           />
@@ -124,6 +124,7 @@ const FormService = ({ formData, handleChange, closeModal, submitText, closeText
             placeholder="Comentarios"
             rows={4}
             value={formData.additionalComments}
+            required={false}
             onChange={handleChange}
           />
         </FormSubsection>

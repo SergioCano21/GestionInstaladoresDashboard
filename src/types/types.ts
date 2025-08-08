@@ -1,4 +1,4 @@
-export interface LoginData {
+export interface LoginForm {
   username: string;
   password: string;
 }
@@ -63,6 +63,7 @@ export type ServiceStatus = 'To Do' | 'Doing' | 'Done' | 'Canceled';
 export type InstallerStatus = 'active' | 'inactive';
 
 export interface Store {
+  _id: string;
   numStore: number | '';
   name: string;
   phone: string;
@@ -74,11 +75,13 @@ export interface Store {
 }
 
 export interface Administrator {
+  _id: string;
   name: string;
   email: string;
   username: string;
   role: 'local' | 'district' | 'national' | '';
   storeId: {
+    _id: string;
     name: string;
     numStore: number;
   } | null;

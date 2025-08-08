@@ -1,4 +1,4 @@
-import type { Administrator, Installer, LoginData, Schedule, Service, Store } from './types';
+import type { Administrator, Installer, LoginForm, Schedule, Service, Store } from './types';
 
 export const serviceTemplate: Service = {
   folio: '',
@@ -42,7 +42,7 @@ export const serviceTemplate: Service = {
   },
 };
 
-export const loginTemplate: LoginData = {
+export const loginTemplate: LoginForm = {
   username: '',
   password: '',
 };
@@ -63,6 +63,7 @@ export const installerTemplate: Installer = {
 };
 
 export const storeTemplate: Store = {
+  _id: '',
   numStore: '',
   name: '',
   phone: '',
@@ -74,14 +75,12 @@ export const storeTemplate: Store = {
 };
 
 export const adminTemplate: Administrator = {
+  _id: '',
   name: '',
   email: '',
   username: '',
   role: '',
-  storeId: {
-    numStore: 0,
-    name: '',
-  },
+  storeId: null,
   deleted: false,
 };
 

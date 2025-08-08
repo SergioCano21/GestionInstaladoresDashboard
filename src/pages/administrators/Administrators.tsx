@@ -9,16 +9,17 @@ import {
   DELETED,
   DISPLAY,
   EDIT,
+  QUERY_KEYS,
   roleLabels,
   statusClasses,
   statusLabels,
 } from '../../types/consts';
 import Table from '@/components/ui/table/Table';
-
-import { administrators } from '@/mock';
 import DisplayAdmin from './DisplayAdmin';
 import AddAdmin from './AddAdmin';
 import EditAdmin from './EditAdmin';
+import { useQuery } from '@tanstack/react-query';
+import { getAdmins } from '@/api/administrators';
 
 const columns = [
   {
@@ -59,8 +60,15 @@ const columns = [
 
 const Administrators = () => {
   const [admin, setAdmin] = useState<Administrator>(adminTemplate);
-
   const { modal, openModal, closeModal } = useModal();
+  const { data: admins, isLoading } = useQuery({
+    queryKey: [QUERY_KEYS.ADMINS],
+    queryFn: getAdmins,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
+
+  if (isLoading) return null;
 
   return (
     <>
@@ -88,7 +96,7 @@ const Administrators = () => {
 
         <Table
           columns={columns}
-          data={administrators}
+          data={admins}
           onRowClick={(admin: Administrator) => {
             setAdmin(admin);
             openModal(DISPLAY);
@@ -96,11 +104,11 @@ const Administrators = () => {
         />
       </section>
 
+      {modal == ADD && <AddAdmin closeModal={closeModal} />}
+      {modal == EDIT && <EditAdmin data={admin} closeModal={closeModal} />}
       {modal == DISPLAY && (
         <DisplayAdmin closeModal={closeModal} openModal={openModal} data={admin} />
       )}
-      {modal == ADD && <AddAdmin closeModal={closeModal} />}
-      {modal == EDIT && <EditAdmin closeModal={() => openModal(DISPLAY)} data={admin} />}
     </>
   );
 };

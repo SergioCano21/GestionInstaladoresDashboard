@@ -516,46 +516,57 @@ export const installers: Installer[] = [
 
 export const options = [
   {
+    _id: '64f1a1a1a1a1a1a1a1a10101',
     installerId: 1234,
     name: 'Carlos Alberto Mendoza López',
   },
   {
+    _id: '64f1a1a1a1a1a1a1a1a10202',
     installerId: 2045,
     name: 'Ana Ramírez Pérez',
   },
   {
+    _id: '64f1a1a1a1a1a1a1a1a10303',
     installerId: 3087,
     name: 'Luis Enrique Torres Hernández',
   },
   {
+    _id: '64f1a1a1a1a1a1a1a1a10404',
     installerId: 4120,
     name: 'María Fernanda Rodríguez Castillo',
   },
   {
+    _id: '64f1a1a1a1a1a1a1a1a10505',
     installerId: 5278,
     name: 'Jorge Pérez Gómez',
   },
   {
+    _id: '64f1a1a1a1a1a1a1a1a10606',
     installerId: 6392,
     name: 'Verónica Castillo Ruiz',
   },
   {
+    _id: '64f1a1a1a1a1a1a1a1a10707',
     installerId: 7451,
     name: 'Eduardo Ramírez López',
   },
   {
+    _id: '64f1a1a1a1a1a1a1a1a10808',
     installerId: 8530,
     name: 'Laura Patricia Gómez Fernández',
   },
   {
+    _id: '64f1a1a1a1a1a1a1a1a10909',
     installerId: 9642,
     name: 'Ricardo Díaz Ortega',
   },
   {
+    _id: '64f1a1a1a1a1a1a1a1a11010',
     installerId: 1057,
     name: 'Patricia Sánchez Morales',
   },
 ];
+
 export const stores: Store[] = [
   {
     numStore: 1023,

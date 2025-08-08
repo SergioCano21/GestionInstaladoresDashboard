@@ -1,14 +1,24 @@
 import ContentHeader from '@/components/ui/ContentHeader';
 import Table from '@/components/ui/table/Table';
 import { useModal } from '@/hooks/useModal';
-import { ACTIVE, ADD, DELETED, DISPLAY, EDIT, statusClasses, statusLabels } from '@/types/consts';
+import {
+  ACTIVE,
+  ADD,
+  DELETED,
+  DISPLAY,
+  EDIT,
+  QUERY_KEYS,
+  statusClasses,
+  statusLabels,
+} from '@/types/consts';
 import { storeTemplate } from '@/types/templates';
 import type { Store } from '@/types/types';
 import { useState } from 'react';
 import AddStore from './AddStore';
-import { stores } from '@/mock';
 import EditStore from './EditStore';
 import DisplayStore from './DisplayStore';
+import { useQuery } from '@tanstack/react-query';
+import { getStores } from '@/api/stores';
 
 const columns = [
   {
@@ -41,8 +51,15 @@ const columns = [
 
 const Stores = () => {
   const [store, setStore] = useState<Store>(storeTemplate);
-
   const { modal, openModal, closeModal } = useModal();
+  const { data: stores, isLoading } = useQuery({
+    queryKey: [QUERY_KEYS.STORES],
+    queryFn: getStores,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
+
+  if (isLoading) return null;
 
   return (
     <>

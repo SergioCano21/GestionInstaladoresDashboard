@@ -5,6 +5,7 @@ import {
   EDIT,
   MODAL_CENTER,
   MODAL_SMALL,
+  QUERY_KEYS,
   statusClasses,
   statusLabels,
 } from '@/types/consts';
@@ -15,6 +16,8 @@ import DisplaySubsection from '@/components/ui/displayInfo/DisplaySubsection';
 import Modal from '@/components/ui/modal/Modal';
 import ButtonSection from '@/components/ui/button/ButtonSection';
 import Button from '@/components/ui/button/Button';
+import { useCustomMutation } from '@/hooks/useCustomMutation';
+import { deleteStore, restoreStore } from '@/api/stores';
 
 interface Props {
   closeModal: () => void;
@@ -23,11 +26,26 @@ interface Props {
 }
 
 const DisplayStore = ({ closeModal, openModal, data }: Props) => {
-  const handleDelete = () => {
+  const mutationDelete = useCustomMutation(deleteStore, QUERY_KEYS.STORES);
+  const mutationRestore = useCustomMutation(restoreStore, QUERY_KEYS.STORES);
+
+  const handleDelete = async () => {
     const result = confirm('¿Seguro que desea eliminar la tienda?');
     if (result) {
-      alert('Eliminado correctamente');
-      closeModal();
+      try {
+        await mutationDelete.mutateAsync(data._id);
+        closeModal();
+      } catch (error: any) {}
+    }
+  };
+
+  const handleRestore = async () => {
+    const result = confirm('¿Seguro que desea restaurar la tienda?');
+    if (result) {
+      try {
+        await mutationRestore.mutateAsync(data._id);
+        closeModal();
+      } catch (error: any) {}
     }
   };
 
@@ -77,7 +95,7 @@ const DisplayStore = ({ closeModal, openModal, data }: Props) => {
             )}
             {data.deleted && (
               <>
-                <Button text="Restaurar" type="button" variant="primary" />
+                <Button text="Restaurar" type="button" variant="primary" onClick={handleRestore} />
               </>
             )}
           </div>

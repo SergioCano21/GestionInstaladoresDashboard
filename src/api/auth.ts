@@ -1,9 +1,9 @@
-import type { LoginData } from '@/types/types';
+import type { LoginForm } from '@/types/types';
 import api from './axios';
 
 const API_ADMIN_URL = `${import.meta.env.VITE_API_URL}/admin`;
 
-export const login = async (credentials: LoginData) => {
+export const login = async (credentials: LoginForm) => {
   try {
     const response = await api.post(`${API_ADMIN_URL}/login`, credentials, {
       withCredentials: true,

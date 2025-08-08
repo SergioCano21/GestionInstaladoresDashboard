@@ -1,13 +1,22 @@
-import axios from 'axios';
+import type { Service } from '@/types/types';
+import api from './axios';
 
-const API_BASE_URL = process.env.BACKEND_URL;
+const API_SERVICES_URL = `${import.meta.env.VITE_API_URL}/service`;
 
 export const getServices = async () => {
-  const response = await axios
-    .get(`${API_BASE_URL}/services`)
-    .then((res) => res.data)
-    .catch((err) => {
-      console.error('Error fetching services:', err);
-    });
-  return response;
+  try {
+    const response = await api.get(API_SERVICES_URL, { withCredentials: true });
+    return response.data.services;
+  } catch (error: any) {
+    throw new Error(error.response?.data.message || 'Ocurrió un error. Intente de nuevo.');
+  }
+};
+
+export const addServices = async (data: Service) => {
+  try {
+    const response = await api.post(API_SERVICES_URL, data, { withCredentials: true });
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data.message || 'Ocurrió un error. Intente de nuevo.');
+  }
 };

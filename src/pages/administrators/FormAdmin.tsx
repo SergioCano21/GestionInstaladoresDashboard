@@ -1,11 +1,13 @@
+import { getStores } from '@/api/stores';
 import Button from '@/components/ui/button/Button';
 import ButtonSection from '@/components/ui/button/ButtonSection';
 import FormInput from '@/components/ui/form/FormInput';
 import FormSection from '@/components/ui/form/FormSection';
 import FormSelect from '@/components/ui/form/FormSelect';
 import FormSubsection from '@/components/ui/form/FormSubsection';
-import { countryOptions, districtOptions, ROLE, roleOptions } from '@/types/consts';
-import type { Administrator } from '@/types/types';
+import { countryOptions, districtOptions, QUERY_KEYS, ROLE, roleOptions } from '@/types/consts';
+import type { Administrator, Store } from '@/types/types';
+import { useQuery } from '@tanstack/react-query';
 
 interface Props {
   formData: Administrator;
@@ -18,6 +20,15 @@ interface Props {
 }
 
 const FormAdmin = ({ formData, handleChange, closeModal, closeText, submitText }: Props) => {
+  const { data: stores, isLoading } = useQuery({
+    queryKey: [QUERY_KEYS.STORES],
+    queryFn: getStores,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
+
+  if (isLoading) return null;
+
   return (
     <>
       <FormSection isLast>
@@ -70,11 +81,11 @@ const FormAdmin = ({ formData, handleChange, closeModal, closeText, submitText }
               label="Tienda"
               id="storeId"
               name="storeId"
-              value={formData.storeId?.numStore}
-              options={roleOptions}
+              value={formData.storeId?._id}
+              options={stores}
               onChange={handleChange}
-              getOptionLabel={(role) => role.label}
-              getOptionValue={(role) => role.value}
+              getOptionLabel={(store: Store) => `${store.numStore} | ${store.name}`}
+              getOptionValue={(store: Store) => store._id}
             />
           )}
           {formData.role == ROLE.DISTRICT && (
@@ -89,7 +100,7 @@ const FormAdmin = ({ formData, handleChange, closeModal, closeText, submitText }
               getOptionValue={(district) => district}
             />
           )}
-          {formData.role == ROLE.NATIONAL && (
+          {(formData.role == ROLE.NATIONAL || formData.role == ROLE.DISTRICT) && (
             <FormSelect
               label="País"
               id="country"

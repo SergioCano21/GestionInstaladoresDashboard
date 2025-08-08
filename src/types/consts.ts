@@ -13,7 +13,7 @@ export const ADD_FORM_EXIST = 'exist';
 export const DELETED = 'Deleted';
 export const ACTIVE = 'Active';
 
-const STATUS = {
+export const STATUS = {
   TODO: 'To Do',
   DOING: 'Doing',
   DONE: 'Done',
@@ -63,6 +63,11 @@ export const roleOptions = [
     value: ROLE.NATIONAL,
   },
 ];
+
+export const QUERY_KEYS = {
+  STORES: 'stores',
+  ADMINS: 'administrators',
+};
 
 export const countryOptions = ['México', 'Estados Unidos', 'Canadá'];
 

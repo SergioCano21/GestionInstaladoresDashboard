@@ -8,6 +8,7 @@ interface Props {
   rows: number;
   isJobDetail?: boolean;
   value: string;
+  required?: boolean;
   onChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
@@ -19,6 +20,7 @@ const FormTextArea = ({
   rows,
   isJobDetail = false,
   value,
+  required = true,
   onChange,
 }: Props) => {
   return (
@@ -31,7 +33,7 @@ const FormTextArea = ({
         id={id}
         name={name}
         placeholder={placeholder}
-        required
+        required={required}
         rows={rows}
         value={value}
         onChange={onChange}

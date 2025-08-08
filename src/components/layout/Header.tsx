@@ -13,6 +13,7 @@ const Header = () => {
   const handleLogout = async () => {
     try {
       await logout();
+      alert('Sesión cerrada correctamente.');
       dispatch(clearAuth());
       navigate('/');
     } catch (error: any) {
@@ -31,7 +32,7 @@ const Header = () => {
             <div className={styles.textLogo}>Área de Servicios Especiales</div>
           </div>
           <div className={`flex align-items-center`}>
-            <div className={styles.adminInfo}>Bienvenido, {name}</div>
+            <div className={styles.adminInfo}>{name && `Bienvenido, ${name}`}</div>
             <button className={styles.btn} onClick={handleLogout}>
               Cerrar Sesión
             </button>

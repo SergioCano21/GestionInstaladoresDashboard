@@ -5,7 +5,7 @@ import FormInput from '@/components/ui/form/FormInput';
 import ButtonSection from '@/components/ui/button/ButtonSection';
 import Button from '@/components/ui/button/Button';
 import FormSelect from '@/components/ui/form/FormSelect';
-import { statesMex } from '@/types/consts';
+import { countryOptions, districtOptions, statesMex } from '@/types/consts';
 
 interface Props {
   formData: Store;
@@ -51,13 +51,14 @@ const FormStore = ({ formData, handleChange, closeModal, submitText, closeText }
             value={formData.phone}
             onChange={handleChange}
           />
-          <FormInput
+          <FormSelect
             label="Distrito"
             id="district"
             name="district"
-            type="text"
-            placeholder="Distrito"
             value={formData.district}
+            options={districtOptions}
+            getOptionValue={(district) => district}
+            getOptionLabel={(district) => district}
             onChange={handleChange}
           />
         </FormSubsection>
@@ -85,13 +86,14 @@ const FormStore = ({ formData, handleChange, closeModal, submitText, closeText }
             getOptionLabel={(state) => state}
             onChange={handleChange}
           />
-          <FormInput
+          <FormSelect
             label="País"
             id="country"
             name="country"
-            type="text"
-            placeholder="País"
             value={formData.country}
+            options={countryOptions}
+            getOptionValue={(country) => country}
+            getOptionLabel={(country) => country}
             onChange={handleChange}
           />
         </FormSubsection>

@@ -1,6 +1,6 @@
 import ContentHeader from '@components/ui/ContentHeader';
 import { useModal } from '@hooks/useModal';
-import { ADD, DISPLAY, EDIT } from '@/types/consts';
+import { ADD, DISPLAY, EDIT, ROLE } from '@/types/consts';
 import { useState } from 'react';
 import type { Installer } from '@/types/types';
 import { installerTemplate } from '@/types/templates';
@@ -9,6 +9,7 @@ import EditInstaller from './EditInstaller';
 import Table from '@/components/ui/table/Table';
 import AddInstaller from './AddInstaller';
 import { installers } from '@/mock';
+import { useSelector } from 'react-redux';
 
 const columns = [
   {
@@ -41,16 +42,16 @@ const columns = [
 
 const Installers = () => {
   const { modal, openModal, closeModal } = useModal();
-
   const [installer, setInstaller] = useState<Installer>(installerTemplate);
+  const role = useSelector((state: any) => state.auth.role);
 
   return (
     <>
       <section>
         <ContentHeader
           title="Administrar Instaladores"
-          button="Agregar Instalador"
-          openModal={() => openModal(ADD)}
+          button={role === ROLE.LOCAL ? 'Agregar Instalador' : undefined}
+          openModal={role === ROLE.LOCAL ? () => openModal(ADD) : undefined}
         />
 
         <section className={`flex mb-20 gap-5`}>

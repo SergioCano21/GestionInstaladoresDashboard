@@ -5,6 +5,7 @@ import {
   EDIT,
   MODAL_CENTER,
   MODAL_SMALL,
+  QUERY_KEYS,
   roleLabels,
   statusClasses,
   statusLabels,
@@ -16,6 +17,8 @@ import DisplaySubsection from '@/components/ui/displayInfo/DisplaySubsection';
 import Modal from '@/components/ui/modal/Modal';
 import ButtonSection from '@/components/ui/button/ButtonSection';
 import Button from '@/components/ui/button/Button';
+import { useCustomMutation } from '@/hooks/useCustomMutation';
+import { deleteAdmin, restoreAdmin } from '@/api/administrators';
 
 interface Props {
   closeModal: () => void;
@@ -24,11 +27,26 @@ interface Props {
 }
 
 const DisplayAdmin = ({ closeModal, openModal, data }: Props) => {
-  const handleDelete = () => {
+  const mutationDelete = useCustomMutation(deleteAdmin, QUERY_KEYS.ADMINS);
+  const mutationRestore = useCustomMutation(restoreAdmin, QUERY_KEYS.ADMINS);
+
+  const handleDelete = async () => {
     const result = confirm('¿Seguro que desea eliminar al administrador?');
     if (result) {
-      alert('Eliminado correctamente');
-      closeModal();
+      try {
+        await mutationDelete.mutateAsync(data._id);
+        closeModal();
+      } catch (error: any) {}
+    }
+  };
+
+  const handleRestore = async () => {
+    const result = confirm('¿Seguro que desea restaurar al administrador?');
+    if (result) {
+      try {
+        await mutationRestore.mutateAsync(data._id);
+        closeModal();
+      } catch (error: any) {}
     }
   };
 
@@ -89,7 +107,7 @@ const DisplayAdmin = ({ closeModal, openModal, data }: Props) => {
             )}
             {data.deleted && (
               <>
-                <Button text="Restaurar" type="button" variant="primary" />
+                <Button text="Restaurar" type="button" variant="primary" onClick={handleRestore} />
               </>
             )}
           </div>

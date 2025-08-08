@@ -1,10 +1,12 @@
 import Modal from '@/components/ui/modal/Modal';
 import ModalHeader from '@/components/ui/modal/ModalHeader';
 import { useFormHandler } from '@/hooks/useFormHandler';
-import { MODAL_CENTER, MODAL_SMALL } from '@/types/consts';
+import { MODAL_CENTER, MODAL_SMALL, QUERY_KEYS } from '@/types/consts';
 import { useState } from 'react';
 import FormAdmin from './FormAdmin';
 import type { Administrator } from '@/types/types';
+import { useCustomMutation } from '@/hooks/useCustomMutation';
+import { updateAdmin } from '@/api/administrators';
 
 interface Props {
   closeModal: () => void;
@@ -13,12 +15,14 @@ interface Props {
 
 const EditAdmin = ({ closeModal, data }: Props) => {
   const [formData, setFormData] = useState<Administrator>(data);
-
   const { handleChange } = useFormHandler(setFormData);
+  const mutation = useCustomMutation(updateAdmin, QUERY_KEYS.ADMINS);
 
-  const handleSubmit = () => {
-    alert('Admin creado');
-    closeModal();
+  const handleSubmit = async () => {
+    try {
+      await mutation.mutateAsync(formData);
+      closeModal();
+    } catch (error: any) {}
   };
 
   return (

@@ -4,18 +4,19 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { useModal } from '@/hooks/useModal';
-import { ADD, EDIT } from '@/types/consts';
+import { ADD, EDIT, ROLE } from '@/types/consts';
 import AddCalendar from './AddCalendar';
 import EditCalendar from './EditCalentar';
 import { schedules } from '@/mock';
 import { useState } from 'react';
 import type { Schedule } from '@/types/types';
 import { scheduleTemplate } from '@/types/templates';
+import { useSelector } from 'react-redux';
 
 const Calendar = () => {
   const { modal, openModal, closeModal } = useModal();
-
   const [schedule, setSchedule] = useState<Schedule>(scheduleTemplate);
+  const role = useSelector((state: any) => state.auth.role);
 
   const getLocalTime = (date: Date | null) =>
     date
@@ -25,7 +26,6 @@ const Calendar = () => {
   const getLocalDate = (date: Date | null) => (date ? date.toLocaleDateString('en-CA') : '');
 
   const handleEventClick = (arg: any) => {
-    console.log(arg.event.start);
     const { start, end, extendedProps } = arg.event;
 
     setSchedule({
@@ -41,7 +41,11 @@ const Calendar = () => {
 
   return (
     <>
-      <ContentHeader title="Calendario" button="Agregar Cita" openModal={() => openModal(ADD)} />
+      <ContentHeader
+        title="Calendario"
+        button={role === ROLE.LOCAL ? 'Agregar Cita' : undefined}
+        openModal={role === ROLE.LOCAL ? () => openModal(ADD) : undefined}
+      />
       <div className={`flex mb-20 gap-5`}>
         <input type="text" placeholder="Folio" className={`filter-input`} />
         <input type="text" placeholder="Nombre Cliente" className={`filter-input`} />

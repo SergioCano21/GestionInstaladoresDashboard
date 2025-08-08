@@ -1,4 +1,12 @@
-import { EDIT, MODAL_BIG, MODAL_START, statusClasses, statusLabels } from '@/types/consts';
+import {
+  EDIT,
+  MODAL_BIG,
+  MODAL_START,
+  ROLE,
+  STATUS,
+  statusClasses,
+  statusLabels,
+} from '@/types/consts';
 import ModalHeader from '@/components/ui/modal/ModalHeader';
 import DisplayInfo from '@/components/ui/displayInfo/DisplayInfo';
 import DisplaySection from '@/components/ui/displayInfo/DisplaySection';
@@ -7,6 +15,7 @@ import Modal from '@/components/ui/modal/Modal';
 import type { Service } from '@/types/types';
 import ButtonSection from '@/components/ui/button/ButtonSection';
 import Button from '@/components/ui/button/Button';
+import { useSelector } from 'react-redux';
 
 interface Props {
   closeModal: () => void;
@@ -15,6 +24,8 @@ interface Props {
 }
 
 const DisplayService = ({ closeModal, openModal, data }: Props) => {
+  const role = useSelector((state: any) => state.auth.role);
+
   const handleDelete = () => {
     const result = confirm('¿Seguro que desea cancelar el servicio?');
     if (result) {
@@ -117,15 +128,15 @@ const DisplayService = ({ closeModal, openModal, data }: Props) => {
 
         <ButtonSection>
           <Button text="Cerrar" type="button" variant="close" onClick={closeModal} />
-          {openModal && (
+          {openModal && role === ROLE.LOCAL && (
             <div className={`flex gap-5`}>
               <Button text="Editar" type="button" variant="edit" onClick={() => openModal(EDIT)} />
               <Button text="Eliminar" type="button" variant="delete" onClick={handleDelete} />
             </div>
           )}
-          {!openModal && (
+          {!openModal && (role === ROLE.LOCAL || data.status !== STATUS.CANCELED) && (
             <Button
-              text={data.status == 'Canceled' ? 'Restaurar' : 'Ver PDF'}
+              text={data.status === STATUS.CANCELED ? 'Restaurar' : 'Ver PDF'}
               type="button"
               variant="primary"
             />

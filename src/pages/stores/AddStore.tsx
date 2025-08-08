@@ -4,8 +4,10 @@ import { storeTemplate } from '@/types/templates';
 import { useFormHandler } from '@hooks/useFormHandler';
 import ModalHeader from '@/components/ui/modal/ModalHeader';
 import Modal from '@/components/ui/modal/Modal';
-import { MODAL_CENTER, MODAL_SMALL } from '@/types/consts';
+import { MODAL_CENTER, MODAL_SMALL, QUERY_KEYS } from '@/types/consts';
 import FormStore from './FormStore';
+import { addStore } from '@/api/stores';
+import { useCustomMutation } from '@/hooks/useCustomMutation';
 
 interface Props {
   closeModal: () => void;
@@ -13,12 +15,14 @@ interface Props {
 
 const AddStore = ({ closeModal }: Props) => {
   const [formData, setFormData] = useState<Store>(storeTemplate);
-
   const { handleChange } = useFormHandler(setFormData);
+  const mutation = useCustomMutation(addStore, QUERY_KEYS.STORES);
 
-  const handleSubmit = () => {
-    closeModal();
-    alert('Tienda creada');
+  const handleSubmit = async () => {
+    try {
+      await mutation.mutateAsync(formData);
+      closeModal();
+    } catch (error: any) {}
   };
 
   return (

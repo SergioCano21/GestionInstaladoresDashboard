@@ -6,6 +6,7 @@ import { useFormHandler } from '@hooks/useFormHandler';
 import ModalHeader from '@/components/ui/modal/ModalHeader';
 import Modal from '@/components/ui/modal/Modal';
 import { MODAL_SMALL, MODAL_START } from '@/types/consts';
+import { addServices } from '@/api/services';
 
 interface Props {
   closeModal: () => void;
@@ -16,9 +17,14 @@ const AddService = ({ closeModal }: Props) => {
 
   const { handleChange } = useFormHandler(setFormData);
 
-  const handleSubmit = () => {
-    closeModal();
-    alert('Servicio creado');
+  const handleSubmit = async () => {
+    try {
+      const res = await addServices(formData);
+      alert(res.message);
+      closeModal();
+    } catch (error: any) {
+      alert(error.message);
+    }
   };
 
   return (
