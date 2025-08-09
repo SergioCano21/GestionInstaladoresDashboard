@@ -44,6 +44,7 @@ export interface Service {
 }
 
 export interface Installer {
+  _id: string;
   installerId: number | '';
   name: string;
   email: string;

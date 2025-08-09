@@ -2,7 +2,7 @@ import Modal from '@/components/ui/modal/Modal';
 import ModalHeader from '@/components/ui/modal/ModalHeader';
 import { useFormHandler } from '@/hooks/useFormHandler';
 import { MODAL_CENTER, MODAL_SMALL, QUERY_KEYS } from '@/types/consts';
-import { useState } from 'react';
+import { useState, type FormEvent } from 'react';
 import FormAdmin from './FormAdmin';
 import { adminTemplate } from '@/types/templates';
 import type { Administrator } from '@/types/types';
@@ -18,8 +18,9 @@ const AddAdmin = ({ closeModal }: Props) => {
   const { handleChange } = useFormHandler(setFormData);
   const mutation = useCustomMutation(addAdmin, QUERY_KEYS.ADMINS);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: FormEvent) => {
     try {
+      e.preventDefault();
       await mutation.mutateAsync(formData);
       closeModal();
     } catch (error: any) {}
@@ -29,7 +30,7 @@ const AddAdmin = ({ closeModal }: Props) => {
     <>
       <Modal size={MODAL_SMALL} align={MODAL_CENTER}>
         <ModalHeader title="Agregar Nuevo Administrador" closeModal={closeModal} />
-        <form action={handleSubmit} id="addAdminForm">
+        <form onSubmit={handleSubmit} id="addAdminForm">
           <FormAdmin
             formData={formData}
             handleChange={handleChange}

@@ -1,6 +1,6 @@
 import ContentHeader from '@components/ui/ContentHeader';
 import { useModal } from '@hooks/useModal';
-import { ADD, DISPLAY, EDIT, ROLE } from '@/types/consts';
+import { ADD, DISPLAY, EDIT, QUERY_KEYS, ROLE } from '@/types/consts';
 import { useState } from 'react';
 import type { Installer } from '@/types/types';
 import { installerTemplate } from '@/types/templates';
@@ -8,8 +8,9 @@ import DisplayInstaller from './DisplayInstaller';
 import EditInstaller from './EditInstaller';
 import Table from '@/components/ui/table/Table';
 import AddInstaller from './AddInstaller';
-import { installers } from '@/mock';
 import { useSelector } from 'react-redux';
+import { useQuery } from '@tanstack/react-query';
+import { getInstallers } from '@/api/installers';
 
 const columns = [
   {
@@ -44,6 +45,15 @@ const Installers = () => {
   const { modal, openModal, closeModal } = useModal();
   const [installer, setInstaller] = useState<Installer>(installerTemplate);
   const role = useSelector((state: any) => state.auth.role);
+
+  const { data: installers, isLoading } = useQuery({
+    queryKey: [QUERY_KEYS.INSTALLERS],
+    queryFn: getInstallers,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
+
+  if (isLoading) return null;
 
   return (
     <>

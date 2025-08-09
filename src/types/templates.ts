@@ -48,6 +48,7 @@ export const loginTemplate: LoginForm = {
 };
 
 export const installerTemplate: Installer = {
+  _id: '',
   installerId: '',
   name: '',
   email: '',

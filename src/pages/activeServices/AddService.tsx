@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type FormEvent } from 'react';
 import FormService from './FormService';
 import type { Service } from '@/types/types';
 import { serviceTemplate } from '@/types/templates';
@@ -17,8 +17,9 @@ const AddService = ({ closeModal }: Props) => {
 
   const { handleChange } = useFormHandler(setFormData);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: FormEvent) => {
     try {
+      e.preventDefault();
       const res = await addServices(formData);
       alert(res.message);
       closeModal();
@@ -31,7 +32,7 @@ const AddService = ({ closeModal }: Props) => {
     <>
       <Modal align={MODAL_START} size={MODAL_SMALL}>
         <ModalHeader title="Agregar Nuevo Servicio" closeModal={closeModal} />
-        <form action={handleSubmit} id="addServiceForm">
+        <form onSubmit={handleSubmit} id="addServiceForm">
           <FormService
             formData={formData}
             handleChange={handleChange}

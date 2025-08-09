@@ -1,5 +1,5 @@
 import type { Service } from '@/types/types';
-import { useState } from 'react';
+import { useState, type FormEvent } from 'react';
 import { useFormHandler } from '@hooks/useFormHandler';
 import ModalHeader from '@/components/ui/modal/ModalHeader';
 import Modal from '@/components/ui/modal/Modal';
@@ -17,7 +17,8 @@ const EditService = ({ closeModal, data, goBack }: Props) => {
 
   const { handleChange } = useFormHandler(setService);
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
     closeModal();
     alert('Servicio actualizado');
   };
@@ -26,7 +27,7 @@ const EditService = ({ closeModal, data, goBack }: Props) => {
     <>
       <Modal align={MODAL_START} size={MODAL_SMALL}>
         <ModalHeader title="Editar Servicio" closeModal={closeModal} />
-        <form action={handleSubmit} id="editServiceForm">
+        <form onSubmit={handleSubmit} id="editServiceForm">
           <FormService
             formData={service}
             handleChange={handleChange}

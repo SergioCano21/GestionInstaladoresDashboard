@@ -1,5 +1,5 @@
 import type { Store } from '@/types/types';
-import { useState } from 'react';
+import { useState, type FormEvent } from 'react';
 import { useFormHandler } from '@hooks/useFormHandler';
 import ModalHeader from '@/components/ui/modal/ModalHeader';
 import Modal from '@/components/ui/modal/Modal';
@@ -19,8 +19,9 @@ const EditStore = ({ closeModal, data, openModal }: Props) => {
   const { handleChange } = useFormHandler(setFormData);
   const mutation = useCustomMutation(updateStore, QUERY_KEYS.STORES);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: FormEvent) => {
     try {
+      e.preventDefault();
       await mutation.mutateAsync(formData);
       closeModal();
     } catch (error: any) {}
@@ -29,7 +30,7 @@ const EditStore = ({ closeModal, data, openModal }: Props) => {
     <>
       <Modal align={MODAL_CENTER} size={MODAL_SMALL}>
         <ModalHeader title="Editar Tienda" closeModal={closeModal} />
-        <form action={handleSubmit} id="editStoreForm">
+        <form onSubmit={handleSubmit} id="editStoreForm">
           <FormStore
             formData={formData}
             handleChange={handleChange}

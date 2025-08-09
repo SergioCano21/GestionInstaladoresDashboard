@@ -1,5 +1,5 @@
 import type { Installer } from '@/types/types';
-import { EDIT, MODAL_CENTER, MODAL_SMALL, ROLE } from '@/types/consts';
+import { EDIT, MODAL_CENTER, MODAL_SMALL, QUERY_KEYS, ROLE } from '@/types/consts';
 import DisplayInfo from '@/components/ui/displayInfo/DisplayInfo';
 import ModalHeader from '@/components/ui/modal/ModalHeader';
 import DisplaySection from '@/components/ui/displayInfo/DisplaySection';
@@ -8,6 +8,8 @@ import Modal from '@/components/ui/modal/Modal';
 import ButtonSection from '@/components/ui/button/ButtonSection';
 import Button from '@/components/ui/button/Button';
 import { useSelector } from 'react-redux';
+import { useCustomMutation } from '@/hooks/useCustomMutation';
+import { deleteInstaller } from '@/api/installers';
 
 interface Props {
   closeModal: () => void;
@@ -17,13 +19,16 @@ interface Props {
 
 const DisplayInstaller = ({ closeModal, openModal, data }: Props) => {
   const role = useSelector((state: any) => state.auth.role);
+  const mutation = useCustomMutation(deleteInstaller, QUERY_KEYS.INSTALLERS);
 
-  const handleDelete = () => {
-    const result = confirm('¿Seguro que desea quitar al instalador?');
-    if (result) {
-      alert('Eliminado correctamente');
-      closeModal();
-    }
+  const handleDelete = async () => {
+    try {
+      const result = confirm('¿Seguro que desea quitar al instalador?');
+      if (result) {
+        await mutation.mutateAsync(data._id);
+        closeModal();
+      }
+    } catch (error: any) {}
   };
 
   return (

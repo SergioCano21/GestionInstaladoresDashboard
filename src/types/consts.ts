@@ -67,6 +67,7 @@ export const roleOptions = [
 export const QUERY_KEYS = {
   STORES: 'stores',
   ADMINS: 'administrators',
+  INSTALLERS: 'installers',
 };
 
 export const countryOptions = ['México', 'Estados Unidos', 'Canadá'];

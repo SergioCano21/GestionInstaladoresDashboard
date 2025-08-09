@@ -23,15 +23,21 @@ const Table = <T,>({ columns, data, onRowClick }: Props<T>) => {
         </tr>
       </thead>
       <tbody>
-        {data.map((item, i) => (
-          <tr key={i} className={`table-row`} onClick={() => onRowClick(item)}>
-            {columns.map((col) => (
-              <td key={`${col.label}-${i}`} className={`table-cell`}>
-                {col.cell(item)}
-              </td>
-            ))}
+        {data.length > 0 ? (
+          data.map((item, i) => (
+            <tr key={i} className="table-row" onClick={() => onRowClick(item)}>
+              {columns.map((col) => (
+                <td key={`${col.label}-${i}`} className="table-cell">
+                  {col.cell(item)}
+                </td>
+              ))}
+            </tr>
+          ))
+        ) : (
+          <tr>
+            <td colSpan={columns.length}>No hay resultados para mostrar</td>
           </tr>
-        ))}
+        )}
       </tbody>
     </table>
   );
