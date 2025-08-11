@@ -5,8 +5,9 @@ import { serviceTemplate } from '@/types/templates';
 import { useFormHandler } from '@hooks/useFormHandler';
 import ModalHeader from '@/components/ui/modal/ModalHeader';
 import Modal from '@/components/ui/modal/Modal';
-import { MODAL_SMALL, MODAL_START } from '@/types/consts';
-import { addServices } from '@/api/services';
+import { MODAL_SMALL, MODAL_START, QUERY_KEYS } from '@/types/consts';
+import { addService } from '@/api/services';
+import { useCustomMutation } from '@/hooks/useCustomMutation';
 
 interface Props {
   closeModal: () => void;
@@ -14,18 +15,15 @@ interface Props {
 
 const AddService = ({ closeModal }: Props) => {
   const [formData, setFormData] = useState<Service>(serviceTemplate);
-
   const { handleChange } = useFormHandler(setFormData);
+  const mutation = useCustomMutation(addService, [QUERY_KEYS.SERVICES, QUERY_KEYS.ACTIVE]);
 
   const handleSubmit = async (e: FormEvent) => {
     try {
       e.preventDefault();
-      const res = await addServices(formData);
-      alert(res.message);
+      await mutation.mutateAsync(formData);
       closeModal();
-    } catch (error: any) {
-      alert(error.message);
-    }
+    } catch (error: any) {}
   };
 
   return (

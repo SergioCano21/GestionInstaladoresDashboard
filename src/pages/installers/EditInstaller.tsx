@@ -17,7 +17,7 @@ interface Props {
 const EditInstaller = ({ closeModal, data, openModal }: Props) => {
   const [formData, setFormData] = useState<Installer>(data);
   const { handleChange } = useFormHandler(setFormData);
-  const mutation = useCustomMutation(updateInstaller, QUERY_KEYS.INSTALLERS);
+  const mutation = useCustomMutation(updateInstaller, [QUERY_KEYS.INSTALLERS]);
 
   const handleSubmit = async (e: FormEvent) => {
     try {

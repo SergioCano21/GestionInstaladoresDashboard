@@ -16,7 +16,7 @@ interface Props {
 const AddStore = ({ closeModal }: Props) => {
   const [formData, setFormData] = useState<Store>(storeTemplate);
   const { handleChange } = useFormHandler(setFormData);
-  const mutation = useCustomMutation(addStore, QUERY_KEYS.STORES);
+  const mutation = useCustomMutation(addStore, [QUERY_KEYS.STORES]);
 
   const handleSubmit = async (e: FormEvent) => {
     try {

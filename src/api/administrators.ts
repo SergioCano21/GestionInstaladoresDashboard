@@ -5,6 +5,7 @@ const API_ADMINS_URL = `${import.meta.env.VITE_API_URL}/admin`;
 
 export const getAdmins = async () => {
   try {
+    console.log('admins');
     const response = await api.get(API_ADMINS_URL, { withCredentials: true });
     return response.data.admins;
   } catch (error: any) {

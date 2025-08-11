@@ -26,8 +26,8 @@ interface Props {
 }
 
 const DisplayStore = ({ closeModal, openModal, data }: Props) => {
-  const mutationDelete = useCustomMutation(deleteStore, QUERY_KEYS.STORES);
-  const mutationRestore = useCustomMutation(restoreStore, QUERY_KEYS.STORES);
+  const mutationDelete = useCustomMutation(deleteStore, [QUERY_KEYS.STORES]);
+  const mutationRestore = useCustomMutation(restoreStore, [QUERY_KEYS.STORES]);
 
   const handleDelete = async () => {
     const result = confirm('¿Seguro que desea eliminar la tienda?');

@@ -4,11 +4,13 @@ import logo from '@/assets/images/logo.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { clearAuth } from '@/redux/auth/authSlice';
+import { useQueryClient } from '@tanstack/react-query';
 
 const Header = () => {
   const name = useSelector((state: any) => state.auth.name);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const handleLogout = async () => {
     try {
@@ -16,6 +18,7 @@ const Header = () => {
       alert('Sesión cerrada correctamente.');
       dispatch(clearAuth());
       navigate('/');
+      queryClient.clear();
     } catch (error: any) {
       console.error(`Error al cerrar sesión: ${error.message}`);
     }

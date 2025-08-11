@@ -52,7 +52,7 @@ const columns = [
 const Stores = () => {
   const [store, setStore] = useState<Store>(storeTemplate);
   const { modal, openModal, closeModal } = useModal();
-  const { data: stores, isLoading } = useQuery({
+  const { data: stores, isLoading } = useQuery<Store[]>({
     queryKey: [QUERY_KEYS.STORES],
     queryFn: getStores,
     refetchOnMount: false,
@@ -76,7 +76,7 @@ const Stores = () => {
 
         <Table
           columns={columns}
-          data={stores}
+          data={stores ?? []}
           onRowClick={(store: Store) => {
             setStore(store);
             openModal(DISPLAY);

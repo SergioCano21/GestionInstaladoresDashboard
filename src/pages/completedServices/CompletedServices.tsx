@@ -3,12 +3,12 @@ import ContentHeader from '@components/ui/ContentHeader';
 import { useModal } from '@hooks/useModal';
 import type { Service } from '@/types/types';
 import { serviceTemplate } from '@/types/templates';
-import { DISPLAY, statusClasses, statusLabels } from '@/types/consts';
+import { DISPLAY, QUERY_KEYS, statusClasses, statusLabels } from '@/types/consts';
 import styles from '@pages/activeServices/ActiveServices.module.css';
 import DisplayService from '@pages/activeServices/DisplayService';
 import Table from '@/components/ui/table/Table';
-
-import { completedServices } from '@/mock';
+import { useQuery } from '@tanstack/react-query';
+import { getServices } from '@/api/services';
 
 const columns = [
   {
@@ -28,7 +28,9 @@ const columns = [
   },
   {
     label: 'Descripción',
-    cell: (row: Service) => <div className={styles.description}>{row.description}</div>,
+    cell: (row: Service) => (
+      <div className={styles.description}>{row.jobDetails[0].description}</div>
+    ),
     headerClass: styles.widthDescription,
   },
   {
@@ -41,8 +43,15 @@ const columns = [
 
 const CompletedServices = () => {
   const { modal, openModal, closeModal } = useModal();
-
   const [service, setService] = useState<Service>(serviceTemplate);
+  const { data: services, isLoading } = useQuery<Service[]>({
+    queryKey: [QUERY_KEYS.SERVICES, QUERY_KEYS.COMPLETED],
+    queryFn: () => getServices('completed'),
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
+
+  if (isLoading) return null;
 
   return (
     <>
@@ -61,7 +70,7 @@ const CompletedServices = () => {
 
         <Table
           columns={columns}
-          data={completedServices}
+          data={services ?? []}
           onRowClick={(service: Service) => {
             setService(service);
             openModal(DISPLAY);

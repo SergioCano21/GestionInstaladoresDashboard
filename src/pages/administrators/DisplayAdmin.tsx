@@ -27,8 +27,8 @@ interface Props {
 }
 
 const DisplayAdmin = ({ closeModal, openModal, data }: Props) => {
-  const mutationDelete = useCustomMutation(deleteAdmin, QUERY_KEYS.ADMINS);
-  const mutationRestore = useCustomMutation(restoreAdmin, QUERY_KEYS.ADMINS);
+  const mutationDelete = useCustomMutation(deleteAdmin, [QUERY_KEYS.ADMINS]);
+  const mutationRestore = useCustomMutation(restoreAdmin, [QUERY_KEYS.ADMINS]);
 
   const handleDelete = async () => {
     const result = confirm('¿Seguro que desea eliminar al administrador?');

@@ -46,7 +46,7 @@ const Installers = () => {
   const [installer, setInstaller] = useState<Installer>(installerTemplate);
   const role = useSelector((state: any) => state.auth.role);
 
-  const { data: installers, isLoading } = useQuery({
+  const { data: installers, isLoading } = useQuery<Installer[]>({
     queryKey: [QUERY_KEYS.INSTALLERS],
     queryFn: getInstallers,
     refetchOnMount: false,
@@ -77,7 +77,7 @@ const Installers = () => {
 
         <Table
           columns={columns}
-          data={installers}
+          data={installers ?? []}
           onRowClick={(installer: Installer) => {
             setInstaller(installer);
             openModal(DISPLAY);

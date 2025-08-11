@@ -7,7 +7,7 @@ import EditService from './EditService';
 import type { Service } from '@/types/types';
 import { serviceTemplate } from '@/types/templates';
 import { useModal } from '@hooks/useModal';
-import { ADD, DISPLAY, EDIT, ROLE, statusClasses, statusLabels } from '@/types/consts';
+import { ADD, DISPLAY, EDIT, QUERY_KEYS, ROLE, statusClasses, statusLabels } from '@/types/consts';
 import Table from '@/components/ui/table/Table';
 import { getServices } from '@/api/services';
 import { useQuery } from '@tanstack/react-query';
@@ -49,14 +49,15 @@ const ActiveServices = () => {
   const { modal, openModal, closeModal } = useModal();
   const role = useSelector((state: any) => state.auth.role);
 
-  const { data: services, isLoading } = useQuery({
-    queryKey: ['services'],
-    queryFn: getServices,
+  const { data: services, isLoading } = useQuery<Service[]>({
+    queryKey: [QUERY_KEYS.SERVICES, QUERY_KEYS.ACTIVE],
+    queryFn: () => getServices('active'),
     refetchOnMount: false,
     refetchOnWindowFocus: false,
   });
 
   if (isLoading) return null;
+
   return (
     <>
       <section>
@@ -78,7 +79,7 @@ const ActiveServices = () => {
 
         <Table
           columns={columns}
-          data={services}
+          data={services ?? []}
           onRowClick={(service: Service) => {
             setService(service);
             openModal(DISPLAY);

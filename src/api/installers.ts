@@ -5,6 +5,7 @@ const API_INSTALLERS_URL = `${import.meta.env.VITE_API_URL}/installer`;
 
 export const getInstallers = async () => {
   try {
+    console.log('Installers');
     const response = await api.get(API_INSTALLERS_URL, { withCredentials: true });
     return response.data.installers;
   } catch (error: any) {

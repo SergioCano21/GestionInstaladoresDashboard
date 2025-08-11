@@ -19,7 +19,7 @@ interface Props {
 
 const DisplayInstaller = ({ closeModal, openModal, data }: Props) => {
   const role = useSelector((state: any) => state.auth.role);
-  const mutation = useCustomMutation(deleteInstaller, QUERY_KEYS.INSTALLERS);
+  const mutation = useCustomMutation(deleteInstaller, [QUERY_KEYS.INSTALLERS]);
 
   const handleDelete = async () => {
     try {

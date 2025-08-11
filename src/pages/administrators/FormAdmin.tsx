@@ -20,14 +20,12 @@ interface Props {
 }
 
 const FormAdmin = ({ formData, handleChange, closeModal, closeText, submitText }: Props) => {
-  const { data: stores, isLoading } = useQuery({
+  const { data: stores } = useQuery<Store[]>({
     queryKey: [QUERY_KEYS.STORES],
     queryFn: getStores,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
   });
-
-  if (isLoading) return null;
 
   return (
     <>
@@ -82,7 +80,7 @@ const FormAdmin = ({ formData, handleChange, closeModal, closeText, submitText }
               id="storeId"
               name="storeId"
               value={formData.storeId?._id}
-              options={stores}
+              options={stores?.filter((store) => !store.deleted) ?? []}
               onChange={handleChange}
               getOptionLabel={(store: Store) => `${store.numStore} | ${store.name}`}
               getOptionValue={(store: Store) => store._id}

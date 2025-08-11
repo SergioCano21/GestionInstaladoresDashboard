@@ -68,6 +68,9 @@ export const QUERY_KEYS = {
   STORES: 'stores',
   ADMINS: 'administrators',
   INSTALLERS: 'installers',
+  SERVICES: 'services',
+  ACTIVE: 'active',
+  COMPLETED: 'completed',
 };
 
 export const countryOptions = ['México', 'Estados Unidos', 'Canadá'];

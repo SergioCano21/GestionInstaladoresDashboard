@@ -16,7 +16,7 @@ interface Props {
 const AddAdmin = ({ closeModal }: Props) => {
   const [formData, setFormData] = useState<Administrator>(adminTemplate);
   const { handleChange } = useFormHandler(setFormData);
-  const mutation = useCustomMutation(addAdmin, QUERY_KEYS.ADMINS);
+  const mutation = useCustomMutation(addAdmin, [QUERY_KEYS.ADMINS]);
 
   const handleSubmit = async (e: FormEvent) => {
     try {

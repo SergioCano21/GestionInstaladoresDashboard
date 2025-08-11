@@ -1,13 +1,14 @@
-import type { Service } from '@/types/types';
+import type { Installer, Service } from '@/types/types';
 import FormInput from '@/components/ui/form/FormInput';
 import FormSubsection from '@/components/ui/form/FormSubsection';
 import FormTextArea from '@/components/ui/form/FormTextarea';
 import FormSection from '@/components/ui/form/FormSection';
 import FormSelect from '@/components/ui/form/FormSelect';
-
-import { options } from '@/mock';
 import ButtonSection from '@/components/ui/button/ButtonSection';
 import Button from '@/components/ui/button/Button';
+import { useQuery } from '@tanstack/react-query';
+import { getInstallers } from '@/api/installers';
+import { QUERY_KEYS } from '@/types/consts';
 
 interface Props {
   formData: Service;
@@ -20,6 +21,14 @@ interface Props {
 }
 
 const FormService = ({ formData, handleChange, closeModal, submitText, closeText }: Props) => {
+  const { data: installers, isLoading } = useQuery<Installer[]>({
+    queryKey: [QUERY_KEYS.INSTALLERS],
+    queryFn: getInstallers,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
+
+  if (isLoading) return null;
   return (
     <>
       <FormSection>
@@ -37,11 +46,11 @@ const FormService = ({ formData, handleChange, closeModal, submitText, closeText
             label="Asignar Instalador"
             id="installerId"
             name="installerId"
-            value={formData.installerId.installerId}
+            value={formData.installerId._id}
             getOptionValue={(installer) => installer._id}
             getOptionLabel={(installer) => `${installer.installerId} | ${installer.name}`}
             onChange={handleChange}
-            options={options}
+            options={installers ?? []}
           />
         </FormSubsection>
         <FormSubsection>

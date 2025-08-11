@@ -2,7 +2,7 @@ import { useMutation, useQueryClient, type MutationFunction } from '@tanstack/re
 
 export function useCustomMutation<TData = any, TVariables = void>(
   mutationFn: MutationFunction<TData, TVariables>,
-  queryKey: string,
+  queryKey: string[] | string[][],
 ) {
   const queryClient = useQueryClient();
 
@@ -10,7 +10,13 @@ export function useCustomMutation<TData = any, TVariables = void>(
     mutationFn,
     onSuccess: (data: any) => {
       alert(data.message);
-      queryClient.invalidateQueries({ queryKey: [queryKey] });
+      if (Array.isArray(queryKey[0])) {
+        (queryKey as string[][]).forEach((key) => {
+          queryClient.invalidateQueries({ queryKey: key, refetchType: 'all' });
+        });
+      } else {
+        queryClient.invalidateQueries({ queryKey });
+      }
     },
     onError: (error: any) => {
       alert(error.message || 'Ocurrió un error');

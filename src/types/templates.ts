@@ -1,8 +1,10 @@
 import type { Administrator, Installer, LoginForm, Schedule, Service, Store } from './types';
 
 export const serviceTemplate: Service = {
+  _id: '',
   folio: '',
   installerId: {
+    _id: '',
     installerId: '',
     name: '',
   },

@@ -2,6 +2,7 @@ import {
   EDIT,
   MODAL_BIG,
   MODAL_START,
+  QUERY_KEYS,
   ROLE,
   STATUS,
   statusClasses,
@@ -16,6 +17,8 @@ import type { Service } from '@/types/types';
 import ButtonSection from '@/components/ui/button/ButtonSection';
 import Button from '@/components/ui/button/Button';
 import { useSelector } from 'react-redux';
+import { useCustomMutation } from '@/hooks/useCustomMutation';
+import { deleteService, restoreService } from '@/api/services';
 
 interface Props {
   closeModal: () => void;
@@ -25,13 +28,33 @@ interface Props {
 
 const DisplayService = ({ closeModal, openModal, data }: Props) => {
   const role = useSelector((state: any) => state.auth.role);
+  const mutationDelete = useCustomMutation(deleteService, [
+    [QUERY_KEYS.SERVICES, QUERY_KEYS.ACTIVE],
+    [QUERY_KEYS.SERVICES, QUERY_KEYS.COMPLETED],
+  ]);
+  const mutationRestore = useCustomMutation(restoreService, [
+    [QUERY_KEYS.SERVICES, QUERY_KEYS.ACTIVE],
+    [QUERY_KEYS.SERVICES, QUERY_KEYS.COMPLETED],
+  ]);
 
-  const handleDelete = () => {
-    const result = confirm('¿Seguro que desea cancelar el servicio?');
-    if (result) {
-      alert('Eliminado correctamente');
-      closeModal();
-    }
+  const handleDelete = async () => {
+    try {
+      const result = confirm('¿Seguro que desea cancelar el servicio?');
+      if (result) {
+        await mutationDelete.mutateAsync(data._id);
+        closeModal();
+      }
+    } catch (error) {}
+  };
+
+  const handleRestore = async () => {
+    try {
+      const result = confirm('¿Seguro que desea restaurar el servicio?');
+      if (result) {
+        await mutationRestore.mutateAsync(data._id);
+        closeModal();
+      }
+    } catch (error) {}
   };
 
   return (
@@ -86,10 +109,10 @@ const DisplayService = ({ closeModal, openModal, data }: Props) => {
             <DisplayInfo label="Cantidad" value={data.jobDetails[0].quantity} />
             <DisplayInfo
               label="Costo del Servicio"
-              value={data.jobDetails[0].installationServiceFee}
+              value={`$${data.jobDetails[0].installationServiceFee}`}
             />
-            <DisplayInfo label="Comisión" value={data.jobDetails[0].commissionFee} />
-            <DisplayInfo label="Comitente" value={data.jobDetails[0].installerPayment} />
+            <DisplayInfo label="Comisión" value={`$${data.jobDetails[0].commissionFee}`} />
+            <DisplayInfo label="Comitente" value={`$${data.jobDetails[0].installerPayment}`} />
           </DisplaySubsection>
 
           <DisplaySubsection>
@@ -100,23 +123,26 @@ const DisplayService = ({ closeModal, openModal, data }: Props) => {
         <DisplaySection title="Resumen Total">
           <DisplaySubsection>
             <DisplayInfo label="&nbsp;" value={'Subtotales'} useLabel={true} />
-            <DisplayInfo label="Costo del Servicio" value={data.subtotals.installationServiceFee} />
-            <DisplayInfo label="Comisión" value={data.subtotals.commissionFee} />
-            <DisplayInfo label="Comitente" value={data.subtotals.installerPayment} />
+            <DisplayInfo
+              label="Costo del Servicio"
+              value={`$${data.subtotals.installationServiceFee}`}
+            />
+            <DisplayInfo label="Comisión" value={`$${data.subtotals.commissionFee}`} />
+            <DisplayInfo label="Comitente" value={`$${data.subtotals.installerPayment}`} />
           </DisplaySubsection>
 
           <DisplaySubsection>
             <DisplayInfo label="" value={'IVA'} useLabel={true} />
-            <DisplayInfo label="" value={data.iva.installationServiceFee} />
-            <DisplayInfo label="" value={data.iva.commissionFee} />
-            <DisplayInfo label="" value={data.iva.installerPayment} />
+            <DisplayInfo label="" value={`$${data.iva.installationServiceFee}`} />
+            <DisplayInfo label="" value={`$${data.iva.commissionFee}`} />
+            <DisplayInfo label="" value={`$${data.iva.installerPayment}`} />
           </DisplaySubsection>
 
           <DisplaySubsection>
             <DisplayInfo label="" value={'Totales'} useLabel={true} />
-            <DisplayInfo label="" value={data.totals.installationServiceFee} />
-            <DisplayInfo label="" value={data.totals.commissionFee} />
-            <DisplayInfo label="" value={data.totals.installerPayment} />
+            <DisplayInfo label="" value={`$${data.totals.installationServiceFee}`} />
+            <DisplayInfo label="" value={`$${data.totals.commissionFee}`} />
+            <DisplayInfo label="" value={`$${data.totals.installerPayment}`} />
           </DisplaySubsection>
         </DisplaySection>
 
@@ -139,6 +165,7 @@ const DisplayService = ({ closeModal, openModal, data }: Props) => {
               text={data.status === STATUS.CANCELED ? 'Restaurar' : 'Ver PDF'}
               type="button"
               variant="primary"
+              onClick={handleRestore}
             />
           )}
         </ButtonSection>

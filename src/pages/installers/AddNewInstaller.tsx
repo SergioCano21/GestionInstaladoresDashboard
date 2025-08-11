@@ -15,7 +15,7 @@ interface Props {
 const AddNewInstaller = ({ closeModal, goBack }: Props) => {
   const [formData, setFormData] = useState<Installer>(installerTemplate);
   const { handleChange } = useFormHandler(setFormData);
-  const mutation = useCustomMutation(addNewInstaller, QUERY_KEYS.INSTALLERS);
+  const mutation = useCustomMutation(addNewInstaller, [QUERY_KEYS.INSTALLERS]);
 
   const handleSubmit = async (e: FormEvent) => {
     try {

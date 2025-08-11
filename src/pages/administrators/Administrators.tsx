@@ -61,7 +61,7 @@ const columns = [
 const Administrators = () => {
   const [admin, setAdmin] = useState<Administrator>(adminTemplate);
   const { modal, openModal, closeModal } = useModal();
-  const { data: admins, isLoading } = useQuery({
+  const { data: admins, isLoading } = useQuery<Administrator[]>({
     queryKey: [QUERY_KEYS.ADMINS],
     queryFn: getAdmins,
     refetchOnMount: false,
@@ -96,7 +96,7 @@ const Administrators = () => {
 
         <Table
           columns={columns}
-          data={admins}
+          data={admins ?? []}
           onRowClick={(admin: Administrator) => {
             setAdmin(admin);
             openModal(DISPLAY);

@@ -4,8 +4,10 @@ export interface LoginForm {
 }
 
 export interface Service {
+  _id: string;
   folio: number | '';
   installerId: {
+    _id: string;
     installerId: number | '';
     name: string;
   };

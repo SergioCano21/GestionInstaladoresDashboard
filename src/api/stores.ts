@@ -5,6 +5,7 @@ const API_STORES_URL = `${import.meta.env.VITE_API_URL}/store`;
 
 export const getStores = async () => {
   try {
+    console.log('Stores');
     const response = await api.get(API_STORES_URL, { withCredentials: true });
     return response.data.stores;
   } catch (error: any) {
