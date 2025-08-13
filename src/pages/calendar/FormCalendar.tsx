@@ -1,11 +1,13 @@
+import { getServices } from '@/api/services';
 import Button from '@/components/ui/button/Button';
 import ButtonSection from '@/components/ui/button/ButtonSection';
 import FormInput from '@/components/ui/form/FormInput';
 import FormSection from '@/components/ui/form/FormSection';
 import FormSelect from '@/components/ui/form/FormSelect';
 import FormSubsection from '@/components/ui/form/FormSubsection';
-import { availableHours } from '@/types/consts';
-import type { Schedule } from '@/types/types';
+import { availableHours, QUERY_KEYS } from '@/types/consts';
+import type { Schedule, Service } from '@/types/types';
+import { useQuery } from '@tanstack/react-query';
 
 interface Props {
   formData: Schedule;
@@ -16,6 +18,13 @@ interface Props {
 }
 
 const FormCalendar = ({ formData, handleChange, closeText, submitText, closeModal }: Props) => {
+  const { data: services } = useQuery<Service[]>({
+    queryKey: [QUERY_KEYS.SERVICES, QUERY_KEYS.ACTIVE],
+    queryFn: () => getServices('active'),
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
+
   return (
     <>
       <FormSection isLast>
@@ -24,14 +33,11 @@ const FormCalendar = ({ formData, handleChange, closeText, submitText, closeModa
             label="Servicio"
             id="serviceId"
             name="serviceId"
-            value={formData.serviceId}
+            value={formData.service._id}
             onChange={handleChange}
-            options={[
-              { label: '1234 - Cliente: Juan Perez', value: 1234 },
-              { label: '5678 - Cliente: Maria Gomez', value: 5678 },
-            ]}
-            getOptionLabel={(option) => option.label.toString()}
-            getOptionValue={(option) => option.value}
+            options={services ?? []}
+            getOptionLabel={(option) => `${option.folio} - ${option.installerId.name}`}
+            getOptionValue={(option) => option._id}
           />
         </FormSubsection>
         <FormSubsection>

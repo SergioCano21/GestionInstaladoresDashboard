@@ -19,9 +19,7 @@ const Header = () => {
       dispatch(clearAuth());
       navigate('/');
       queryClient.clear();
-    } catch (error: any) {
-      console.error(`Error al cerrar sesión: ${error.message}`);
-    }
+    } catch (error: any) {}
   };
 
   return (

@@ -82,7 +82,7 @@ const FormAdmin = ({ formData, handleChange, closeModal, closeText, submitText }
               value={formData.storeId?._id}
               options={stores?.filter((store) => !store.deleted) ?? []}
               onChange={handleChange}
-              getOptionLabel={(store: Store) => `${store.numStore} | ${store.name}`}
+              getOptionLabel={(store: Store) => `${store.numStore} - ${store.name}`}
               getOptionValue={(store: Store) => store._id}
             />
           )}

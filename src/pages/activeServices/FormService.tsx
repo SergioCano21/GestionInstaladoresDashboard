@@ -21,14 +21,13 @@ interface Props {
 }
 
 const FormService = ({ formData, handleChange, closeModal, submitText, closeText }: Props) => {
-  const { data: installers, isLoading } = useQuery<Installer[]>({
+  const { data: installers } = useQuery<Installer[]>({
     queryKey: [QUERY_KEYS.INSTALLERS],
     queryFn: getInstallers,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
   });
 
-  if (isLoading) return null;
   return (
     <>
       <FormSection>
@@ -48,7 +47,7 @@ const FormService = ({ formData, handleChange, closeModal, submitText, closeText
             name="installerId"
             value={formData.installerId._id}
             getOptionValue={(installer) => installer._id}
-            getOptionLabel={(installer) => `${installer.installerId} | ${installer.name}`}
+            getOptionLabel={(installer) => `${installer.installerId} - ${installer.name}`}
             onChange={handleChange}
             options={installers ?? []}
           />

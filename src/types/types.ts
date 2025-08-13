@@ -94,10 +94,24 @@ export interface Administrator {
 }
 
 export interface Schedule {
+  _id: string;
+  type: 'Service' | 'Block';
   date: string;
   startTime: string;
   endTime: string;
-  installerId: number | '';
-  serviceId: string;
-  type: 'Service' | 'Block';
+  installer: {
+    _id: string;
+    name: string;
+  };
+  service: {
+    _id: string;
+    folio: number | '';
+    status: 'To Do' | 'Doing' | 'Done' | 'Canceled';
+    client: string;
+  };
+  store: {
+    _id: string;
+    name: string;
+    numStore: number | '';
+  };
 }

@@ -4,19 +4,27 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { useModal } from '@/hooks/useModal';
-import { ADD, EDIT, ROLE } from '@/types/consts';
+import { ADD, DISPLAY, EDIT, QUERY_KEYS, ROLE } from '@/types/consts';
 import AddCalendar from './AddCalendar';
 import EditCalendar from './EditCalentar';
-import { schedules } from '@/mock';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import type { Schedule } from '@/types/types';
 import { scheduleTemplate } from '@/types/templates';
 import { useSelector } from 'react-redux';
+import { useQuery } from '@tanstack/react-query';
+import { getCalendar } from '@/api/calendar';
+import DisplayCalendar from './DisplayCalendar';
 
 const Calendar = () => {
   const { modal, openModal, closeModal } = useModal();
   const [schedule, setSchedule] = useState<Schedule>(scheduleTemplate);
   const role = useSelector((state: any) => state.auth.role);
+  const { data: schedules, isLoading } = useQuery<Schedule[]>({
+    queryKey: [QUERY_KEYS.CALENDAR],
+    queryFn: getCalendar,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
 
   const getLocalTime = (date: Date | null) =>
     date
@@ -29,15 +37,40 @@ const Calendar = () => {
     const { start, end, extendedProps } = arg.event;
 
     setSchedule({
-      startTime: getLocalTime(start),
-      endTime: getLocalTime(end),
-      installerId: extendedProps.installerId,
-      serviceId: extendedProps.serviceId,
+      _id: extendedProps._id,
       date: getLocalDate(start),
       type: extendedProps.type,
+      startTime: getLocalTime(start),
+      endTime: getLocalTime(end),
+      installer: extendedProps.installer,
+      service: extendedProps.service,
+      store: extendedProps.store,
     });
-    openModal(EDIT);
+    openModal(DISPLAY);
   };
+
+  const calendarEvents = useMemo(() => {
+    if (!schedules) return [];
+
+    return schedules.map((schedule) => {
+      return {
+        title: `Folio: ${schedule.service.folio}`,
+        start: new Date(schedule.startTime),
+        end: new Date(schedule.endTime),
+        color: schedule.type === 'Service' ? '#dd611aff' : '#6f6f6fff',
+        extendedProps: {
+          _id: schedule._id,
+          type: schedule.type,
+          installer: schedule.installer,
+          service: schedule.service,
+          store: schedule.store,
+        },
+        display: 'block',
+      };
+    });
+  }, [schedules]);
+
+  if (isLoading) return null;
 
   return (
     <>
@@ -70,22 +103,14 @@ const Calendar = () => {
         titleFormat={{ month: 'long', year: 'numeric' }}
         fixedWeekCount={false}
         eventClick={handleEventClick}
-        events={schedules.map((schedule) => ({
-          title: `${schedule.serviceId} - Instalador: ${schedule.installerId}`,
-          start: new Date(`${schedule.date} ${schedule.startTime}`),
-          end: new Date(`${schedule.date} ${schedule.endTime}`),
-          color: schedule.type === 'Service' ? '#4CAF50' : '#F44336',
-          extendedProps: {
-            type: schedule.type,
-            installerId: schedule.installerId,
-            serviceId: schedule.serviceId,
-          },
-          display: 'block',
-        }))}
+        events={calendarEvents}
       />
 
-      {modal == ADD && <AddCalendar closeModal={closeModal} />}
-      {modal == EDIT && <EditCalendar closeModal={closeModal} data={schedule} />}
+      {modal === ADD && <AddCalendar closeModal={closeModal} />}
+      {modal === EDIT && <EditCalendar closeModal={closeModal} data={schedule} />}
+      {modal === DISPLAY && (
+        <DisplayCalendar closeModal={closeModal} data={schedule} openModal={openModal} />
+      )}
     </>
   );
 };

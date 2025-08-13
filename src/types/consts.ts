@@ -71,9 +71,10 @@ export const QUERY_KEYS = {
   SERVICES: 'services',
   ACTIVE: 'active',
   COMPLETED: 'completed',
+  CALENDAR: 'calendar',
 };
 
-export const countryOptions = ['México', 'Estados Unidos', 'Canadá'];
+export const countryOptions = ['México'];
 
 export const districtOptions = ['Norte', 'Centro-Norte', 'Centro-Sur', 'Sur', 'Oeste', 'Este'];
 

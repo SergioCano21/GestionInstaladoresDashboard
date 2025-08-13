@@ -88,10 +88,24 @@ export const adminTemplate: Administrator = {
 };
 
 export const scheduleTemplate: Schedule = {
-  startTime: '',
-  endTime: '',
-  installerId: '',
-  serviceId: '',
+  _id: '',
   type: 'Service',
   date: '',
+  startTime: '',
+  endTime: '',
+  installer: {
+    _id: '',
+    name: '',
+  },
+  service: {
+    _id: '',
+    folio: '',
+    status: '',
+    client: '',
+  },
+  store: {
+    _id: '',
+    name: '',
+    numStore: '',
+  },
 };

@@ -1,20 +1,23 @@
-import { EDIT, MODAL_CENTER, MODAL_SMALL, statusClasses, statusLabels } from '@/types/consts';
+import { EDIT, MODAL_CENTER, MODAL_SMALL, ROLE, statusClasses, statusLabels } from '@/types/consts';
 import ModalHeader from '@/components/ui/modal/ModalHeader';
 import DisplayInfo from '@/components/ui/displayInfo/DisplayInfo';
 import DisplaySection from '@/components/ui/displayInfo/DisplaySection';
 import DisplaySubsection from '@/components/ui/displayInfo/DisplaySubsection';
 import Modal from '@/components/ui/modal/Modal';
-import type { Service } from '@/types/types';
+import type { Schedule } from '@/types/types';
 import ButtonSection from '@/components/ui/button/ButtonSection';
 import Button from '@/components/ui/button/Button';
+import { useSelector } from 'react-redux';
 
 interface Props {
   closeModal: () => void;
   openModal?: (modal: string) => void;
-  data: Service;
+  data: Schedule;
 }
 
-const DisplayService = ({ closeModal, openModal, data }: Props) => {
+const DisplayCalendar = ({ closeModal, openModal, data }: Props) => {
+  const role = useSelector((state: any) => state.auth.role);
+
   const handleDelete = () => {
     const result = confirm('¿Seguro que desea cancelar el servicio?');
     if (result) {
@@ -28,19 +31,24 @@ const DisplayService = ({ closeModal, openModal, data }: Props) => {
       <Modal align={MODAL_CENTER} size={MODAL_SMALL}>
         <ModalHeader title="Detalles del Servicio" closeModal={closeModal} />
 
-        <DisplaySection title="Información General">
+        <DisplaySection title="Información General" isLast>
           <DisplaySubsection>
-            <DisplayInfo label="Folio" value={data.folio} />
+            <DisplayInfo label="Folio" value={data.service.folio} />
             <DisplayInfo
               label="Status"
-              value={statusLabels[data.status]}
-              statusColor={statusClasses[data.status]}
+              value={statusLabels[data.service.status]}
+              statusColor={statusClasses[data.service.status]}
             />
           </DisplaySubsection>
 
           <DisplaySubsection>
-            <DisplayInfo label="Cliente" value={data.client} />
-            <DisplayInfo label="Instalador" value={data.installerId.name} />
+            <DisplayInfo label="Fecha" value={data.date} />
+            <DisplayInfo label="Hora" value={`${data.startTime} - ${data.endTime}`} />
+          </DisplaySubsection>
+
+          <DisplaySubsection>
+            <DisplayInfo label="Cliente" value={data.service.client} />
+            <DisplayInfo label="Instalador" value={data.installer.name} />
           </DisplaySubsection>
 
           <DisplaySubsection>
@@ -49,7 +57,7 @@ const DisplayService = ({ closeModal, openModal, data }: Props) => {
               value={
                 <>
                   {'#'}
-                  {data.storeId.numStore}&nbsp;{data.storeId.name}
+                  {data.store.numStore}&nbsp;{data.store.name}
                 </>
               }
             />
@@ -58,7 +66,7 @@ const DisplayService = ({ closeModal, openModal, data }: Props) => {
 
         <ButtonSection>
           <Button text="Cerrar" type="button" variant="close" onClick={closeModal} />
-          {openModal && (
+          {openModal && role === ROLE.LOCAL && (
             <div className={`flex gap-5`}>
               <Button text="Editar" type="button" variant="edit" onClick={() => openModal(EDIT)} />
               <Button text="Eliminar" type="button" variant="delete" onClick={handleDelete} />
@@ -70,4 +78,4 @@ const DisplayService = ({ closeModal, openModal, data }: Props) => {
   );
 };
 
-export default DisplayService;
+export default DisplayCalendar;
