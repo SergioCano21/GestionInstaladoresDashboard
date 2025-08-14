@@ -34,8 +34,8 @@ export interface Service {
     commissionFee: number;
     installerPayment: number;
   };
+  installerId: string;
   installer: {
-    _id: string;
     installerId: number | '';
     name: string;
   };
@@ -108,7 +108,6 @@ export interface Schedule {
     name: string;
   };
   service: {
-    _id: string;
     folio: number | '';
     status: 'To Do' | 'Doing' | 'Done' | 'Canceled';
     client: string;

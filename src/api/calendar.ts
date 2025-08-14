@@ -15,7 +15,6 @@ export const getCalendar = async () => {
 
 export const addCalendar = async (data: Schedule) => {
   try {
-    console.log(data);
     const response = await api.post(API_CALENDAR_URL, data);
     return response.data;
   } catch (error: any) {
@@ -25,7 +24,6 @@ export const addCalendar = async (data: Schedule) => {
 
 export const updateCalendar = async (data: Schedule) => {
   try {
-    console.log(data);
     const response = await api.put(`${API_CALENDAR_URL}/${data._id}`, data);
     return response.data;
   } catch (error: any) {

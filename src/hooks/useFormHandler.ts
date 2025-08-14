@@ -6,7 +6,7 @@ export function useFormHandler<T>(setData: React.Dispatch<React.SetStateAction<T
   ) => {
     const { name, value, type, dataset } = event.target;
 
-    // Different handling when it is jobDetails
+    // Different handling when it is jobDetails array
     if (dataset.jobDetail !== undefined) {
       setData((prev: any) => {
         const updated = [...prev.jobDetails];
@@ -16,16 +16,6 @@ export function useFormHandler<T>(setData: React.Dispatch<React.SetStateAction<T
         };
         return { ...prev, jobDetails: updated };
       });
-    }
-    // Different handling when it is installer object, only need to update the id
-    else if (name === 'installer') {
-      setData((prev: any) => ({
-        ...prev,
-        installer: {
-          ...prev.installer,
-          _id: value,
-        },
-      }));
     } else {
       setData((prev: any) => ({
         ...prev,

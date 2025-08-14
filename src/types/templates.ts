@@ -33,8 +33,8 @@ export const serviceTemplate: Service = {
     commissionFee: 0,
     installerPayment: 0,
   },
+  installerId: '',
   installer: {
-    _id: '',
     installerId: '',
     name: '',
   },
@@ -102,7 +102,6 @@ export const scheduleTemplate: Schedule = {
     name: '',
   },
   service: {
-    _id: '',
     folio: '',
     status: 'To Do',
     client: '',
