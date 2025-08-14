@@ -11,9 +11,10 @@ import { updateCalendar } from '@/api/calendar';
 interface Props {
   closeModal: () => void;
   data: Schedule;
+  goBack: () => void;
 }
 
-const EditCalendar = ({ closeModal, data }: Props) => {
+const EditCalendar = ({ closeModal, data, goBack }: Props) => {
   const [formData, setFormData] = useState<Schedule>(data);
   const { handleChange } = useFormHandler(setFormData);
   const mutation = useCustomMutation(updateCalendar, [QUERY_KEYS.CALENDAR]);
@@ -34,9 +35,9 @@ const EditCalendar = ({ closeModal, data }: Props) => {
           <FormCalendar
             formData={formData}
             handleChange={handleChange}
-            closeText={'Cerrar'}
+            closeText={'Regresar'}
             submitText={'Aceptar'}
-            closeModal={closeModal}
+            closeModal={goBack}
           />
         </form>
       </Modal>

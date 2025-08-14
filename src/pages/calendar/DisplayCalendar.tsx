@@ -1,4 +1,12 @@
-import { EDIT, MODAL_CENTER, MODAL_SMALL, ROLE, statusClasses, statusLabels } from '@/types/consts';
+import {
+  EDIT,
+  MODAL_CENTER,
+  MODAL_SMALL,
+  QUERY_KEYS,
+  ROLE,
+  statusClasses,
+  statusLabels,
+} from '@/types/consts';
 import ModalHeader from '@/components/ui/modal/ModalHeader';
 import DisplayInfo from '@/components/ui/displayInfo/DisplayInfo';
 import DisplaySection from '@/components/ui/displayInfo/DisplaySection';
@@ -8,6 +16,9 @@ import type { Schedule } from '@/types/types';
 import ButtonSection from '@/components/ui/button/ButtonSection';
 import Button from '@/components/ui/button/Button';
 import { useSelector } from 'react-redux';
+import dayjs from 'dayjs';
+import { useCustomMutation } from '@/hooks/useCustomMutation';
+import { deleteCalendar } from '@/api/calendar';
 
 interface Props {
   closeModal: () => void;
@@ -17,13 +28,16 @@ interface Props {
 
 const DisplayCalendar = ({ closeModal, openModal, data }: Props) => {
   const role = useSelector((state: any) => state.auth.role);
+  const mutation = useCustomMutation(deleteCalendar, [QUERY_KEYS.CALENDAR]);
 
-  const handleDelete = () => {
-    const result = confirm('¿Seguro que desea cancelar el servicio?');
-    if (result) {
-      alert('Eliminado correctamente');
-      closeModal();
-    }
+  const handleDelete = async () => {
+    try {
+      const result = confirm('¿Seguro que desea eliminar el horario?');
+      if (result) {
+        await mutation.mutateAsync(data._id);
+        closeModal();
+      }
+    } catch (error: any) {}
   };
 
   return (
@@ -42,7 +56,7 @@ const DisplayCalendar = ({ closeModal, openModal, data }: Props) => {
           </DisplaySubsection>
 
           <DisplaySubsection>
-            <DisplayInfo label="Fecha" value={data.date} />
+            <DisplayInfo label="Fecha" value={dayjs(data.date).format('DD-MM-YYYY')} />
             <DisplayInfo label="Hora" value={`${data.startTime} - ${data.endTime}`} />
           </DisplaySubsection>
 

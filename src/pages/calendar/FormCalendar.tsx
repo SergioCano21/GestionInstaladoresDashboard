@@ -33,10 +33,12 @@ const FormCalendar = ({ formData, handleChange, closeText, submitText, closeModa
             label="Servicio"
             id="serviceId"
             name="serviceId"
-            value={formData.service._id}
+            value={formData.serviceId}
             onChange={handleChange}
             options={services ?? []}
-            getOptionLabel={(option) => `${option.folio} - ${option.installerId.name}`}
+            getOptionLabel={(option) =>
+              `Folio: ${option.folio} - Instalador: ${option.installer.name}`
+            }
             getOptionValue={(option) => option._id}
           />
         </FormSubsection>

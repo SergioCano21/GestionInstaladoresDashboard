@@ -118,4 +118,5 @@ export interface Schedule {
     name: string;
     numStore: number | '';
   };
+  serviceId: string;
 }

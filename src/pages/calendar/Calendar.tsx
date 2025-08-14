@@ -14,6 +14,12 @@ import { useSelector } from 'react-redux';
 import { useQuery } from '@tanstack/react-query';
 import { getCalendar } from '@/api/calendar';
 import DisplayCalendar from './DisplayCalendar';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 const Calendar = () => {
   const { modal, openModal, closeModal } = useModal();
@@ -25,26 +31,21 @@ const Calendar = () => {
     refetchOnMount: false,
     refetchOnWindowFocus: false,
   });
-
-  const getLocalTime = (date: Date | null) =>
-    date
-      ? date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false })
-      : '';
-
-  const getLocalDate = (date: Date | null) => (date ? date.toLocaleDateString('en-CA') : '');
+  const userTZ = dayjs.tz.guess();
 
   const handleEventClick = (arg: any) => {
     const { start, end, extendedProps } = arg.event;
 
     setSchedule({
       _id: extendedProps._id,
-      date: getLocalDate(start),
+      date: dayjs.utc(start).tz(userTZ).format('YYYY-MM-DD'),
+      startTime: dayjs.utc(start).tz(userTZ).format('HH:mm'),
+      endTime: dayjs.utc(end).tz(userTZ).format('HH:mm'),
       type: extendedProps.type,
-      startTime: getLocalTime(start),
-      endTime: getLocalTime(end),
       installer: extendedProps.installer,
       service: extendedProps.service,
       store: extendedProps.store,
+      serviceId: extendedProps.serviceId,
     });
     openModal(DISPLAY);
   };
@@ -55,8 +56,8 @@ const Calendar = () => {
     return schedules.map((schedule) => {
       return {
         title: `Folio: ${schedule.service.folio}`,
-        start: new Date(schedule.startTime),
-        end: new Date(schedule.endTime),
+        start: dayjs.utc(schedule.startTime).tz(userTZ).toDate(),
+        end: dayjs.utc(schedule.endTime).tz(userTZ).toDate(),
         color: schedule.type === 'Service' ? '#dd611aff' : '#6f6f6fff',
         extendedProps: {
           _id: schedule._id,
@@ -64,6 +65,7 @@ const Calendar = () => {
           installer: schedule.installer,
           service: schedule.service,
           store: schedule.store,
+          serviceId: schedule.serviceId,
         },
         display: 'block',
       };
@@ -107,7 +109,9 @@ const Calendar = () => {
       />
 
       {modal === ADD && <AddCalendar closeModal={closeModal} />}
-      {modal === EDIT && <EditCalendar closeModal={closeModal} data={schedule} />}
+      {modal === EDIT && (
+        <EditCalendar closeModal={closeModal} data={schedule} goBack={() => openModal(DISPLAY)} />
+      )}
       {modal === DISPLAY && (
         <DisplayCalendar closeModal={closeModal} data={schedule} openModal={openModal} />
       )}

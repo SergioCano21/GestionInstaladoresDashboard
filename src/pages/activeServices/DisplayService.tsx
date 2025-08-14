@@ -29,6 +29,9 @@ interface Props {
   data: Service;
 }
 
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
 const DisplayService = ({ closeModal, openModal, data }: Props) => {
   const role = useSelector((state: any) => state.auth.role);
   const mutationDelete = useCustomMutation(deleteService, [
@@ -40,8 +43,6 @@ const DisplayService = ({ closeModal, openModal, data }: Props) => {
     [QUERY_KEYS.SERVICES, QUERY_KEYS.COMPLETED],
   ]);
 
-  dayjs.extend(utc);
-  dayjs.extend(timezone);
   const userTZ = dayjs.tz.guess();
 
   let scheduleDate = null;

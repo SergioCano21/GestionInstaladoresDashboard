@@ -112,4 +112,5 @@ export const scheduleTemplate: Schedule = {
     name: '',
     numStore: '',
   },
+  serviceId: '',
 };
