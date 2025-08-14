@@ -3,21 +3,12 @@ import type { Administrator, Installer, LoginForm, Schedule, Service, Store } fr
 export const serviceTemplate: Service = {
   _id: '',
   folio: '',
-  installerId: {
-    _id: '',
-    installerId: '',
-    name: '',
-  },
   client: '',
   status: 'To Do',
   description: '',
   clientPhone: '',
   address: '',
   additionalComments: '',
-  storeId: {
-    numStore: 0,
-    name: '',
-  },
   jobDetails: [
     {
       quantity: '',
@@ -41,6 +32,19 @@ export const serviceTemplate: Service = {
     installationServiceFee: 0,
     commissionFee: 0,
     installerPayment: 0,
+  },
+  installer: {
+    _id: '',
+    installerId: '',
+    name: '',
+  },
+  store: {
+    numStore: 0,
+    name: '',
+  },
+  schedule: {
+    startTime: '',
+    endTime: '',
   },
 };
 
@@ -100,7 +104,7 @@ export const scheduleTemplate: Schedule = {
   service: {
     _id: '',
     folio: '',
-    status: '',
+    status: 'To Do',
     client: '',
   },
   store: {

@@ -19,6 +19,9 @@ import Button from '@/components/ui/button/Button';
 import { useSelector } from 'react-redux';
 import { useCustomMutation } from '@/hooks/useCustomMutation';
 import { deleteService, restoreService } from '@/api/services';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
 
 interface Props {
   closeModal: () => void;
@@ -36,6 +39,20 @@ const DisplayService = ({ closeModal, openModal, data }: Props) => {
     [QUERY_KEYS.SERVICES, QUERY_KEYS.ACTIVE],
     [QUERY_KEYS.SERVICES, QUERY_KEYS.COMPLETED],
   ]);
+
+  dayjs.extend(utc);
+  dayjs.extend(timezone);
+  const userTZ = dayjs.tz.guess();
+
+  let scheduleDate = null;
+  let scheduleStart = null;
+  let scheduleEnd = null;
+
+  if (data.schedule?.startTime && data.schedule?.endTime) {
+    scheduleDate = dayjs.utc(data.schedule.startTime).tz(userTZ).format('DD-MM-YYYY');
+    scheduleStart = dayjs.utc(data.schedule.startTime).tz(userTZ).format('HH:mm');
+    scheduleEnd = dayjs.utc(data.schedule.endTime).tz(userTZ).format('HH:mm');
+  }
 
   const handleDelete = async () => {
     try {
@@ -86,21 +103,27 @@ const DisplayService = ({ closeModal, openModal, data }: Props) => {
 
         <DisplaySection title="Información del Servicio">
           <DisplaySubsection>
-            <DisplayInfo label="Instalador" value={data.installerId.name} />
+            <DisplayInfo label="Instalador" value={data.installer.name} />
             <DisplayInfo
               label="Tienda"
               value={
                 <>
                   {'#'}
-                  {data.storeId.numStore}&nbsp;{data.storeId.name}
+                  {data.store.numStore}&nbsp;{data.store.name}
                 </>
               }
             />
           </DisplaySubsection>
 
           <DisplaySubsection>
-            <DisplayInfo label="Fecha" value={`Sin Asignar`} />
-            <DisplayInfo label="Hora" value={`Sin Asignar`} />
+            <DisplayInfo
+              label="Fecha"
+              value={data.schedule.startTime ? scheduleDate : `Sin Asignar`}
+            />
+            <DisplayInfo
+              label="Hora"
+              value={data.schedule.startTime ? `${scheduleStart} - ${scheduleEnd}` : `Sin Asignar`}
+            />
           </DisplaySubsection>
         </DisplaySection>
 

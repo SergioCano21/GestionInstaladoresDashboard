@@ -43,9 +43,9 @@ const FormService = ({ formData, handleChange, closeModal, submitText, closeText
           />
           <FormSelect
             label="Asignar Instalador"
-            id="installerId"
-            name="installerId"
-            value={formData.installerId._id}
+            id="installer"
+            name="installer"
+            value={formData.installer._id}
             getOptionValue={(installer) => installer._id}
             getOptionLabel={(installer) => `${installer.installerId} - ${installer.name}`}
             onChange={handleChange}

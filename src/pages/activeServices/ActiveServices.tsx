@@ -21,7 +21,7 @@ const columns = [
   },
   {
     label: 'Instalador',
-    cell: (row: Service) => row.installerId.name,
+    cell: (row: Service) => row.installer.name,
     headerClass: styles.widthName,
   },
   {

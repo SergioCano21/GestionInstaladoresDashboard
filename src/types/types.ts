@@ -6,21 +6,12 @@ export interface LoginForm {
 export interface Service {
   _id: string;
   folio: number | '';
-  installerId: {
-    _id: string;
-    installerId: number | '';
-    name: string;
-  };
   client: string;
   status: ServiceStatus;
   description: string;
   clientPhone: string;
   address: string;
   additionalComments: string;
-  storeId: {
-    numStore: number;
-    name: string;
-  };
   jobDetails: {
     quantity: number | '';
     description: string;
@@ -42,6 +33,19 @@ export interface Service {
     installationServiceFee: number;
     commissionFee: number;
     installerPayment: number;
+  };
+  installer: {
+    _id: string;
+    installerId: number | '';
+    name: string;
+  };
+  store: {
+    numStore: number;
+    name: string;
+  };
+  schedule: {
+    startTime: string;
+    endTime: string;
   };
 }
 
