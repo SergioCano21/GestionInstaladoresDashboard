@@ -11,13 +11,10 @@ type Props = {
 };
 
 const ProtectedRoutes = ({ children, allowedRoles }: Props) => {
-  if (!Cookies.get('access_token')) {
-    return <Navigate to="/" replace />;
-  }
-
   const role = useSelector((state: any) => state.auth.role);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const token = Cookies.get('access_token');
 
   const fetchAuth = async () => {
     try {
@@ -29,8 +26,13 @@ const ProtectedRoutes = ({ children, allowedRoles }: Props) => {
   };
 
   useEffect(() => {
-    if (!role && Cookies.get('access_token')) {
+    if (!role && token) {
       fetchAuth();
+    }
+    if (!token) {
+      console.log('Running');
+      alert('Vuelva a iniciar sesión');
+      navigate('/', { replace: true });
     }
   }, []);
 

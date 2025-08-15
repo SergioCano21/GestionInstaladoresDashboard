@@ -17,7 +17,10 @@ interface Props {
 const EditService = ({ closeModal, data, goBack }: Props) => {
   const [service, setService] = useState<Service>(data);
   const { handleChange } = useFormHandler(setService);
-  const mutation = useCustomMutation(updateService, [QUERY_KEYS.SERVICES, QUERY_KEYS.ACTIVE]);
+  const mutation = useCustomMutation(updateService, [
+    [QUERY_KEYS.SERVICES, QUERY_KEYS.ACTIVE],
+    ...(Object.keys(data.schedule).length > 0 ? [[QUERY_KEYS.CALENDAR]] : []),
+  ]);
 
   const handleSubmit = async (e: FormEvent) => {
     try {

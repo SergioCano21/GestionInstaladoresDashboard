@@ -4,6 +4,7 @@ import {
   MODAL_SMALL,
   QUERY_KEYS,
   ROLE,
+  STATUS,
   statusClasses,
   statusLabels,
 } from '@/types/consts';
@@ -28,7 +29,12 @@ interface Props {
 
 const DisplayCalendar = ({ closeModal, openModal, data }: Props) => {
   const role = useSelector((state: any) => state.auth.role);
-  const mutation = useCustomMutation(deleteCalendar, [QUERY_KEYS.CALENDAR]);
+  const mutation = useCustomMutation(deleteCalendar, [
+    [QUERY_KEYS.CALENDAR],
+    ...(data.service.status === STATUS.TODO || data.service.status === STATUS.DOING
+      ? [[QUERY_KEYS.SERVICES, QUERY_KEYS.ACTIVE]]
+      : [[QUERY_KEYS.SERVICES, QUERY_KEYS.COMPLETED]]),
+  ]);
 
   const handleDelete = async () => {
     try {

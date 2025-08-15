@@ -18,12 +18,20 @@ interface Props {
 }
 
 const FormCalendar = ({ formData, handleChange, closeText, submitText, closeModal }: Props) => {
-  const { data: services } = useQuery<Service[]>({
+  const { data: activeServices } = useQuery<Service[]>({
     queryKey: [QUERY_KEYS.SERVICES, QUERY_KEYS.ACTIVE],
     queryFn: () => getServices('active'),
     refetchOnMount: false,
     refetchOnWindowFocus: false,
   });
+  const { data: completedServices } = useQuery<Service[]>({
+    queryKey: [QUERY_KEYS.SERVICES, QUERY_KEYS.COMPLETED],
+    queryFn: () => getServices('completed'),
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
+
+  const services = [...(activeServices ?? []), ...(completedServices ?? [])];
 
   return (
     <>

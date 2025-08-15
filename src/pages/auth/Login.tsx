@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import logo from '@/assets/images/logo.svg';
 import styles from './Login.module.css';
 import type { LoginForm } from '@/types/types';
@@ -8,9 +8,10 @@ import FormInput from '@/components/ui/form/FormInput';
 import { login } from '@/api/auth';
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
-import { setAuth } from '@/redux/auth/authSlice';
+import { clearAuth, setAuth } from '@/redux/auth/authSlice';
 import Cookies from 'js-cookie';
 import { Navigate } from 'react-router';
+import { useQueryClient } from '@tanstack/react-query';
 
 const Login = () => {
   if (Cookies.get('access_token')) {
@@ -19,11 +20,17 @@ const Login = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const queryClient = useQueryClient();
 
   const [formData, setFormData] = useState<LoginForm>(loginTemplate);
   const [isLoading, setIsLoading] = useState(false);
 
   const { handleChange } = useFormHandler(setFormData);
+
+  useEffect(() => {
+    queryClient.clear();
+    dispatch(clearAuth());
+  }, [queryClient]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

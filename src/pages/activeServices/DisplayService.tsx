@@ -37,10 +37,12 @@ const DisplayService = ({ closeModal, openModal, data }: Props) => {
   const mutationDelete = useCustomMutation(deleteService, [
     [QUERY_KEYS.SERVICES, QUERY_KEYS.ACTIVE],
     [QUERY_KEYS.SERVICES, QUERY_KEYS.COMPLETED],
+    ...(Object.keys(data.schedule).length > 0 ? [[QUERY_KEYS.CALENDAR]] : []),
   ]);
   const mutationRestore = useCustomMutation(restoreService, [
     [QUERY_KEYS.SERVICES, QUERY_KEYS.ACTIVE],
     [QUERY_KEYS.SERVICES, QUERY_KEYS.COMPLETED],
+    ...(Object.keys(data.schedule).length > 0 ? [[QUERY_KEYS.CALENDAR]] : []),
   ]);
 
   const userTZ = dayjs.tz.guess();

@@ -1,6 +1,6 @@
 import Modal from '@/components/ui/modal/Modal';
 import ModalHeader from '@/components/ui/modal/ModalHeader';
-import { MODAL_CENTER, MODAL_SMALL, QUERY_KEYS } from '@/types/consts';
+import { MODAL_CENTER, MODAL_SMALL, QUERY_KEYS, STATUS } from '@/types/consts';
 import FormCalendar from './FormCalendar';
 import type { Schedule } from '@/types/types';
 import { useState, type FormEvent } from 'react';
@@ -17,7 +17,12 @@ interface Props {
 const EditCalendar = ({ closeModal, data, goBack }: Props) => {
   const [formData, setFormData] = useState<Schedule>(data);
   const { handleChange } = useFormHandler(setFormData);
-  const mutation = useCustomMutation(updateCalendar, [QUERY_KEYS.CALENDAR]);
+  const mutation = useCustomMutation(updateCalendar, [
+    [QUERY_KEYS.CALENDAR],
+    ...(data.service.status === STATUS.TODO || data.service.status === STATUS.DOING
+      ? [[QUERY_KEYS.SERVICES, QUERY_KEYS.ACTIVE]]
+      : [[QUERY_KEYS.SERVICES, QUERY_KEYS.COMPLETED]]),
+  ]);
 
   const handleSubmit = async (e: FormEvent) => {
     try {
