@@ -11,6 +11,7 @@ import AddInstaller from './AddInstaller';
 import { useSelector } from 'react-redux';
 import { useQuery } from '@tanstack/react-query';
 import { getInstallers } from '@/api/installers';
+import TableLoader from '@/loader/TableLoader';
 
 const columns = [
   {
@@ -53,8 +54,6 @@ const Installers = () => {
     refetchOnWindowFocus: false,
   });
 
-  if (isLoading) return null;
-
   return (
     <>
       <section>
@@ -75,14 +74,18 @@ const Installers = () => {
           </select>
         </section>
 
-        <Table
-          columns={columns}
-          data={installers ?? []}
-          onRowClick={(installer: Installer) => {
-            setInstaller(installer);
-            openModal(DISPLAY);
-          }}
-        />
+        {isLoading ? (
+          <TableLoader />
+        ) : (
+          <Table
+            columns={columns}
+            data={installers ?? []}
+            onRowClick={(installer: Installer) => {
+              setInstaller(installer);
+              openModal(DISPLAY);
+            }}
+          />
+        )}
       </section>
 
       {modal == ADD && <AddInstaller closeModal={closeModal} />}

@@ -12,6 +12,7 @@ import Table from '@/components/ui/table/Table';
 import { getServices } from '@/api/services';
 import { useQuery } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
+import TableLoader from '@/loader/TableLoader';
 
 const columns = [
   {
@@ -56,8 +57,6 @@ const ActiveServices = () => {
     refetchOnWindowFocus: false,
   });
 
-  if (isLoading) return null;
-
   return (
     <>
       <section>
@@ -77,14 +76,18 @@ const ActiveServices = () => {
           </select>
         </div>
 
-        <Table
-          columns={columns}
-          data={services ?? []}
-          onRowClick={(service: Service) => {
-            setService(service);
-            openModal(DISPLAY);
-          }}
-        />
+        {isLoading ? (
+          <TableLoader />
+        ) : (
+          <Table
+            columns={columns}
+            data={services ?? []}
+            onRowClick={(service: Service) => {
+              setService(service);
+              openModal(DISPLAY);
+            }}
+          />
+        )}
       </section>
 
       {modal == ADD && <AddService closeModal={closeModal} />}

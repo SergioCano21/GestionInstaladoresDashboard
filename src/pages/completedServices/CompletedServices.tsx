@@ -9,6 +9,7 @@ import DisplayService from '@pages/activeServices/DisplayService';
 import Table from '@/components/ui/table/Table';
 import { useQuery } from '@tanstack/react-query';
 import { getServices } from '@/api/services';
+import TableLoader from '@/loader/TableLoader';
 
 const columns = [
   {
@@ -51,8 +52,6 @@ const CompletedServices = () => {
     refetchOnWindowFocus: false,
   });
 
-  if (isLoading) return null;
-
   return (
     <>
       <section>
@@ -68,14 +67,18 @@ const CompletedServices = () => {
           </select>
         </div>
 
-        <Table
-          columns={columns}
-          data={services ?? []}
-          onRowClick={(service: Service) => {
-            setService(service);
-            openModal(DISPLAY);
-          }}
-        />
+        {isLoading ? (
+          <TableLoader />
+        ) : (
+          <Table
+            columns={columns}
+            data={services ?? []}
+            onRowClick={(service: Service) => {
+              setService(service);
+              openModal(DISPLAY);
+            }}
+          />
+        )}
       </section>
 
       {modal == DISPLAY && <DisplayService closeModal={closeModal} data={service} />}

@@ -20,6 +20,7 @@ import AddAdmin from './AddAdmin';
 import EditAdmin from './EditAdmin';
 import { useQuery } from '@tanstack/react-query';
 import { getAdmins } from '@/api/administrators';
+import TableLoader from '@/loader/TableLoader';
 
 const columns = [
   {
@@ -68,8 +69,6 @@ const Administrators = () => {
     refetchOnWindowFocus: false,
   });
 
-  if (isLoading) return null;
-
   return (
     <>
       <section>
@@ -94,14 +93,18 @@ const Administrators = () => {
           </select>
         </div>
 
-        <Table
-          columns={columns}
-          data={admins ?? []}
-          onRowClick={(admin: Administrator) => {
-            setAdmin(admin);
-            openModal(DISPLAY);
-          }}
-        />
+        {isLoading ? (
+          <TableLoader />
+        ) : (
+          <Table
+            columns={columns}
+            data={admins ?? []}
+            onRowClick={(admin: Administrator) => {
+              setAdmin(admin);
+              openModal(DISPLAY);
+            }}
+          />
+        )}
       </section>
 
       {modal == ADD && <AddAdmin closeModal={closeModal} />}

@@ -19,6 +19,7 @@ import EditStore from './EditStore';
 import DisplayStore from './DisplayStore';
 import { useQuery } from '@tanstack/react-query';
 import { getStores } from '@/api/stores';
+import TableLoader from '@/loader/TableLoader';
 
 const columns = [
   {
@@ -59,8 +60,6 @@ const Stores = () => {
     refetchOnWindowFocus: false,
   });
 
-  if (isLoading) return null;
-
   return (
     <>
       <section>
@@ -74,14 +73,18 @@ const Stores = () => {
           <input type="text" placeholder="Nombre" className={`filter-input`} />
         </div>
 
-        <Table
-          columns={columns}
-          data={stores ?? []}
-          onRowClick={(store: Store) => {
-            setStore(store);
-            openModal(DISPLAY);
-          }}
-        />
+        {isLoading ? (
+          <TableLoader />
+        ) : (
+          <Table
+            columns={columns}
+            data={stores ?? []}
+            onRowClick={(store: Store) => {
+              setStore(store);
+              openModal(DISPLAY);
+            }}
+          />
+        )}
       </section>
 
       {modal == ADD && <AddStore closeModal={closeModal} />}
