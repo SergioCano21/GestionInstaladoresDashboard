@@ -30,7 +30,6 @@ const ProtectedRoutes = ({ children, allowedRoles }: Props) => {
       fetchAuth();
     }
     if (!token) {
-      console.log('Running');
       alert('Vuelva a iniciar sesión');
       navigate('/', { replace: true });
     }

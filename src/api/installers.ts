@@ -5,7 +5,6 @@ const API_INSTALLERS_URL = '/installer';
 
 export const getInstallers = async () => {
   try {
-    console.log('Installers');
     const response = await api.get(API_INSTALLERS_URL);
     return response.data.installers;
   } catch (error: any) {

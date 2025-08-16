@@ -5,8 +5,6 @@ const API_SERVICES_URL = '/service';
 
 export const getServices = async (status: 'active' | 'completed') => {
   try {
-    console.log('Agregar lean a todos las find de mongo para mas eficiencia');
-    console.log(status);
     const response = await api.get(`${API_SERVICES_URL}/${status}`);
     return response.data.services ?? [];
   } catch (error: any) {

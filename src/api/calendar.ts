@@ -5,7 +5,6 @@ const API_CALENDAR_URL = '/schedule';
 
 export const getCalendar = async () => {
   try {
-    console.log('Calendar');
     const response = await api.get(API_CALENDAR_URL);
     return response.data.schedules;
   } catch (error: any) {

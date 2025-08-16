@@ -5,7 +5,6 @@ const API_STORES_URL = '/store';
 
 export const getStores = async () => {
   try {
-    console.log('Stores');
     const response = await api.get(API_STORES_URL);
     return response.data.stores;
   } catch (error: any) {
