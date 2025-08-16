@@ -17,6 +17,7 @@ import DisplayCalendar from './DisplayCalendar';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
+import CalendarLoader from '@/loader/CalendarLoader';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -72,8 +73,6 @@ const Calendar = () => {
     });
   }, [schedules]);
 
-  if (isLoading) return null;
-
   return (
     <>
       <ContentHeader
@@ -86,27 +85,32 @@ const Calendar = () => {
         <input type="text" placeholder="Nombre Cliente" className={`filter-input`} />
         <input type="text" placeholder="Nombre Instalador" className={`filter-input`} />
       </div>
-      <FullCalendar
-        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-        headerToolbar={{
-          left: 'title',
-          right: 'dayGridMonth timeGridWeek  prev next',
-        }}
-        buttonText={{
-          today: 'Hoy',
-          month: 'Mes',
-          week: 'Semana',
-        }}
-        initialView="dayGridMonth"
-        editable={true}
-        selectable={true}
-        timeZone="local"
-        locale={'es'}
-        titleFormat={{ month: 'long', year: 'numeric' }}
-        fixedWeekCount={false}
-        eventClick={handleEventClick}
-        events={calendarEvents}
-      />
+
+      {isLoading ? (
+        <CalendarLoader />
+      ) : (
+        <FullCalendar
+          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+          headerToolbar={{
+            left: 'title',
+            right: 'dayGridMonth timeGridWeek  prev next',
+          }}
+          buttonText={{
+            today: 'Hoy',
+            month: 'Mes',
+            week: 'Semana',
+          }}
+          initialView="dayGridMonth"
+          editable={true}
+          selectable={true}
+          timeZone="local"
+          locale={'es'}
+          titleFormat={{ month: 'long', year: 'numeric' }}
+          fixedWeekCount={false}
+          eventClick={handleEventClick}
+          events={calendarEvents}
+        />
+      )}
 
       {modal === ADD && <AddCalendar closeModal={closeModal} />}
       {modal === EDIT && (
