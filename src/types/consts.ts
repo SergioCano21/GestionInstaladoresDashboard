@@ -1,6 +1,7 @@
 export const ADD = 'add';
 export const EDIT = 'edit';
 export const DISPLAY = 'display';
+export const DISPLAY_BLOCK = 'display_block';
 
 export const MODAL_SMALL = 'modal-sm';
 export const MODAL_BIG = 'modal-bg';

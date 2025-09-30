@@ -191,7 +191,7 @@ const DisplayService = ({ closeModal, openModal, data }: Props) => {
               text={data.status === STATUS.CANCELED ? 'Restaurar' : 'Ver PDF'}
               type="button"
               variant="primary"
-              onClick={handleRestore}
+              onClick={data.status === STATUS.CANCELED ? handleRestore : undefined}
             />
           )}
         </ButtonSection>

@@ -4,7 +4,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { useModal } from '@/hooks/useModal';
-import { ADD, DISPLAY, EDIT, QUERY_KEYS, ROLE } from '@/types/consts';
+import { ADD, DISPLAY, DISPLAY_BLOCK, EDIT, QUERY_KEYS, ROLE } from '@/types/consts';
 import AddCalendar from './AddCalendar';
 import EditCalendar from './EditCalentar';
 import { useMemo, useState } from 'react';
@@ -18,6 +18,7 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import CalendarLoader from '@/loader/CalendarLoader';
+import DisplayBlock from './DisplayBlock';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -48,7 +49,7 @@ const Calendar = () => {
       store: extendedProps.store,
       serviceId: extendedProps.serviceId,
     });
-    openModal(DISPLAY);
+    openModal(extendedProps.type === 'Service' ? DISPLAY : DISPLAY_BLOCK);
   };
 
   const calendarEvents = useMemo(() => {
@@ -56,7 +57,10 @@ const Calendar = () => {
 
     return schedules.map((schedule) => {
       return {
-        title: `Folio: ${schedule.service.folio}`,
+        title:
+          schedule.type === 'Service'
+            ? `Folio: ${schedule.service.folio}`
+            : `Bloqueado: ${schedule.installer.name}`,
         start: dayjs.utc(schedule.startTime).tz(userTZ).toDate(),
         end: dayjs.utc(schedule.endTime).tz(userTZ).toDate(),
         color: schedule.type === 'Service' ? '#dd611aff' : '#6f6f6fff',
@@ -101,14 +105,20 @@ const Calendar = () => {
             week: 'Semana',
           }}
           initialView="dayGridMonth"
-          editable={true}
+          editable={false}
           selectable={true}
           timeZone="local"
+          views={{
+            dayGridMonth: {
+              displayEventTime: false,
+            },
+          }}
           locale={'es'}
           titleFormat={{ month: 'long', year: 'numeric' }}
           fixedWeekCount={false}
           eventClick={handleEventClick}
           events={calendarEvents}
+          eventClassNames="cursor-pointer"
         />
       )}
 
@@ -119,6 +129,7 @@ const Calendar = () => {
       {modal === DISPLAY && (
         <DisplayCalendar closeModal={closeModal} data={schedule} openModal={openModal} />
       )}
+      {modal === DISPLAY_BLOCK && <DisplayBlock closeModal={closeModal} data={schedule} />}
     </>
   );
 };
