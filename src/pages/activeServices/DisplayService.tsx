@@ -22,6 +22,8 @@ import { deleteService, restoreService } from '@/api/services';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
+import { useQuery } from '@tanstack/react-query';
+import { getReceipt } from '@/api/receipts';
 
 interface Props {
   closeModal: () => void;
@@ -33,6 +35,13 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 
 const DisplayService = ({ closeModal, openModal, data }: Props) => {
+  const { data: receiptUrl } = useQuery<string>({
+    queryKey: [QUERY_KEYS.RECEIPT, data._id],
+    queryFn: () => getReceipt(data._id),
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
+
   const role = useSelector((state: any) => state.auth.role);
   const mutationDelete = useCustomMutation(deleteService, [
     [QUERY_KEYS.SERVICES, QUERY_KEYS.ACTIVE],
@@ -75,6 +84,12 @@ const DisplayService = ({ closeModal, openModal, data }: Props) => {
         closeModal();
       }
     } catch (error) {}
+  };
+
+  const handleOpenReceipt = async () => {
+    if (receiptUrl) {
+      window.open(receiptUrl, '_blank', 'noopener,noreferrer');
+    }
   };
 
   return (
@@ -191,7 +206,7 @@ const DisplayService = ({ closeModal, openModal, data }: Props) => {
               text={data.status === STATUS.CANCELED ? 'Restaurar' : 'Ver PDF'}
               type="button"
               variant="primary"
-              onClick={data.status === STATUS.CANCELED ? handleRestore : undefined}
+              onClick={data.status === STATUS.CANCELED ? handleRestore : handleOpenReceipt}
             />
           )}
         </ButtonSection>

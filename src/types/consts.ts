@@ -74,6 +74,7 @@ export const QUERY_KEYS = {
   COMPLETED: 'completed',
   CALENDAR: 'calendar',
   ALL: 'all',
+  RECEIPT: 'receipt',
 };
 
 export const countryOptions = ['México'];
