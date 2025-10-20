@@ -10,8 +10,10 @@ api.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error.response?.status === 401 && window.location.pathname !== '/')
+    if (error.response?.status === 401 && window.location.pathname !== '/') {
+      alert('Tu sesión ha expirado. Inicia sesión nuevamente.');
       window.location.href = '/';
+    }
     return Promise.reject(error);
   },
 );

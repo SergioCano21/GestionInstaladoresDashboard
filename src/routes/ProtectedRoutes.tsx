@@ -1,9 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useNavigate } from 'react-router';
-import Cookies from 'js-cookie';
 import { useAuth } from '@/api/auth';
 import { setAuth } from '@/redux/auth/authSlice';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 type Props = {
   children: React.ReactNode;
@@ -14,29 +13,38 @@ const ProtectedRoutes = ({ children, allowedRoles }: Props) => {
   const role = useSelector((state: any) => state.auth.role);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const token = Cookies.get('access_token');
-
-  const fetchAuth = async () => {
-    try {
-      const data = await useAuth();
-      dispatch(setAuth(data));
-    } catch (error: any) {
-      navigate('/');
-    }
-  };
+  const [isChecking, setIsChecking] = useState(true);
 
   useEffect(() => {
-    if (!role && token) {
-      fetchAuth();
-    }
-    if (!token) {
-      alert('Vuelva a iniciar sesión');
-      navigate('/', { replace: true });
-    }
-  }, []);
+    const veryfyAuth = async () => {
+      if (role) {
+        setIsChecking(false);
+        return;
+      }
+
+      try {
+        const data = await useAuth();
+        dispatch(setAuth(data));
+      } catch (error: any) {
+        navigate('/', { replace: true });
+      } finally {
+        setIsChecking(false);
+      }
+    };
+
+    veryfyAuth();
+  }, [role]);
+
+  if (isChecking) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-gray-600">Verificando autenticación...</div>
+      </div>
+    );
+  }
 
   if (!role) {
-    return null;
+    return <Navigate to="/" replace />;
   }
 
   if (allowedRoles && !allowedRoles.includes(role)) {
