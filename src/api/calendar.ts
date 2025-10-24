@@ -14,7 +14,12 @@ export const getCalendar = async () => {
 
 export const addCalendar = async (data: Schedule) => {
   try {
-    const response = await api.post(API_CALENDAR_URL, data);
+    const { date, startTime, endTime, ...rest } = data;
+    const response = await api.post(API_CALENDAR_URL, {
+      ...rest,
+      startTime: new Date(`${date}T${startTime}`),
+      endTime: new Date(`${date}T${endTime}`),
+    });
     return response.data;
   } catch (error: any) {
     throw new Error(error.response?.data.message || 'Ocurrió un error. Intente de nuevo.');
