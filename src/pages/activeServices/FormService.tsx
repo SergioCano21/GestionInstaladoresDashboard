@@ -18,9 +18,17 @@ interface Props {
   closeModal: () => void;
   submitText: string;
   closeText: string;
+  loading?: boolean;
 }
 
-const FormService = ({ formData, handleChange, closeModal, submitText, closeText }: Props) => {
+const FormService = ({
+  formData,
+  handleChange,
+  closeModal,
+  submitText,
+  closeText,
+  loading,
+}: Props) => {
   const { data: installers } = useQuery<Installer[]>({
     queryKey: [QUERY_KEYS.INSTALLERS],
     queryFn: getInstallers,
@@ -140,7 +148,7 @@ const FormService = ({ formData, handleChange, closeModal, submitText, closeText
 
       <ButtonSection>
         <Button text={closeText} type="button" variant="close" onClick={closeModal} />
-        <Button text={submitText} type="submit" variant="primary" />
+        <Button text={submitText} type="submit" variant="primary" loading={loading} />
       </ButtonSection>
     </>
   );

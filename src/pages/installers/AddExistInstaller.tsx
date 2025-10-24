@@ -46,7 +46,7 @@ const AddExistInstaller = ({ closeModal, goBack }: Props) => {
 
         <ButtonSection>
           <Button text="Regresar" type="button" variant="close" onClick={goBack} />
-          <Button text="Registrar" type="submit" variant="primary" />
+          <Button text="Registrar" type="submit" variant="primary" loading={mutation.isPending} />
         </ButtonSection>
       </form>
     </>

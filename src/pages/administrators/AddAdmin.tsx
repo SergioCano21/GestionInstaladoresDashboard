@@ -37,6 +37,7 @@ const AddAdmin = ({ closeModal }: Props) => {
             closeModal={closeModal}
             closeText={'Cerrar'}
             submitText={'Agregar'}
+            loading={mutation.isPending}
           />
         </form>
       </Modal>

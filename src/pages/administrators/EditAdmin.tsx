@@ -37,6 +37,7 @@ const EditAdmin = ({ closeModal, data }: Props) => {
             closeModal={closeModal}
             closeText={'Regresar'}
             submitText={'Aceptar'}
+            loading={mutation.isPending}
           />
         </form>
       </Modal>

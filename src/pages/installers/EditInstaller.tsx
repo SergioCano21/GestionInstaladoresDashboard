@@ -37,6 +37,7 @@ const EditInstaller = ({ closeModal, data, openModal }: Props) => {
             closeModal={() => openModal(DISPLAY)}
             submitText={'Aceptar'}
             closeText={'Regresar'}
+            loading={mutation.isPending}
           />
         </form>
       </Modal>

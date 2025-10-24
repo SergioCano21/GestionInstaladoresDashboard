@@ -198,7 +198,13 @@ const DisplayService = ({ closeModal, openModal, data }: Props) => {
           {openModal && role === ROLE.LOCAL && (
             <div className={`flex gap-5`}>
               <Button text="Editar" type="button" variant="edit" onClick={() => openModal(EDIT)} />
-              <Button text="Eliminar" type="button" variant="delete" onClick={handleDelete} />
+              <Button
+                text="Eliminar"
+                type="button"
+                variant="delete"
+                onClick={handleDelete}
+                loading={mutationDelete.isPending}
+              />
             </div>
           )}
           {!openModal && (role === ROLE.LOCAL || data.status !== STATUS.CANCELED) && (
@@ -207,6 +213,7 @@ const DisplayService = ({ closeModal, openModal, data }: Props) => {
               type="button"
               variant="primary"
               onClick={data.status === STATUS.CANCELED ? handleRestore : handleOpenReceipt}
+              loading={mutationRestore.isPending}
             />
           )}
         </ButtonSection>

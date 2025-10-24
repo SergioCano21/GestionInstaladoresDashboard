@@ -41,6 +41,7 @@ const AddCalendar = ({ closeModal }: Props) => {
             closeText={'Cerrar'}
             submitText={'Agregar'}
             closeModal={closeModal}
+            loading={mutation.isPending}
           />
         </form>
       </Modal>

@@ -99,32 +99,35 @@ input[type='number']::-webkit-outer-spin-button {
   padding: 10px 15px;
   cursor: pointer;
 }
+.btn:disabled {
+  opacity: 0.7;
+}
 .btn-primary {
   background-color: var(--color-primary);
   color: var(--color-white);
 }
-.btn-primary:hover {
+.btn-primary:not(:disabled):hover {
   background-color: rgb(232, 93, 0); /*f96302d8*/
 }
 .btn-edit {
   background-color: var(--color-edit);
   color: var(--color-white);
 }
-.btn-edit:hover {
+.btn-edit:not(:disabled):hover {
   background-color: #0056a2d8;
 }
 .btn-delete {
   background-color: var(--color-delete);
   color: var(--color-white);
 }
-.btn-delete:hover {
+.btn-delete:not(:disabled):hover {
   background-color: #f44336d8;
 }
 .btn-close {
   background-color: var(--color-gray);
   color: var(--color-white);
 }
-.btn-close:hover {
+.btn-close:not(:disabled):hover {
   background-color: #8e9398d8;
 }
 .cursor-pointer {

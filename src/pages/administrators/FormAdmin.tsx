@@ -17,9 +17,17 @@ interface Props {
   closeModal: () => void;
   closeText: string;
   submitText: string;
+  loading: boolean;
 }
 
-const FormAdmin = ({ formData, handleChange, closeModal, closeText, submitText }: Props) => {
+const FormAdmin = ({
+  formData,
+  handleChange,
+  closeModal,
+  closeText,
+  submitText,
+  loading,
+}: Props) => {
   const { data: stores } = useQuery<Store[]>({
     queryKey: [QUERY_KEYS.STORES],
     queryFn: getStores,
@@ -115,7 +123,7 @@ const FormAdmin = ({ formData, handleChange, closeModal, closeText, submitText }
 
       <ButtonSection>
         <Button text={closeText} type="button" variant="close" onClick={closeModal} />
-        <Button text={submitText} type="submit" variant="primary" />
+        <Button text={submitText} type="submit" variant="primary" loading={loading} />
       </ButtonSection>
     </>
   );

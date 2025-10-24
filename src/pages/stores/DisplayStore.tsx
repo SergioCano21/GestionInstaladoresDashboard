@@ -90,12 +90,24 @@ const DisplayStore = ({ closeModal, openModal, data }: Props) => {
                   variant="edit"
                   onClick={() => openModal(EDIT)}
                 />
-                <Button text="Eliminar" type="button" variant="delete" onClick={handleDelete} />
+                <Button
+                  text="Eliminar"
+                  type="button"
+                  variant="delete"
+                  onClick={handleDelete}
+                  loading={mutationDelete.isPending}
+                />
               </>
             )}
             {data.deleted && (
               <>
-                <Button text="Restaurar" type="button" variant="primary" onClick={handleRestore} />
+                <Button
+                  text="Restaurar"
+                  type="button"
+                  variant="primary"
+                  onClick={handleRestore}
+                  loading={mutationRestore.isPending}
+                />
               </>
             )}
           </div>

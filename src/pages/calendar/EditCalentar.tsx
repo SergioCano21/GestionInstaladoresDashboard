@@ -43,6 +43,7 @@ const EditCalendar = ({ closeModal, data, goBack }: Props) => {
             closeText={'Regresar'}
             submitText={'Aceptar'}
             closeModal={goBack}
+            loading={mutation.isPending}
           />
         </form>
       </Modal>

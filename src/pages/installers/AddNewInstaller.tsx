@@ -34,6 +34,7 @@ const AddNewInstaller = ({ closeModal, goBack }: Props) => {
           closeModal={goBack}
           closeText={'Regresar'}
           submitText={'Agregar'}
+          loading={mutation.isPending}
         />
       </form>
     </>

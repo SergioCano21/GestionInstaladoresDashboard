@@ -37,6 +37,7 @@ const AddService = ({ closeModal }: Props) => {
             closeModal={closeModal}
             submitText={'Agregar'}
             closeText={'Cerrar'}
+            loading={mutation.isPending}
           />
         </form>
       </Modal>

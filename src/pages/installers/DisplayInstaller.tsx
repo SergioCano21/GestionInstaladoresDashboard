@@ -66,7 +66,13 @@ const DisplayInstaller = ({ closeModal, openModal, data }: Props) => {
           {role === ROLE.LOCAL && (
             <div className={`flex gap-5`}>
               <Button text="Editar" type="button" variant="edit" onClick={() => openModal(EDIT)} />
-              <Button text="Eliminar" type="button" variant="delete" onClick={handleDelete} />
+              <Button
+                text="Eliminar"
+                type="button"
+                variant="delete"
+                onClick={handleDelete}
+                loading={mutation.isPending}
+              />
             </div>
           )}
         </ButtonSection>

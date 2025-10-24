@@ -15,9 +15,17 @@ interface Props {
   closeText: string;
   submitText: string;
   closeModal: () => void;
+  loading: boolean;
 }
 
-const FormCalendar = ({ formData, handleChange, closeText, submitText, closeModal }: Props) => {
+const FormCalendar = ({
+  formData,
+  handleChange,
+  closeText,
+  submitText,
+  closeModal,
+  loading,
+}: Props) => {
   const { data: activeServices } = useQuery<Service[]>({
     queryKey: [QUERY_KEYS.SERVICES, QUERY_KEYS.ACTIVE],
     queryFn: () => getServices('active'),
@@ -85,7 +93,7 @@ const FormCalendar = ({ formData, handleChange, closeText, submitText, closeModa
 
       <ButtonSection>
         <Button text={closeText} type="button" variant="close" onClick={closeModal} />
-        <Button text={submitText} type="submit" variant="primary" />
+        <Button text={submitText} type="submit" variant="primary" loading={loading} />
       </ButtonSection>
     </>
   );

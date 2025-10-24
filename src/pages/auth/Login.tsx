@@ -12,6 +12,7 @@ import { clearAuth, setAuth } from '@/redux/auth/authSlice';
 import Cookies from 'js-cookie';
 import { Navigate } from 'react-router';
 import { useQueryClient } from '@tanstack/react-query';
+import Button from '@/components/ui/button/Button';
 
 const Login = () => {
   if (Cookies.get('access_token')) {
@@ -74,9 +75,13 @@ const Login = () => {
             onChange={handleChange}
             value={formData.password}
           />
-          <button type="submit" className={`btn btn-primary ${styles.btn}`} disabled={isLoading}>
-            Iniciar Sesión
-          </button>
+          <Button
+            text="Iniciar Sesión"
+            type="submit"
+            variant="primary"
+            extraClasses={`${styles.btn}`}
+            loading={isLoading}
+          />
         </form>
       </section>
     </>

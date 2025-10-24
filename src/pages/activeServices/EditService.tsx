@@ -41,6 +41,7 @@ const EditService = ({ closeModal, data, goBack }: Props) => {
             closeModal={goBack}
             submitText={'Aceptar'}
             closeText={'Regresar'}
+            loading={mutation.isPending}
           />
         </form>
       </Modal>

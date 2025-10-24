@@ -13,9 +13,17 @@ interface Props {
   closeModal: () => void;
   submitText: string;
   closeText: string;
+  loading: boolean;
 }
 
-const FormInstaller = ({ formData, handleChange, closeModal, submitText, closeText }: Props) => {
+const FormInstaller = ({
+  formData,
+  handleChange,
+  closeModal,
+  submitText,
+  closeText,
+  loading,
+}: Props) => {
   return (
     <>
       <FormSection isLast>
@@ -74,7 +82,7 @@ const FormInstaller = ({ formData, handleChange, closeModal, submitText, closeTe
 
       <ButtonSection>
         <Button text={closeText} type="button" variant="close" onClick={closeModal} />
-        <Button text={submitText} type="submit" variant="primary" />
+        <Button text={submitText} type="submit" variant="primary" loading={loading} />
       </ButtonSection>
     </>
   );
