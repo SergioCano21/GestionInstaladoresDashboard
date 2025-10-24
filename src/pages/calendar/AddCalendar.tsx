@@ -19,7 +19,6 @@ const AddCalendar = ({ closeModal }: Props) => {
   const mutation = useCustomMutation(addCalendar, [
     [QUERY_KEYS.CALENDAR],
     [QUERY_KEYS.SERVICES, QUERY_KEYS.ACTIVE],
-    [QUERY_KEYS.SERVICES, QUERY_KEYS.COMPLETED],
   ]);
 
   const handleSubmit = async (e: FormEvent) => {
