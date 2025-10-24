@@ -29,6 +29,8 @@ interface Props {
 
 const DisplayCalendar = ({ closeModal, openModal, data }: Props) => {
   const role = useSelector((state: any) => state.auth.role);
+  const storeId = useSelector((state: any) => state.auth.storeId);
+
   const mutation = useCustomMutation(deleteCalendar, [
     [QUERY_KEYS.CALENDAR],
     ...(data.service.status === STATUS.TODO || data.service.status === STATUS.DOING
@@ -86,7 +88,7 @@ const DisplayCalendar = ({ closeModal, openModal, data }: Props) => {
 
         <ButtonSection>
           <Button text="Cerrar" type="button" variant="close" onClick={closeModal} />
-          {openModal && role === ROLE.LOCAL && (
+          {openModal && role === ROLE.LOCAL && storeId === data.store._id && (
             <div className={`flex gap-5`}>
               <Button text="Editar" type="button" variant="edit" onClick={() => openModal(EDIT)} />
               <Button

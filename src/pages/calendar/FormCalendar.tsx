@@ -32,14 +32,10 @@ const FormCalendar = ({
     refetchOnMount: false,
     refetchOnWindowFocus: false,
   });
-  const { data: completedServices } = useQuery<Service[]>({
-    queryKey: [QUERY_KEYS.SERVICES, QUERY_KEYS.COMPLETED],
-    queryFn: () => getServices('completed'),
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-  });
 
-  const services = [...(activeServices ?? []), ...(completedServices ?? [])];
+  const services = activeServices?.filter(
+    (service) => !service.schedule || Object.keys(service.schedule).length === 0,
+  );
 
   return (
     <>
