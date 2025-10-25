@@ -39,9 +39,7 @@ const FormCalendar = ({
       Object.keys(service.schedule).length === 0 ||
       service._id === formData.serviceId,
   );
-  console.log('Active Services:', activeServices);
 
-  console.log('Form Data:', formData);
   return (
     <>
       <FormSection isLast>
