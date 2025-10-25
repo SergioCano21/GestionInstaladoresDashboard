@@ -34,7 +34,10 @@ const FormCalendar = ({
   });
 
   const services = activeServices?.filter(
-    (service) => !service.schedule || Object.keys(service.schedule).length === 0,
+    (service) =>
+      !service.schedule ||
+      Object.keys(service.schedule).length === 0 ||
+      service._id === formData._id,
   );
 
   return (
