@@ -150,10 +150,16 @@ const DisplayService = ({ closeModal, openModal, data }: Props) => {
             <DisplayInfo label="Cantidad" value={data.jobDetails[0].quantity} />
             <DisplayInfo
               label="Costo del Servicio"
-              value={`$${data.jobDetails[0].installationServiceFee}`}
+              value={`$${Number(data.jobDetails[0].installationServiceFee).toFixed(2)}`}
             />
-            <DisplayInfo label="Comisión" value={`$${data.jobDetails[0].commissionFee}`} />
-            <DisplayInfo label="Comitente" value={`$${data.jobDetails[0].installerPayment}`} />
+            <DisplayInfo
+              label="Comisión"
+              value={`$${Number(data.jobDetails[0].commissionFee.toFixed(2))}`}
+            />
+            <DisplayInfo
+              label="Comitente"
+              value={`$${Number(data.jobDetails[0].installerPayment).toFixed(2)}`}
+            />
           </DisplaySubsection>
 
           <DisplaySubsection>
@@ -166,24 +172,36 @@ const DisplayService = ({ closeModal, openModal, data }: Props) => {
             <DisplayInfo label="&nbsp;" value={'Subtotales'} useLabel={true} />
             <DisplayInfo
               label="Costo del Servicio"
-              value={`$${data.subtotals.installationServiceFee}`}
+              value={`$${Number(data.subtotals.installationServiceFee).toFixed(2)}`}
             />
-            <DisplayInfo label="Comisión" value={`$${data.subtotals.commissionFee}`} />
-            <DisplayInfo label="Comitente" value={`$${data.subtotals.installerPayment}`} />
+            <DisplayInfo
+              label="Comisión"
+              value={`$${Number(data.subtotals.commissionFee).toFixed(2)}`}
+            />
+            <DisplayInfo
+              label="Comitente"
+              value={`$${Number(data.subtotals.installerPayment).toFixed(2)}`}
+            />
           </DisplaySubsection>
 
           <DisplaySubsection>
             <DisplayInfo label="" value={'IVA'} useLabel={true} />
-            <DisplayInfo label="" value={`$${data.iva.installationServiceFee}`} />
-            <DisplayInfo label="" value={`$${data.iva.commissionFee}`} />
-            <DisplayInfo label="" value={`$${data.iva.installerPayment}`} />
+            <DisplayInfo
+              label=""
+              value={`$${Number(data.iva.installationServiceFee).toFixed(2)}`}
+            />
+            <DisplayInfo label="" value={`$${Number(data.iva.commissionFee).toFixed(2)}`} />
+            <DisplayInfo label="" value={`$${Number(data.iva.installerPayment).toFixed(2)}`} />
           </DisplaySubsection>
 
           <DisplaySubsection>
             <DisplayInfo label="" value={'Totales'} useLabel={true} />
-            <DisplayInfo label="" value={`$${data.totals.installationServiceFee}`} />
-            <DisplayInfo label="" value={`$${data.totals.commissionFee}`} />
-            <DisplayInfo label="" value={`$${data.totals.installerPayment}`} />
+            <DisplayInfo
+              label=""
+              value={`$${Number(data.totals.installationServiceFee).toFixed(2)}`}
+            />
+            <DisplayInfo label="" value={`$${Number(data.totals.commissionFee).toFixed(2)}`} />
+            <DisplayInfo label="" value={`$${Number(data.totals.installerPayment).toFixed(2)}`} />
           </DisplaySubsection>
         </DisplaySection>
 
