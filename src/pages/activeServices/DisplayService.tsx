@@ -154,7 +154,7 @@ const DisplayService = ({ closeModal, openModal, data }: Props) => {
             />
             <DisplayInfo
               label="Comisión"
-              value={`$${Number(data.jobDetails[0].commissionFee.toFixed(2))}`}
+              value={`$${Number(data.jobDetails[0].commissionFee).toFixed(2)}`}
             />
             <DisplayInfo
               label="Comitente"
