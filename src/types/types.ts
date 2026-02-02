@@ -18,7 +18,7 @@ export interface Service {
     installationServiceFee: number | '';
     commissionFee: number;
     installerPayment: number;
-  }[];
+  };
   subtotals: {
     installationServiceFee: number;
     commissionFee: number;
@@ -109,7 +109,7 @@ export interface Schedule {
   };
   service: {
     folio: number | '';
-    status: 'To Do' | 'Doing' | 'Done' | 'Canceled';
+    status: ServiceStatus;
     client: string;
   };
   store: {

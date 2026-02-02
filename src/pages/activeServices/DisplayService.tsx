@@ -147,23 +147,23 @@ const DisplayService = ({ closeModal, openModal, data }: Props) => {
 
         <DisplaySection title="Detalles del Servicio">
           <DisplaySubsection>
-            <DisplayInfo label="Cantidad" value={data.jobDetails[0].quantity} />
+            <DisplayInfo label="Cantidad" value={data.jobDetails.quantity} />
             <DisplayInfo
               label="Costo del Servicio"
-              value={`$${Number(data.jobDetails[0].installationServiceFee).toFixed(2)}`}
+              value={`$${Number(data.jobDetails.installationServiceFee).toFixed(2)}`}
             />
             <DisplayInfo
               label="Comisión"
-              value={`$${Number(data.jobDetails[0].commissionFee).toFixed(2)}`}
+              value={`$${Number(data.jobDetails.commissionFee).toFixed(2)}`}
             />
             <DisplayInfo
               label="Comitente"
-              value={`$${Number(data.jobDetails[0].installerPayment).toFixed(2)}`}
+              value={`$${Number(data.jobDetails.installerPayment).toFixed(2)}`}
             />
           </DisplaySubsection>
 
           <DisplaySubsection>
-            <DisplayInfo label="Descripción" value={data.jobDetails[0].description} />
+            <DisplayInfo label="Descripción" value={data.jobDetails.description} />
           </DisplaySubsection>
         </DisplaySection>
 

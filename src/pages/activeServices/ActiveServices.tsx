@@ -32,9 +32,7 @@ const columns = [
   },
   {
     label: 'Descripción',
-    cell: (row: Service) => (
-      <div className={styles.description}>{row.jobDetails[0].description}</div>
-    ),
+    cell: (row: Service) => <div className={styles.description}>{row.jobDetails.description}</div>,
     headerClass: styles.widthDescription,
   },
   {
