@@ -7,7 +7,16 @@ import EditService from './EditService';
 import type { Service } from '@/types/types';
 import { serviceTemplate } from '@/types/templates';
 import { useModal } from '@hooks/useModal';
-import { ADD, DISPLAY, EDIT, QUERY_KEYS, ROLE, statusClasses, statusLabels } from '@/types/consts';
+import {
+  ADD,
+  DISPLAY,
+  EDIT,
+  QUERY_KEYS,
+  ROLE,
+  STATUS,
+  statusClasses,
+  statusLabels,
+} from '@/types/consts';
 import Table from '@/components/ui/table/Table';
 import { getServices } from '@/api/services';
 import { useQuery } from '@tanstack/react-query';
@@ -15,6 +24,8 @@ import { useSelector } from 'react-redux';
 import TableLoader from '@/loader/TableLoader';
 import FilterSection from '@/components/ui/filter/FilterSection';
 import FilterInput from '@/components/ui/filter/FilterInput';
+import FilterSelect from '@/components/ui/filter/FilterSelect';
+import { useFilters } from '@/hooks/useFilter';
 
 const columns = [
   {
@@ -57,6 +68,13 @@ const ActiveServices = () => {
     refetchOnWindowFocus: false,
   });
 
+  const { filteredData, handleFilterChange } = useFilters(services ?? [], {
+    folio: { type: 'number' },
+    installer: { type: 'text', getValue: (service) => service.installer.name },
+    client: { type: 'text' },
+    status: { type: 'select' },
+  });
+
   return (
     <>
       <ContentHeader
@@ -65,14 +83,26 @@ const ActiveServices = () => {
         openModal={role === ROLE.LOCAL ? () => openModal(ADD) : undefined}
       />
       <FilterSection>
-        <FilterInput type="number" placeholder="Folio" />
-        <FilterInput type="search" placeholder="Nombre Instalador" />
-        <FilterInput type="search" placeholder="Nombre Cliente" />
-        <select name="" id="" className={`filter-input`}>
+        <FilterInput
+          type="number"
+          placeholder="Folio"
+          onChange={(e) => handleFilterChange('folio', e.target.value)}
+        />
+        <FilterInput
+          type="search"
+          placeholder="Nombre Instalador"
+          onChange={(e) => handleFilterChange('installer', e.target.value)}
+        />
+        <FilterInput
+          type="search"
+          placeholder="Nombre Cliente"
+          onChange={(e) => handleFilterChange('client', e.target.value)}
+        />
+        <FilterSelect onChange={(e) => handleFilterChange('status', e.target.value)}>
           <option value="">Status</option>
-          <option value="">Proceso</option>
-          <option value="">Pendiente</option>
-        </select>
+          <option value={STATUS.TODO}>Pendiente</option>
+          <option value={STATUS.DOING}>Proceso</option>
+        </FilterSelect>
       </FilterSection>
 
       {isLoading ? (
@@ -80,7 +110,7 @@ const ActiveServices = () => {
       ) : (
         <Table
           columns={columns}
-          data={services ?? []}
+          data={filteredData}
           onRowClick={(service: Service) => {
             setService(service);
             openModal(DISPLAY);

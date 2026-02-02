@@ -3,7 +3,7 @@ import ContentHeader from '@components/ui/ContentHeader';
 import { useModal } from '@hooks/useModal';
 import type { Service } from '@/types/types';
 import { serviceTemplate } from '@/types/templates';
-import { DISPLAY, QUERY_KEYS, statusClasses, statusLabels } from '@/types/consts';
+import { DISPLAY, QUERY_KEYS, STATUS, statusClasses, statusLabels } from '@/types/consts';
 import styles from '@pages/activeServices/ActiveServices.module.css';
 import DisplayService from '@pages/activeServices/DisplayService';
 import Table from '@/components/ui/table/Table';
@@ -12,6 +12,7 @@ import { getServices } from '@/api/services';
 import TableLoader from '@/loader/TableLoader';
 import FilterSection from '@/components/ui/filter/FilterSection';
 import FilterInput from '@/components/ui/filter/FilterInput';
+import FilterSelect from '@/components/ui/filter/FilterSelect';
 
 const columns = [
   {
@@ -59,12 +60,11 @@ const CompletedServices = () => {
         <FilterInput type="search" placeholder="Folio" />
         <FilterInput type="search" placeholder="Nombre Instalador" />
         <FilterInput type="search" placeholder="Nombre Cliente" />
-
-        <select name="" id="" className={`filter-input`}>
+        <FilterSelect>
           <option value="">Status</option>
-          <option value="">Terminado</option>
-          <option value="">Cancelado</option>
-        </select>
+          <option value={STATUS.DONE}>Terminado</option>
+          <option value={STATUS.CANCELED}>Cancelado</option>
+        </FilterSelect>
       </FilterSection>
 
       {isLoading ? (

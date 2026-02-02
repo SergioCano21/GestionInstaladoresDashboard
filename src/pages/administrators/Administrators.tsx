@@ -23,6 +23,7 @@ import { getAdmins } from '@/api/administrators';
 import TableLoader from '@/loader/TableLoader';
 import FilterSection from '@/components/ui/filter/FilterSection';
 import FilterInput from '@/components/ui/filter/FilterInput';
+import FilterSelect from '@/components/ui/filter/FilterSelect';
 
 const columns = [
   {
@@ -80,18 +81,18 @@ const Administrators = () => {
       />
       <FilterSection>
         <FilterInput type="search" placeholder="Nombre" />
-        <select name="" id="" className={`filter-input`}>
+        <FilterSelect>
           <option value="">Rol</option>
           <option value="">Local</option>
           <option value="">Distrital</option>
           <option value="">Nacional</option>
-        </select>
-        <select name="" id="" className={`filter-input`}>
+        </FilterSelect>
+        <FilterSelect>
           <option value="">Tienda</option>
           <option value="">1</option>
           <option value="">2</option>
           <option value="">3</option>
-        </select>
+        </FilterSelect>
       </FilterSection>
 
       {isLoading ? (
