@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import ContentHeader from '@components/ui/ContentHeader';
-import type { Administrator } from '@/types/types';
+import type { Administrator, Store } from '@/types/types';
 import { adminTemplate } from '@/types/templates';
 import { useModal } from '@hooks/useModal';
 import {
@@ -10,6 +10,7 @@ import {
   DISPLAY,
   EDIT,
   QUERY_KEYS,
+  ROLE,
   roleLabels,
   statusClasses,
   statusLabels,
@@ -24,6 +25,8 @@ import TableLoader from '@/loader/TableLoader';
 import FilterSection from '@/components/ui/filter/FilterSection';
 import FilterInput from '@/components/ui/filter/FilterInput';
 import FilterSelect from '@/components/ui/filter/FilterSelect';
+import { useFilter } from '@/hooks/useFilter';
+import { getStores } from '@/api/stores';
 
 const columns = [
   {
@@ -36,7 +39,7 @@ const columns = [
   },
   {
     label: 'Rol',
-    cell: (row: Administrator) => roleLabels[row.role],
+    cell: (row: Administrator) => (row.role ? roleLabels[row.role] : 'N/A'),
   },
   {
     label: 'Tienda',
@@ -72,6 +75,19 @@ const Administrators = () => {
     refetchOnWindowFocus: false,
   });
 
+  const { data: stores, isLoading: isLoadingStores } = useQuery<Store[]>({
+    queryKey: [QUERY_KEYS.STORES],
+    queryFn: getStores,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
+
+  const { filteredData, handleFilterChange } = useFilter(admins ?? [], {
+    name: {},
+    role: {},
+    numStore: { getValue: (a) => a.storeId?.numStore! },
+  });
+
   return (
     <>
       <ContentHeader
@@ -80,18 +96,27 @@ const Administrators = () => {
         openModal={() => openModal(ADD)}
       />
       <FilterSection>
-        <FilterInput type="search" placeholder="Nombre" />
-        <FilterSelect>
+        <FilterInput
+          type="search"
+          placeholder="Nombre"
+          onChange={(e) => handleFilterChange('name', e.target.value)}
+        />
+        <FilterSelect onChange={(e) => handleFilterChange('role', e.target.value)}>
           <option value="">Rol</option>
-          <option value="">Local</option>
-          <option value="">Distrital</option>
-          <option value="">Nacional</option>
+          <option value={ROLE.LOCAL}>Local</option>
+          <option value={ROLE.DISTRICT}>Distrital</option>
+          <option value={ROLE.NATIONAL}>Nacional</option>
         </FilterSelect>
-        <FilterSelect>
-          <option value="">Tienda</option>
-          <option value="">1</option>
-          <option value="">2</option>
-          <option value="">3</option>
+        <FilterSelect
+          onChange={(e) => handleFilterChange('numStore', e.target.value)}
+          disabled={isLoadingStores}
+        >
+          <option value="">{isLoadingStores ? 'Cargando tiendas...' : 'Tienda'}</option>
+          {stores?.map((store) => (
+            <option key={store._id}>
+              #{store.numStore}&nbsp;{store.name}
+            </option>
+          ))}
         </FilterSelect>
       </FilterSection>
 
@@ -100,7 +125,7 @@ const Administrators = () => {
       ) : (
         <Table
           columns={columns}
-          data={admins ?? []}
+          data={filteredData}
           onRowClick={(admin: Administrator) => {
             setAdmin(admin);
             openModal(DISPLAY);

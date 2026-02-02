@@ -25,7 +25,7 @@ import TableLoader from '@/loader/TableLoader';
 import FilterSection from '@/components/ui/filter/FilterSection';
 import FilterInput from '@/components/ui/filter/FilterInput';
 import FilterSelect from '@/components/ui/filter/FilterSelect';
-import { useFilters } from '@/hooks/useFilter';
+import { useFilter } from '@/hooks/useFilter';
 
 const columns = [
   {
@@ -68,7 +68,7 @@ const ActiveServices = () => {
     refetchOnWindowFocus: false,
   });
 
-  const { filteredData, handleFilterChange } = useFilters(services ?? [], {
+  const { filteredData, handleFilterChange } = useFilter(services ?? [], {
     folio: {},
     installer: { getValue: (service) => service.installer.name },
     client: {},

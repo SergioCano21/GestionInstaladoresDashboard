@@ -22,6 +22,7 @@ import { getStores } from '@/api/stores';
 import TableLoader from '@/loader/TableLoader';
 import FilterSection from '@/components/ui/filter/FilterSection';
 import FilterInput from '@/components/ui/filter/FilterInput';
+import { useFilter } from '@/hooks/useFilter';
 
 const columns = [
   {
@@ -62,6 +63,11 @@ const Stores = () => {
     refetchOnWindowFocus: false,
   });
 
+  const { filteredData, handleFilterChange } = useFilter(stores ?? [], {
+    numStore: {},
+    name: {},
+  });
+
   return (
     <>
       <ContentHeader
@@ -70,8 +76,16 @@ const Stores = () => {
         openModal={() => openModal(ADD)}
       />
       <FilterSection>
-        <FilterInput type="search" placeholder="ID" />
-        <FilterInput type="search" placeholder="Nombre" />
+        <FilterInput
+          type="search"
+          placeholder="ID"
+          onChange={(e) => handleFilterChange('numStore', e.target.value)}
+        />
+        <FilterInput
+          type="search"
+          placeholder="Nombre"
+          onChange={(e) => handleFilterChange('name', e.target.value)}
+        />
       </FilterSection>
 
       {isLoading ? (
@@ -79,7 +93,7 @@ const Stores = () => {
       ) : (
         <Table
           columns={columns}
-          data={stores ?? []}
+          data={filteredData}
           onRowClick={(store: Store) => {
             setStore(store);
             openModal(DISPLAY);

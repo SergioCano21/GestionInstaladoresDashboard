@@ -13,6 +13,7 @@ import TableLoader from '@/loader/TableLoader';
 import FilterSection from '@/components/ui/filter/FilterSection';
 import FilterInput from '@/components/ui/filter/FilterInput';
 import FilterSelect from '@/components/ui/filter/FilterSelect';
+import { useFilter } from '@/hooks/useFilter';
 
 const columns = [
   {
@@ -53,14 +54,33 @@ const CompletedServices = () => {
     refetchOnWindowFocus: false,
   });
 
+  const { filteredData, handleFilterChange } = useFilter(services ?? [], {
+    folio: {},
+    installer: { getValue: (service) => service.installer.name },
+    client: {},
+    status: {},
+  });
+
   return (
     <>
       <ContentHeader title="Administrar Servicios Completados" />
       <FilterSection>
-        <FilterInput type="search" placeholder="Folio" />
-        <FilterInput type="search" placeholder="Nombre Instalador" />
-        <FilterInput type="search" placeholder="Nombre Cliente" />
-        <FilterSelect>
+        <FilterInput
+          type="search"
+          placeholder="Folio"
+          onChange={(e) => handleFilterChange('folio', e.target.value)}
+        />
+        <FilterInput
+          type="search"
+          placeholder="Nombre Instalador"
+          onChange={(e) => handleFilterChange('installer', e.target.value)}
+        />
+        <FilterInput
+          type="search"
+          placeholder="Nombre Cliente"
+          onChange={(e) => handleFilterChange('client', e.target.value)}
+        />
+        <FilterSelect onChange={(e) => handleFilterChange('status', e.target.value)}>
           <option value="">Status</option>
           <option value={STATUS.DONE}>Terminado</option>
           <option value={STATUS.CANCELED}>Cancelado</option>
@@ -72,7 +92,7 @@ const CompletedServices = () => {
       ) : (
         <Table
           columns={columns}
-          data={services ?? []}
+          data={filteredData}
           onRowClick={(service: Service) => {
             setService(service);
             openModal(DISPLAY);

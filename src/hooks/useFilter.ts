@@ -1,12 +1,12 @@
 import { useState, useMemo } from 'react';
 
 type FilterConfig<T> = {
-  [K in keyof Partial<T>]: {
-    getValue?: (item: T) => string | number;
+  [key: string]: {
+    getValue?: (item: T) => string | number | (string | number)[];
   };
 };
 
-export function useFilters<T>(data: T[], filterConfig: FilterConfig<T>) {
+export function useFilter<T>(data: T[], filterConfig: FilterConfig<T>) {
   const [filters, setFilters] = useState<Record<string, string>>(() => {
     const initialFilters: Record<string, string> = {};
     Object.keys(filterConfig).forEach((key) => {
@@ -27,10 +27,16 @@ export function useFilters<T>(data: T[], filterConfig: FilterConfig<T>) {
       return Object.entries(filters).every(([key, filterValue]) => {
         if (!filterValue) return true;
 
-        const config = filterConfig[key as keyof T];
+        const config = filterConfig[key];
         if (!config) return true;
 
         const itemValue = config.getValue ? config.getValue(item) : item[key as keyof T];
+
+        if (Array.isArray(itemValue)) {
+          return itemValue.some((val) =>
+            String(val).toLowerCase().includes(filterValue.toLowerCase()),
+          );
+        }
 
         const itemValueStr = String(itemValue).toLowerCase();
         const filterValueStr = filterValue.toLowerCase();

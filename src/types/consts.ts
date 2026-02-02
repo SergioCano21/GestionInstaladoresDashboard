@@ -43,12 +43,12 @@ export const ROLE = {
   LOCAL: 'local',
   DISTRICT: 'district',
   NATIONAL: 'national',
-};
+} as const;
 export const roleLabels = {
   [ROLE.LOCAL]: 'Local',
   [ROLE.DISTRICT]: 'Distrital',
   [ROLE.NATIONAL]: 'Nacional',
-};
+} as const;
 
 export const roleOptions = [
   {

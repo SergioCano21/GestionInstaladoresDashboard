@@ -2,7 +2,7 @@ import ContentHeader from '@components/ui/ContentHeader';
 import { useModal } from '@hooks/useModal';
 import { ADD, DISPLAY, EDIT, QUERY_KEYS, ROLE } from '@/types/consts';
 import { useState } from 'react';
-import type { Installer } from '@/types/types';
+import type { Installer, Store } from '@/types/types';
 import { installerTemplate } from '@/types/templates';
 import DisplayInstaller from './DisplayInstaller';
 import EditInstaller from './EditInstaller';
@@ -15,6 +15,8 @@ import TableLoader from '@/loader/TableLoader';
 import FilterSection from '@/components/ui/filter/FilterSection';
 import FilterInput from '@/components/ui/filter/FilterInput';
 import FilterSelect from '@/components/ui/filter/FilterSelect';
+import { useFilter } from '@/hooks/useFilter';
+import { getStores } from '@/api/stores';
 
 const columns = [
   {
@@ -57,6 +59,19 @@ const Installers = () => {
     refetchOnWindowFocus: false,
   });
 
+  const { data: stores, isLoading: isLoadingStores } = useQuery<Store[]>({
+    queryKey: [QUERY_KEYS.STORES],
+    queryFn: getStores,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
+
+  const { filteredData, handleFilterChange } = useFilter(installers ?? [], {
+    id: {},
+    name: {},
+    numStore: { getValue: (i) => i.storeId.map((store) => store.numStore) },
+  });
+
   return (
     <>
       <ContentHeader
@@ -66,13 +81,26 @@ const Installers = () => {
       />
 
       <FilterSection>
-        <FilterInput type="search" placeholder="ID" />
-        <FilterInput type="search" placeholder="Nombre" />
-        <FilterSelect>
-          <option value="">Tienda</option>
-          <option value="">1</option>
-          <option value="">2</option>
-          <option value="">3</option>
+        <FilterInput
+          type="search"
+          placeholder="ID"
+          onChange={(e) => handleFilterChange('id', e.target.value)}
+        />
+        <FilterInput
+          type="search"
+          placeholder="Nombre"
+          onChange={(e) => handleFilterChange('name', e.target.value)}
+        />
+        <FilterSelect
+          onChange={(e) => handleFilterChange('numStore', e.target.value)}
+          disabled={isLoadingStores}
+        >
+          <option value="">{isLoadingStores ? 'Cargando tiendas...' : 'Tienda'}</option>
+          {stores?.map((store) => (
+            <option key={store._id}>
+              #{store.numStore}&nbsp;{store.name}
+            </option>
+          ))}
         </FilterSelect>
       </FilterSection>
 
@@ -81,7 +109,7 @@ const Installers = () => {
       ) : (
         <Table
           columns={columns}
-          data={installers ?? []}
+          data={filteredData}
           onRowClick={(installer: Installer) => {
             setInstaller(installer);
             openModal(DISPLAY);

@@ -21,6 +21,7 @@ import CalendarLoader from '@/loader/CalendarLoader';
 import DisplayBlock from './DisplayBlock';
 import FilterSection from '@/components/ui/filter/FilterSection';
 import FilterInput from '@/components/ui/filter/FilterInput';
+import { useFilter } from '@/hooks/useFilter';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -54,10 +55,16 @@ const Calendar = () => {
     openModal(extendedProps.type === 'Service' ? DISPLAY : DISPLAY_BLOCK);
   };
 
-  const calendarEvents = useMemo(() => {
-    if (!schedules) return [];
+  const { filteredData, handleFilterChange } = useFilter(schedules ?? [], {
+    folio: { getValue: (s) => s.service.folio },
+    client: {},
+    installer: {},
+  });
 
-    return schedules.map((schedule) => {
+  const calendarEvents = useMemo(() => {
+    if (!filteredData) return [];
+
+    return filteredData.map((schedule) => {
       return {
         title:
           schedule.type === 'Service'
@@ -87,9 +94,21 @@ const Calendar = () => {
         openModal={role === ROLE.LOCAL ? () => openModal(ADD) : undefined}
       />
       <FilterSection>
-        <FilterInput type="search" placeholder="Folio" />
-        <FilterInput type="search" placeholder="Nombre Cliente" />
-        <FilterInput type="search" placeholder="Nombre Instalador" />
+        <FilterInput
+          type="search"
+          placeholder="Folio"
+          onChange={(e) => handleFilterChange('folio', e.target.value)}
+        />
+        <FilterInput
+          type="search"
+          placeholder="Nombre Cliente"
+          onChange={(e) => handleFilterChange('client', e.target.value)}
+        />
+        <FilterInput
+          type="search"
+          placeholder="Nombre Instalador"
+          onChange={(e) => handleFilterChange('installer', e.target.value)}
+        />
       </FilterSection>
 
       {isLoading ? (
