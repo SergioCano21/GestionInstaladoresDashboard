@@ -69,10 +69,10 @@ const ActiveServices = () => {
   });
 
   const { filteredData, handleFilterChange } = useFilters(services ?? [], {
-    folio: { type: 'number' },
-    installer: { type: 'text', getValue: (service) => service.installer.name },
-    client: { type: 'text' },
-    status: { type: 'select' },
+    folio: {},
+    installer: { getValue: (service) => service.installer.name },
+    client: {},
+    status: {},
   });
 
   return (

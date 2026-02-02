@@ -2,7 +2,6 @@ import { useState, useMemo } from 'react';
 
 type FilterConfig<T> = {
   [K in keyof Partial<T>]: {
-    type: 'text' | 'number' | 'select';
     getValue?: (item: T) => string | number;
   };
 };
@@ -36,15 +35,7 @@ export function useFilters<T>(data: T[], filterConfig: FilterConfig<T>) {
         const itemValueStr = String(itemValue).toLowerCase();
         const filterValueStr = filterValue.toLowerCase();
 
-        switch (config.type) {
-          case 'number':
-            return itemValueStr === filterValueStr;
-          case 'select':
-            return itemValueStr === filterValueStr;
-          case 'text':
-          default:
-            return itemValueStr.includes(filterValueStr);
-        }
+        return itemValueStr.includes(filterValueStr);
       });
     });
   }, [data, filters, filterConfig]);
