@@ -150,15 +150,15 @@ const DisplayService = ({ closeModal, openModal, data }: Props) => {
             <DisplayInfo label="Cantidad" value={data.jobDetails.quantity} />
             <DisplayInfo
               label="Costo del Servicio"
-              value={`$${Number(data.jobDetails.installationServiceFee).toFixed(2)}`}
+              value={`$${Number(data.subtotals.installationServiceFee).toFixed(2)}`}
             />
             <DisplayInfo
               label="Comisión"
-              value={`$${Number(data.jobDetails.commissionFee).toFixed(2)}`}
+              value={`$${Number(data.subtotals.commissionFee).toFixed(2)}`}
             />
             <DisplayInfo
               label="Comitente"
-              value={`$${Number(data.jobDetails.installerPayment).toFixed(2)}`}
+              value={`$${Number(data.subtotals.installerPayment).toFixed(2)}`}
             />
           </DisplaySubsection>
 
