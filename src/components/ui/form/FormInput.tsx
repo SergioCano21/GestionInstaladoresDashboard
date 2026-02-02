@@ -7,7 +7,6 @@ interface Props {
   type: string;
   placeholder: string;
   disabled?: boolean;
-  isJobDetail?: boolean;
   value: string | number;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   readonly?: boolean;
@@ -20,7 +19,6 @@ const FormInput = ({
   name,
   type,
   placeholder,
-  isJobDetail = false,
   value,
   readonly = false,
   disabled = false,
@@ -45,7 +43,6 @@ const FormInput = ({
         onChange={onChange}
         readOnly={readonly}
         step={step}
-        data-job-detail={isJobDetail ? 'true' : undefined}
       />
     </div>
   );

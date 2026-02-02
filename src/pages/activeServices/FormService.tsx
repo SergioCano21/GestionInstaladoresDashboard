@@ -101,7 +101,6 @@ const FormService = ({
             name="quantity"
             type="number"
             placeholder="Cantidad"
-            isJobDetail={true}
             value={formData.jobDetails.quantity}
             onChange={handleChange}
           />
@@ -111,7 +110,6 @@ const FormService = ({
             name="installationServiceFee"
             type="number"
             placeholder="Costo"
-            isJobDetail={true}
             value={formData.jobDetails.installationServiceFee}
             onChange={handleChange}
           />
@@ -124,7 +122,6 @@ const FormService = ({
             name="description"
             placeholder="Descripción"
             rows={3}
-            isJobDetail={true}
             value={formData.jobDetails.description}
             onChange={handleChange}
           />
