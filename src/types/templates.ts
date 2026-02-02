@@ -9,15 +9,13 @@ export const serviceTemplate: Service = {
   clientPhone: '',
   address: '',
   additionalComments: '',
-  jobDetails: [
-    {
-      quantity: '',
-      description: '',
-      installationServiceFee: '',
-      commissionFee: 0,
-      installerPayment: 0,
-    },
-  ],
+  jobDetails: {
+    quantity: '',
+    description: '',
+    installationServiceFee: '',
+    commissionFee: 0,
+    installerPayment: 0,
+  },
   subtotals: {
     installationServiceFee: 0,
     commissionFee: 0,
