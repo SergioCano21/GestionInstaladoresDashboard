@@ -10,6 +10,8 @@ import Table from '@/components/ui/table/Table';
 import { useQuery } from '@tanstack/react-query';
 import { getServices } from '@/api/services';
 import TableLoader from '@/loader/TableLoader';
+import FilterSection from '@/components/ui/filter/FilterSection';
+import FilterInput from '@/components/ui/filter/FilterInput';
 
 const columns = [
   {
@@ -52,32 +54,31 @@ const CompletedServices = () => {
 
   return (
     <>
-      <section>
-        <ContentHeader title="Administrar Servicios Completados" />
-        <div className={`flex mb-20 gap-5`}>
-          <input type="text" placeholder="Folio" className={`filter-input`} />
-          <input type="text" placeholder="Nombre Instalador" className={`filter-input`} />
-          <input type="text" placeholder="Nombre Cliente" className={`filter-input`} />
-          <select name="" id="" className={`filter-input`}>
-            <option value="">Status</option>
-            <option value="">Terminado</option>
-            <option value="">Cancelado</option>
-          </select>
-        </div>
+      <ContentHeader title="Administrar Servicios Completados" />
+      <FilterSection>
+        <FilterInput type="search" placeholder="Folio" />
+        <FilterInput type="search" placeholder="Nombre Instalador" />
+        <FilterInput type="search" placeholder="Nombre Cliente" />
 
-        {isLoading ? (
-          <TableLoader />
-        ) : (
-          <Table
-            columns={columns}
-            data={services ?? []}
-            onRowClick={(service: Service) => {
-              setService(service);
-              openModal(DISPLAY);
-            }}
-          />
-        )}
-      </section>
+        <select name="" id="" className={`filter-input`}>
+          <option value="">Status</option>
+          <option value="">Terminado</option>
+          <option value="">Cancelado</option>
+        </select>
+      </FilterSection>
+
+      {isLoading ? (
+        <TableLoader />
+      ) : (
+        <Table
+          columns={columns}
+          data={services ?? []}
+          onRowClick={(service: Service) => {
+            setService(service);
+            openModal(DISPLAY);
+          }}
+        />
+      )}
 
       {modal == DISPLAY && <DisplayService closeModal={closeModal} data={service} />}
     </>

@@ -13,6 +13,8 @@ import { getServices } from '@/api/services';
 import { useQuery } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
 import TableLoader from '@/loader/TableLoader';
+import FilterSection from '@/components/ui/filter/FilterSection';
+import FilterInput from '@/components/ui/filter/FilterInput';
 
 const columns = [
   {
@@ -57,36 +59,34 @@ const ActiveServices = () => {
 
   return (
     <>
-      <section>
-        <ContentHeader
-          title="Administrar Servicios Activos"
-          button={role === ROLE.LOCAL ? 'Agregar Servicio' : undefined}
-          openModal={role === ROLE.LOCAL ? () => openModal(ADD) : undefined}
-        />
-        <div className={`flex mb-20 gap-5`}>
-          <input type="text" placeholder="Folio" className={`filter-input`} />
-          <input type="text" placeholder="Nombre Instalador" className={`filter-input`} />
-          <input type="text" placeholder="Nombre Cliente" className={`filter-input`} />
-          <select name="" id="" className={`filter-input`}>
-            <option value="">Status</option>
-            <option value="">Proceso</option>
-            <option value="">Pendiente</option>
-          </select>
-        </div>
+      <ContentHeader
+        title="Administrar Servicios Activos"
+        button={role === ROLE.LOCAL ? 'Agregar Servicio' : undefined}
+        openModal={role === ROLE.LOCAL ? () => openModal(ADD) : undefined}
+      />
+      <FilterSection>
+        <FilterInput type="number" placeholder="Folio" />
+        <FilterInput type="search" placeholder="Nombre Instalador" />
+        <FilterInput type="search" placeholder="Nombre Cliente" />
+        <select name="" id="" className={`filter-input`}>
+          <option value="">Status</option>
+          <option value="">Proceso</option>
+          <option value="">Pendiente</option>
+        </select>
+      </FilterSection>
 
-        {isLoading ? (
-          <TableLoader />
-        ) : (
-          <Table
-            columns={columns}
-            data={services ?? []}
-            onRowClick={(service: Service) => {
-              setService(service);
-              openModal(DISPLAY);
-            }}
-          />
-        )}
-      </section>
+      {isLoading ? (
+        <TableLoader />
+      ) : (
+        <Table
+          columns={columns}
+          data={services ?? []}
+          onRowClick={(service: Service) => {
+            setService(service);
+            openModal(DISPLAY);
+          }}
+        />
+      )}
 
       {modal == ADD && <AddService closeModal={closeModal} />}
       {modal == DISPLAY && (

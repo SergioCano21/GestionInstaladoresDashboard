@@ -21,6 +21,8 @@ import EditAdmin from './EditAdmin';
 import { useQuery } from '@tanstack/react-query';
 import { getAdmins } from '@/api/administrators';
 import TableLoader from '@/loader/TableLoader';
+import FilterSection from '@/components/ui/filter/FilterSection';
+import FilterInput from '@/components/ui/filter/FilterInput';
 
 const columns = [
   {
@@ -71,41 +73,39 @@ const Administrators = () => {
 
   return (
     <>
-      <section>
-        <ContentHeader
-          title="Administrar Administradores"
-          button="Agregar Administrador"
-          openModal={() => openModal(ADD)}
-        />
-        <div className={`flex mb-20 gap-5`}>
-          <input type="text" placeholder="Nombre" className={`filter-input`} />
-          <select name="" id="" className={`filter-input`}>
-            <option value="">Rol</option>
-            <option value="">Local</option>
-            <option value="">Distrital</option>
-            <option value="">Nacional</option>
-          </select>
-          <select name="" id="" className={`filter-input`}>
-            <option value="">Tienda</option>
-            <option value="">1</option>
-            <option value="">2</option>
-            <option value="">3</option>
-          </select>
-        </div>
+      <ContentHeader
+        title="Administrar Administradores"
+        button="Agregar Administrador"
+        openModal={() => openModal(ADD)}
+      />
+      <FilterSection>
+        <FilterInput type="search" placeholder="Nombre" />
+        <select name="" id="" className={`filter-input`}>
+          <option value="">Rol</option>
+          <option value="">Local</option>
+          <option value="">Distrital</option>
+          <option value="">Nacional</option>
+        </select>
+        <select name="" id="" className={`filter-input`}>
+          <option value="">Tienda</option>
+          <option value="">1</option>
+          <option value="">2</option>
+          <option value="">3</option>
+        </select>
+      </FilterSection>
 
-        {isLoading ? (
-          <TableLoader />
-        ) : (
-          <Table
-            columns={columns}
-            data={admins ?? []}
-            onRowClick={(admin: Administrator) => {
-              setAdmin(admin);
-              openModal(DISPLAY);
-            }}
-          />
-        )}
-      </section>
+      {isLoading ? (
+        <TableLoader />
+      ) : (
+        <Table
+          columns={columns}
+          data={admins ?? []}
+          onRowClick={(admin: Administrator) => {
+            setAdmin(admin);
+            openModal(DISPLAY);
+          }}
+        />
+      )}
 
       {modal == ADD && <AddAdmin closeModal={closeModal} />}
       {modal == EDIT && <EditAdmin data={admin} closeModal={closeModal} />}

@@ -12,6 +12,8 @@ import { useSelector } from 'react-redux';
 import { useQuery } from '@tanstack/react-query';
 import { getInstallers } from '@/api/installers';
 import TableLoader from '@/loader/TableLoader';
+import FilterSection from '@/components/ui/filter/FilterSection';
+import FilterInput from '@/components/ui/filter/FilterInput';
 
 const columns = [
   {
@@ -56,37 +58,35 @@ const Installers = () => {
 
   return (
     <>
-      <section>
-        <ContentHeader
-          title="Administrar Instaladores"
-          button={role === ROLE.LOCAL ? 'Agregar Instalador' : undefined}
-          openModal={role === ROLE.LOCAL ? () => openModal(ADD) : undefined}
+      <ContentHeader
+        title="Administrar Instaladores"
+        button={role === ROLE.LOCAL ? 'Agregar Instalador' : undefined}
+        openModal={role === ROLE.LOCAL ? () => openModal(ADD) : undefined}
+      />
+
+      <FilterSection>
+        <FilterInput type="search" placeholder="ID" />
+        <FilterInput type="search" placeholder="Nombre" />
+        <select name="" id="" className={`filter-input`}>
+          <option value="">Tienda</option>
+          <option value="">1</option>
+          <option value="">2</option>
+          <option value="">3</option>
+        </select>
+      </FilterSection>
+
+      {isLoading ? (
+        <TableLoader />
+      ) : (
+        <Table
+          columns={columns}
+          data={installers ?? []}
+          onRowClick={(installer: Installer) => {
+            setInstaller(installer);
+            openModal(DISPLAY);
+          }}
         />
-
-        <section className={`flex mb-20 gap-5`}>
-          <input type="text" placeholder="ID" className={`filter-input`} />
-          <input type="text" placeholder="Nombre" className={`filter-input`} />
-          <select name="" id="" className={`filter-input`}>
-            <option value="">Tienda</option>
-            <option value="">1</option>
-            <option value="">2</option>
-            <option value="">3</option>
-          </select>
-        </section>
-
-        {isLoading ? (
-          <TableLoader />
-        ) : (
-          <Table
-            columns={columns}
-            data={installers ?? []}
-            onRowClick={(installer: Installer) => {
-              setInstaller(installer);
-              openModal(DISPLAY);
-            }}
-          />
-        )}
-      </section>
+      )}
 
       {modal == ADD && <AddInstaller closeModal={closeModal} />}
       {modal == EDIT && (

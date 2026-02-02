@@ -20,6 +20,8 @@ import DisplayStore from './DisplayStore';
 import { useQuery } from '@tanstack/react-query';
 import { getStores } from '@/api/stores';
 import TableLoader from '@/loader/TableLoader';
+import FilterSection from '@/components/ui/filter/FilterSection';
+import FilterInput from '@/components/ui/filter/FilterInput';
 
 const columns = [
   {
@@ -62,30 +64,28 @@ const Stores = () => {
 
   return (
     <>
-      <section>
-        <ContentHeader
-          title="Administrar Tiendas"
-          button="Agregar Tienda"
-          openModal={() => openModal(ADD)}
-        />
-        <div className={`flex mb-20 gap-5`}>
-          <input type="text" placeholder="ID" className={`filter-input`} />
-          <input type="text" placeholder="Nombre" className={`filter-input`} />
-        </div>
+      <ContentHeader
+        title="Administrar Tiendas"
+        button="Agregar Tienda"
+        openModal={() => openModal(ADD)}
+      />
+      <FilterSection>
+        <FilterInput type="search" placeholder="ID" />
+        <FilterInput type="search" placeholder="Nombre" />
+      </FilterSection>
 
-        {isLoading ? (
-          <TableLoader />
-        ) : (
-          <Table
-            columns={columns}
-            data={stores ?? []}
-            onRowClick={(store: Store) => {
-              setStore(store);
-              openModal(DISPLAY);
-            }}
-          />
-        )}
-      </section>
+      {isLoading ? (
+        <TableLoader />
+      ) : (
+        <Table
+          columns={columns}
+          data={stores ?? []}
+          onRowClick={(store: Store) => {
+            setStore(store);
+            openModal(DISPLAY);
+          }}
+        />
+      )}
 
       {modal == ADD && <AddStore closeModal={closeModal} />}
       {modal == EDIT && <EditStore data={store} closeModal={closeModal} openModal={openModal} />}

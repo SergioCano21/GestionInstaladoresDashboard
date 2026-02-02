@@ -19,6 +19,8 @@ import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import CalendarLoader from '@/loader/CalendarLoader';
 import DisplayBlock from './DisplayBlock';
+import FilterSection from '@/components/ui/filter/FilterSection';
+import FilterInput from '@/components/ui/filter/FilterInput';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -84,11 +86,11 @@ const Calendar = () => {
         button={role === ROLE.LOCAL ? 'Agregar Cita' : undefined}
         openModal={role === ROLE.LOCAL ? () => openModal(ADD) : undefined}
       />
-      <div className={`flex mb-20 gap-5`}>
-        <input type="text" placeholder="Folio" className={`filter-input`} />
-        <input type="text" placeholder="Nombre Cliente" className={`filter-input`} />
-        <input type="text" placeholder="Nombre Instalador" className={`filter-input`} />
-      </div>
+      <FilterSection>
+        <FilterInput type="search" placeholder="Folio" />
+        <FilterInput type="search" placeholder="Nombre Cliente" />
+        <FilterInput type="search" placeholder="Nombre Instalador" />
+      </FilterSection>
 
       {isLoading ? (
         <CalendarLoader />
