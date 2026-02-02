@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router';
 import styles from './Sidebar.module.css';
 import { useSelector } from 'react-redux';
+import { ROLE } from '@/types/consts';
 
 const navLinks = [
   {
@@ -18,7 +19,7 @@ const navLinks = [
   {
     link: '/tiendas',
     label: 'Tiendas',
-    onlyForRoles: ['district', 'national'],
+    onlyForRoles: [ROLE.DISTRICT, ROLE.NATIONAL],
   },
   {
     link: '/instaladores',
@@ -27,7 +28,7 @@ const navLinks = [
   {
     link: '/administradores',
     label: 'Administradores',
-    onlyForRoles: ['district', 'national'],
+    onlyForRoles: [ROLE.DISTRICT, ROLE.NATIONAL],
   },
 ];
 

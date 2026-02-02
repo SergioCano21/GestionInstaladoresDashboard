@@ -1,3 +1,5 @@
+import type { ROLE } from './consts';
+
 export interface LoginForm {
   username: string;
   password: string;
@@ -69,6 +71,8 @@ export type ServiceStatus = 'To Do' | 'Doing' | 'Done' | 'Canceled';
 
 export type InstallerStatus = 'active' | 'inactive';
 
+export type Role = (typeof ROLE)[keyof typeof ROLE];
+
 export interface Store {
   _id: string;
   numStore: number | '';
@@ -86,7 +90,7 @@ export interface Administrator {
   name: string;
   email: string;
   username: string;
-  role: 'local' | 'district' | 'national' | '';
+  role: Role | '';
   storeId: {
     _id: string;
     name: string;
