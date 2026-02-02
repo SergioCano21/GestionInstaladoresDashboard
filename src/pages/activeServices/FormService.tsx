@@ -98,7 +98,7 @@ const FormService = ({
           <FormInput
             label="Cantidad de Unidades"
             id="quantity"
-            name="quantity"
+            name="jobDetails.quantity"
             type="number"
             placeholder="Cantidad"
             value={formData.jobDetails.quantity}
@@ -107,7 +107,7 @@ const FormService = ({
           <FormInput
             label="Costo del Servicio"
             id="installationServiceFee"
-            name="installationServiceFee"
+            name="jobDetails.installationServiceFee"
             type="number"
             placeholder="Costo"
             value={formData.jobDetails.installationServiceFee}
@@ -119,7 +119,7 @@ const FormService = ({
           <FormTextArea
             label="Descripción del Servicio"
             id="description"
-            name="description"
+            name="jobDetails.description"
             placeholder="Descripción"
             rows={3}
             value={formData.jobDetails.description}
