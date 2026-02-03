@@ -9,6 +9,7 @@ import Button from '@/components/ui/button/Button';
 import { useQuery } from '@tanstack/react-query';
 import { getInstallers } from '@/api/installers';
 import { QUERY_KEYS } from '@/types/consts';
+import { formatPhoneNumber } from '@/utils/formatters';
 
 interface Props {
   formData: Service;
@@ -35,6 +36,20 @@ const FormService = ({
     refetchOnMount: false,
     refetchOnWindowFocus: false,
   });
+
+  const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatPhoneNumber(event.target.value);
+
+    const syntheticEvent = {
+      ...event,
+      target: {
+        ...event.target,
+        value: formatted,
+      },
+    };
+
+    handleChange(syntheticEvent as any);
+  };
 
   return (
     <>
@@ -77,7 +92,7 @@ const FormService = ({
             type="tel"
             placeholder="Teléfono"
             value={formData.clientPhone}
-            onChange={handleChange}
+            onChange={handlePhoneChange}
           />
         </FormSubsection>
         <FormSubsection>

@@ -4,6 +4,7 @@ import FormSubsection from '@/components/ui/form/FormSubsection';
 import FormInput from '@/components/ui/form/FormInput';
 import ButtonSection from '@/components/ui/button/ButtonSection';
 import Button from '@/components/ui/button/Button';
+import { formatPhoneNumber } from '@/utils/formatters';
 
 interface Props {
   formData: Installer;
@@ -24,6 +25,20 @@ const FormInstaller = ({
   closeText,
   loading,
 }: Props) => {
+  const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatPhoneNumber(event.target.value);
+
+    const syntheticEvent = {
+      ...event,
+      target: {
+        ...event.target,
+        value: formatted,
+      },
+    };
+
+    handleChange(syntheticEvent as any);
+  };
+
   return (
     <>
       <FormSection isLast>
@@ -64,7 +79,8 @@ const FormInstaller = ({
             type="tel"
             placeholder="Teléfono"
             value={formData.phone}
-            onChange={handleChange}
+            onChange={handlePhoneChange}
+            maxLength={14}
           />
         </FormSubsection>
         <FormSubsection>
