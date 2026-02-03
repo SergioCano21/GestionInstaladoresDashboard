@@ -101,7 +101,7 @@ const ActiveServices = () => {
         <FilterSelect onChange={(e) => handleFilterChange('status', e.target.value)}>
           <option value="">Status</option>
           <option value={STATUS.TODO}>Pendiente</option>
-          <option value={STATUS.DOING}>Proceso</option>
+          <option value={STATUS.DOING}>Progreso</option>
         </FilterSelect>
       </FilterSection>
 

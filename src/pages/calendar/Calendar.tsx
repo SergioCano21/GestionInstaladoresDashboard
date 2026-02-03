@@ -4,7 +4,15 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { useModal } from '@/hooks/useModal';
-import { ADD, DISPLAY, DISPLAY_BLOCK, EDIT, QUERY_KEYS, ROLE } from '@/types/consts';
+import {
+  ADD,
+  DISPLAY,
+  DISPLAY_BLOCK,
+  EDIT,
+  QUERY_KEYS,
+  ROLE,
+  SCHEDULE_OPTIONS,
+} from '@/types/consts';
 import AddCalendar from './AddCalendar';
 import EditCalendar from './EditCalentar';
 import { useMemo, useState } from 'react';
@@ -52,7 +60,7 @@ const Calendar = () => {
       store: extendedProps.store,
       serviceId: extendedProps.serviceId,
     });
-    openModal(extendedProps.type === 'Service' ? DISPLAY : DISPLAY_BLOCK);
+    openModal(extendedProps.type === SCHEDULE_OPTIONS.SERVICE ? DISPLAY : DISPLAY_BLOCK);
   };
 
   const { filteredData, handleFilterChange } = useFilter(schedules ?? [], {
@@ -67,12 +75,12 @@ const Calendar = () => {
     return filteredData.map((schedule) => {
       return {
         title:
-          schedule.type === 'Service'
+          schedule.type === SCHEDULE_OPTIONS.SERVICE
             ? `Folio: ${schedule.service.folio}`
             : `Bloqueado: ${schedule.installer.name}`,
         start: dayjs.utc(schedule.startTime).tz(userTZ).toDate(),
         end: dayjs.utc(schedule.endTime).tz(userTZ).toDate(),
-        color: schedule.type === 'Service' ? '#dd611aff' : '#6f6f6fff',
+        color: schedule.type === SCHEDULE_OPTIONS.SERVICE ? '#dd611aff' : '#6f6f6fff',
         extendedProps: {
           _id: schedule._id,
           type: schedule.type,
@@ -84,7 +92,7 @@ const Calendar = () => {
         display: 'block',
       };
     });
-  }, [schedules]);
+  }, [filteredData]);
 
   return (
     <>

@@ -66,6 +66,11 @@ export const roleOptions = [
   },
 ];
 
+export const SCHEDULE_OPTIONS = {
+  SERVICE: 'Service',
+  BLOCK: 'Block',
+} as const;
+
 export const QUERY_KEYS = {
   STORES: 'stores',
   ADMINS: 'administrators',
