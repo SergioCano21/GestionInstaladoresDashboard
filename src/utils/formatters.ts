@@ -15,3 +15,25 @@ export const formatPhoneNumber = (text: string): string => {
 
   return formatted;
 };
+
+export function createPhoneInputHandler(
+  handleChange: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
+  ) => void,
+) {
+  return (event: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatPhoneNumber(event.target.value);
+
+    const syntheticEvent = {
+      ...event,
+      target: {
+        ...event.target,
+        value: formatted,
+        name: event.target.name,
+        type: 'tel',
+      },
+    } as React.ChangeEvent<HTMLInputElement>;
+
+    handleChange(syntheticEvent);
+  };
+}

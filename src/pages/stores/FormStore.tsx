@@ -6,7 +6,7 @@ import ButtonSection from '@/components/ui/button/ButtonSection';
 import Button from '@/components/ui/button/Button';
 import FormSelect from '@/components/ui/form/FormSelect';
 import { countryOptions, districtOptions, statesMex } from '@/types/consts';
-import { formatPhoneNumber } from '@/utils/formatters';
+import { createPhoneInputHandler } from '@/utils/formatters';
 
 interface Props {
   formData: Store;
@@ -27,19 +27,7 @@ const FormStore = ({
   closeText,
   loading,
 }: Props) => {
-  const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const formatted = formatPhoneNumber(event.target.value);
-
-    const syntheticEvent = {
-      ...event,
-      target: {
-        ...event.target,
-        value: formatted,
-      },
-    };
-
-    handleChange(syntheticEvent as any);
-  };
+  const handlePhoneChange = createPhoneInputHandler(handleChange);
 
   return (
     <>
