@@ -113,7 +113,7 @@ const Administrators = () => {
         >
           <option value="">{isLoadingStores ? 'Cargando tiendas...' : 'Tienda'}</option>
           {stores?.map((store) => (
-            <option key={store._id}>
+            <option key={store._id} value={store.numStore}>
               #{store.numStore}&nbsp;{store.name}
             </option>
           ))}
