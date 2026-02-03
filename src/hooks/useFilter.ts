@@ -33,6 +33,7 @@ export function useFilter<T>(data: T[], filterConfig: FilterConfig<T>) {
         const itemValue = config.getValue ? config.getValue(item) : item[key as keyof T];
 
         if (Array.isArray(itemValue)) {
+          console.log(itemValue);
           return itemValue.some((val) =>
             String(val).toLowerCase().includes(filterValue.toLowerCase()),
           );

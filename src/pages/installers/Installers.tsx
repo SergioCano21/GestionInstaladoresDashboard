@@ -67,7 +67,7 @@ const Installers = () => {
   });
 
   const { filteredData, handleFilterChange } = useFilter(installers ?? [], {
-    id: {},
+    id: { getValue: (i) => i.installerId },
     name: {},
     numStore: { getValue: (i) => i.storeId.map((store) => store.numStore) },
   });

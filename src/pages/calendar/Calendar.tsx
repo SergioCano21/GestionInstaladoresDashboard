@@ -65,8 +65,8 @@ const Calendar = () => {
 
   const { filteredData, handleFilterChange } = useFilter(schedules ?? [], {
     folio: { getValue: (s) => s.service.folio },
-    client: {},
-    installer: {},
+    client: { getValue: (s) => s.service.client },
+    installer: { getValue: (s) => s.installer.name },
   });
 
   const calendarEvents = useMemo(() => {
